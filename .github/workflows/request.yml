@@ -1,0 +1,129 @@
+name: Generate from request
+
+on: 
+  workflow_dispatch:
+    inputs:
+      push:
+        type: boolean
+        description: Push?
+      prompt:
+        description: Prompt
+      enhance_prompt:
+        type: boolean
+        description: Enhance prompt?
+      width:
+        type: number
+        description: Width (/8)
+      height:
+        type: number
+        description: Height (/8)
+      upscale:
+        type: choice
+        description: Upscale
+        options:
+          - 2
+          - 3
+          - 4
+
+jobs:
+  prompt:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Setup python
+      if: ${{ github.event.inputs.enhance_prompt || !github.event.inputs.prompt }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: Run prompt generator scripts
+      working-directory: scripts
+      run: |
+        export CONFIGPATH=config
+
+        if [ -n "${{ github.event.inputs.prompt }}" ] && [ "${{ github.event.inputs.enhance_prompt }}" == false ]; then
+
+          echo "Using prompt from input"
+          echo "${{ github.event.inputs.prompt }}" > prompt.txt
+
+        else
+
+          if [ -n "${{ github.event.inputs.prompt }}" ]; then
+            echo "Using prompt from input, enhancing..."
+            export PROMPT="${{ github.event.inputs.prompt }}"
+          fi
+
+          sh prompt.sh
+
+        fi
+
+    - name: Upload prompt
+      uses: actions/upload-artifact@v4
+      with:
+        name: prompt
+        path: scripts/prompt.txt
+
+
+  ai:
+    strategy:
+      matrix:
+        model: [
+          sd_xl_turbo_1.0.safetensors, 
+          v2-1_768-ema-pruned.safetensors,
+          v1-5-pruned-emaonly.safetensors,
+        ]
+    runs-on: ubuntu-latest
+    needs: prompt
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+        
+    - name: Download prompt
+      uses: actions/download-artifact@v4
+      with:
+        name: prompt
+        path: scripts
+
+    - name: Config & run generator
+      working-directory: scripts
+      run: |
+        export CONFIGPATH=config
+        export MATRIXMODEL=${{ matrix.model }}
+        export JOBINDEX=${{ strategy.job-index }}
+        export RUNID=${{ github.run_id }}
+        export RUNNUM=${{ github.run_number }}
+        if [ -n "${{ github.event.inputs.width }}" ]; then
+          echo "Using width from input ${{ github.event.inputs.width }}"
+          export WIDTH="${{ github.event.inputs.width }}"
+        else 
+          export WIDTH="768"
+        fi
+        if [ -n "${{ github.event.inputs.height }}" ]; then
+        echo "Using height from input ${{ github.event.inputs.height }}"
+          export HEIGHT="${{ github.event.inputs.height }}"
+        else 
+          export HEIGHT="768"
+        fi
+        if [ -n "${{ github.event.inputs.upscale }}" ]; then
+        echo "Using upscale from input ${{ github.event.inputs.upscale }}"
+          export UPSCALE="${{ github.event.inputs.upscale }}"
+        else 
+          export UPSCALE="3"
+        fi
+
+        sh image.sh   
+
+    - name: Upload image
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.model }}
+        path: scripts/out

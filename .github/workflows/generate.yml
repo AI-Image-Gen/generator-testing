@@ -1,29 +1,6 @@
 name: Generate images
 
 on: 
-  workflow_dispatch:
-    inputs:
-      push:
-        type: boolean
-        description: Push?
-      prompt:
-        description: Prompt
-      enhance_prompt:
-        type: boolean
-        description: Enhance prompt?
-      width:
-        type: number
-        description: Width (/8)
-      height:
-        type: number
-        description: Height (/8)
-      upscale:
-        type: choice
-        description: Upscale
-        options:
-          - 2
-          - 3
-          - 4
 
   schedule:
     - cron: '0 */2 * * *'  # Repeat every 2h
@@ -38,7 +15,6 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Setup python
-      if: ${{ github.event_name == 'schedule' || github.event.inputs.enhance_prompt || !github.event.inputs.prompt }}
       uses: actions/setup-python@v5
       with:
         python-version: 3.11
@@ -48,21 +24,7 @@ jobs:
       run: |
         export CONFIGPATH=config
 
-          if [ -n "${{ github.event.inputs.prompt }}" ] && [ "${{ github.event.inputs.enhance_prompt }}" == false ]; then
-
-          echo "Using prompt from input"
-          echo "${{ github.event.inputs.prompt }}" > prompt.txt
-
-        else
-
-          if [ -n "${{ github.event.inputs.prompt }}" ]; then
-            echo "Using prompt from input, enhancing..."
-            export PROMPT="${{ github.event.inputs.prompt }}"
-          fi
-
-          sh prompt.sh
-
-        fi
+        sh prompt.sh
 
     - name: Upload prompt
       uses: actions/upload-artifact@v4
@@ -105,24 +67,9 @@ jobs:
         export JOBINDEX=${{ strategy.job-index }}
         export RUNID=${{ github.run_id }}
         export RUNNUM=${{ github.run_number }}
-        if [ -n "${{ github.event.inputs.width }}" ]; then
-          echo "Using width from input ${{ github.event.inputs.width }}"
-          export WIDTH="${{ github.event.inputs.width }}"
-        else 
-          export WIDTH="768"
-        fi
-        if [ -n "${{ github.event.inputs.height }}" ]; then
-        echo "Using height from input ${{ github.event.inputs.height }}"
-          export HEIGHT="${{ github.event.inputs.height }}"
-        else 
-          export HEIGHT="768"
-        fi
-        if [ -n "${{ github.event.inputs.upscale }}" ]; then
-        echo "Using upscale from input ${{ github.event.inputs.upscale }}"
-          export UPSCALE="${{ github.event.inputs.upscale }}"
-        else 
-          export UPSCALE="3"
-        fi
+        export WIDTH="768"
+        export HEIGHT="768"
+        export UPSCALE="3"
 
         sh image.sh   
 
@@ -135,8 +82,6 @@ jobs:
   push:
     runs-on: ubuntu-latest
     needs: ai
-    if: ${{ github.event_name == 'schedule' || github.event.inputs.push == 'true' }}
-
     steps:
 
     - name: Setup python
