@@ -1,0 +1,28 @@
+name: Cleanup
+
+on: 
+  workflow_dispatch:
+
+  schedule:
+    - cron: '0 0 * * *'    # Run daily at midnight
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+
+    - name: Run repository cleanup
+      working-directory: scripts
+      run: |
+          sh cleanup.sh
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        force: true
