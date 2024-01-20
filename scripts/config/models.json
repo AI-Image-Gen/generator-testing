@@ -1,0 +1,21 @@
+{
+    "sd_xl_turbo_1.0.safetensors": {
+       "repo_url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0.safetensors",
+       "inference_count": 17
+    },
+
+    "v2-1_768-ema-pruned.safetensors": {
+        "repo_url": "https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors",
+        "inference_count": 23
+     },
+
+     "v1-5-pruned-emaonly.safetensors": {
+        "repo_url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors",
+        "inference_count": 20
+     },
+
+     "upscaler": {
+         "inference_script": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN/master/inference_realesrgan.py",
+         "repo_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth"
+      }
+}

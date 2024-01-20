@@ -1,0 +1,140 @@
+name: Generate images
+
+on: 
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: prompt for AI image generators
+      enhance_prompt:
+        type: boolean
+        description: Forward prompt through language model for better prompt
+
+  schedule:
+    - cron: '0 */2 * * *'  # Repeat every 2h
+
+
+jobs:
+  prompt:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Setup python
+      if: ${{ github.event_name == 'schedule' || github.event.inputs.enhance_prompt || !github.event.inputs.prompt }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: Run prompt generator scripts
+      working-directory: scripts
+      run: |
+        export CONFIGPATH=config
+
+          if [ -n "${{ github.event.inputs.prompt }}" ] && [ "${{ github.event.inputs.enhance_prompt }}" == false ]; then
+
+          echo "Using prompt from input"
+          echo "${{ github.event.inputs.prompt }}" > prompt.txt
+
+        else
+
+          if [ -n "${{ github.event.inputs.prompt }}" ]; then
+            echo "Using prompt from input, enhancing..."
+            export PROMPT="${{ github.event.inputs.prompt }}"
+          fi
+
+          sh prompt.sh
+
+        fi
+
+    - name: Upload prompt
+      uses: actions/upload-artifact@v4
+      with:
+        name: prompt
+        path: scripts/prompt.txt
+
+
+  ai:
+    strategy:
+      matrix:
+        model: [
+          sd_xl_turbo_1.0.safetensors, 
+          v2-1_768-ema-pruned.safetensors,
+          v1-5-pruned-emaonly.safetensors,
+        ]
+    runs-on: ubuntu-latest
+    needs: prompt
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+        
+    - name: Download prompt
+      uses: actions/download-artifact@v4
+      with:
+        name: prompt
+        path: scripts
+
+    - name: Config & run generator
+      working-directory: scripts
+      run: |
+        export CONFIGPATH=config
+        export MATRIXMODEL=${{ matrix.model }}
+        export JOBINDEX=${{ strategy.job-index }}
+        export RUNID=${{ github.run_id }}
+        export RUNNUM=${{ github.run_number }}
+
+        sh image.sh   
+
+    - name: Upload image
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.model }}
+        path: scripts/out
+
+  push:
+    runs-on: ubuntu-latest
+    needs: ai
+
+    steps:
+
+    - name: Setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.12
+
+    - name: Clone repository
+      uses: actions/checkout@v4
+      with: 
+        persist-credentials: false
+        fetch-depth: 0
+        ref: 'main'
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: scripts/tmp
+        merge-multiple: true
+        
+    - name: Cleanup repository
+      working-directory: scripts
+      run: |
+        export CONFIGPATH=config
+        export RUNID=${{ github.run_id }}
+        export RUNNUM=${{ github.run_number }}
+        if [ -n "${{ github.event.inputs.prompt }}" ]; then
+          export CUSTOMPROMPT=true
+        fi
+
+        sh push.sh  
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        force: true
