@@ -3,9 +3,6 @@ name: Generate from request
 on: 
   workflow_dispatch:
     inputs:
-      push:
-        type: boolean
-        description: Push?
       prompt:
         description: Prompt
       enhance_prompt:
