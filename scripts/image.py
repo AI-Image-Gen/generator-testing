@@ -1,8 +1,3 @@
-properties = {
-    "x": 768,
-    "y": 768
-}
- 
 import json, sys, glob
 from tqdm import tqdm
 from sdkit.generate import generate_images
@@ -11,8 +6,8 @@ from sdkit.utils import save_images
 import sdkit, urllib.request
 from PIL import Image
 
-if len(sys.argv) != 3:
-    print("Json config file path or model name missing!")
+if len(sys.argv) != 5:
+    print("Json config file path, model name or dimensions are missing!")
     sys.exit(1)
 
 with open('./prompt.txt', 'r') as file:
@@ -47,7 +42,7 @@ context.model_paths['stable-diffusion'] = './tmp/'+model["name"]
 load_model(context, 'stable-diffusion')
 
 print("| Starting generation with:")
-print("Dimensions: " + str(properties["x"]) + "px x " + str(properties["y"]) + "px")
+print("Dimensions: " + str(sys.argv[3]) + "px x " + str(sys.argv[4]) + "px")
 print("Request: " + prompt)
 
 print("| Using:")
@@ -55,7 +50,7 @@ print("Model: " + model["name"])
 print("Downloaded from: " + model["repo_url"])
 print("Inference count: " + str(model["inference_count"]))
 
-image = generate_images(context, width=properties["x"], height=properties["y"], prompt=prompt, seed=42, num_inference_steps=model["inference_count"])
+image = generate_images(context, width=sys.argv[3], height=sys.argv[4], prompt=prompt, seed=42, num_inference_steps=model["inference_count"])
 save_images(image, dir_path="./tmp/image/")
 
 unload_model(context, 'stable-diffusion')

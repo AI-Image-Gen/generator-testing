@@ -3,9 +3,7 @@ cp ./tmp/*.jpg ../img
 cp ./tmp/prompt.txt ./prompt.txt
 cp ./prompt.txt ../img/prompts/$RUNNUM-$RUNID.txt
 
-if [ "$CUSTOMPROMPT" != true ]; then
-    python push.py $CONFIGPATH
-fi
+python push.py $CONFIGPATH
 
 rm -rf ./tmp
 rm -rf ./prompt.txt
