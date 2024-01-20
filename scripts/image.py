@@ -50,7 +50,7 @@ print("Model: " + model["name"])
 print("Downloaded from: " + model["repo_url"])
 print("Inference count: " + str(model["inference_count"]))
 
-image = generate_images(context, width=sys.argv[3], height=sys.argv[4], prompt=prompt, seed=42, num_inference_steps=model["inference_count"])
+image = generate_images(context, width=int(sys.argv[3]), height=int(sys.argv[4]), prompt=prompt, seed=42, num_inference_steps=model["inference_count"])
 save_images(image, dir_path="./tmp/image/")
 
 unload_model(context, 'stable-diffusion')
