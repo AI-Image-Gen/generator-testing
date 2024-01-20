@@ -1,6 +1,6 @@
 pip install -U pip
-pip install -U xformers --index-url https://download.pytorch.org/whl/cu121
-pip install -U sdkit tqdm realesrgan
+pip install -U xformers~=0.0.23 --index-url https://download.pytorch.org/whl/cu121
+pip install -U sdkit~=2.0.15 tqdm~=4.66.1 realesrgan~=0.3.0
 
 mkdir -p ./tmp/image
 python image.py $CONFIGPATH $MATRIXMODEL $WIDTH $HEIGHT
