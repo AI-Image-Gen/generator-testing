@@ -142,6 +142,7 @@ jobs:
 
   cleanup:
     runs-on: ubuntu-latest
+    needs: ai
 
     steps:
     - name: Clone repository
