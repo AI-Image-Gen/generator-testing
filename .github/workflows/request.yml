@@ -45,13 +45,8 @@ jobs:
       id: set-matrix
       working-directory: scripts
       run: |
-        multiplier=${{ github.event.inputs.multiplier }}
-        amount=()
-        for ((i=0; i<multiplier; i++)); do
-            amount+=($i)
-        done
-        echo 'amount="${amount[*]}"' >> "$GITHUB_OUTPUT"
-        echo 'amount="${amount[*]}"'
+        python amountHelper.py ${{ github.event.inputs.multiplier }}
+        
         export CONFIGPATH=config
 
         if [ -n "${{ github.event.inputs.prompt }}" ] && [ "${{ github.event.inputs.enhance_prompt }}" == false ]; then
@@ -67,7 +62,7 @@ jobs:
           fi
 
           sh prompt.sh
-
+          
         fi
 
     - name: Upload prompt
