@@ -1,6 +1,6 @@
 rm -rf ../img/old
 mkdir -p ../img/old/prompts
-mv ../img/*.img ../img/old/
+mv ../img/*.jpg ../img/old/
 mv ../img/prompts/* ../img/old/prompts/
 
 cd ..
