@@ -135,7 +135,7 @@ jobs:
   push:
     runs-on: ubuntu-latest
     needs: ai
-    if: ${{ github.event_name == 'schedule' || github.event.inputs.push }}
+    if: ${{ github.event_name == 'schedule' || github.event.inputs.push == 'true' }}
 
     steps:
 
