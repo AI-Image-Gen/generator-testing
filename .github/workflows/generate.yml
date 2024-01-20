@@ -3,23 +3,23 @@ name: Generate images
 on: 
   workflow_dispatch:
     inputs:
-      prompt:
-        description: prompt for AI image generators
-      enhance_prompt:
-        type: boolean
-        description: Forward prompt through language model for better prompt
       push:
         type: boolean
-        description: Push to repository?
+        description: Push?
+      prompt:
+        description: Prompt
+      enhance_prompt:
+        type: boolean
+        description: Enhance prompt?
       width:
         type: number
-        description: Width (optional)
+        description: Width
       height:
         type: number
-        description: Height (optional)
+        description: Height
       upscale:
         type: choice
-        description: Upscaler from original width & height
+        description: Upscale (w,h *x)
         options:
           - 2
           - 3
