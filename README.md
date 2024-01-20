@@ -1,10 +1,10 @@
 # 🎉 AI img gen
 
-## 🍹 Images are under /img
+## 🍹 Images are under `/img`
 
 **`abc`-`x`-`defghi`.jpg**
 
-## 💬 Prompts are under /img/prompts
+## 💬 Prompts are under `/img/prompts`
 
 **`abc`-`defghi`.txt**
 
