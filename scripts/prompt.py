@@ -10,7 +10,7 @@ with open(sys.argv[1] + '/langModel.json', 'r') as file:
 with open(sys.argv[1] + '/usedPrompts.json', 'r') as file:
     usedPrompts = json.load(file)
 
-ctx = data["prompt"] + "It must be EXACTLY AND ONLY 1 PROMPT, FORMATTED TO BE BETWEEN \" MARKS. You can't use these prompts, find something new and interesting, not really connected with these subjects: " + '\n' + '\n'.join(usedPrompts)
+ctx = data["prompt"] + " It must be EXACTLY AND ONLY 1 PROMPT, FORMATTED TO BE BETWEEN \" MARKS. You can't use these prompts, find something new and interesting, not really connected with these subjects: " + '\n' + '\n'.join(usedPrompts)
 
 # Enhance non-auto prompt
 if len(sys.argv) == 3:
