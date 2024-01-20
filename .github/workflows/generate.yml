@@ -13,13 +13,13 @@ on:
         description: Enhance prompt?
       width:
         type: number
-        description: Width
+        description: Width (/8)
       height:
         type: number
-        description: Height
+        description: Height (/8)
       upscale:
         type: choice
-        description: Upscale (w,h *x)
+        description: Upscale
         options:
           - 2
           - 3
