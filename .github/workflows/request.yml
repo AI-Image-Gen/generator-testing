@@ -26,7 +26,7 @@ on:
       
       multiplier:
         type: number
-        description: Images per AI (AIs*x, 20 at once max)
+        description: Images per AI (AIs*x, 20 at once max), only when enhance on
       
 
 jobs:
@@ -49,11 +49,6 @@ jobs:
       id: set-matrix
       working-directory: scripts
       run: |
-        if [ -n "${{ github.event.inputs.multiplier }}" ] && [ ${{ github.event.inputs.multiplier }} -gt 0 ]; then
-          python amountHelper.py ${{ github.event.inputs.multiplier }}
-        else
-          python amountHelper.py 1
-        fi
         export CONFIGPATH=config
 
         if [ -n "${{ github.event.inputs.prompt }}" ] && [ "${{ github.event.inputs.enhance_prompt }}" == false ]; then
@@ -61,22 +56,37 @@ jobs:
           echo "Using prompt from input"
           echo "${{ github.event.inputs.prompt }}" > prompt.txt
 
+          python amountHelper.py 1
+
         else
 
           if [ -n "${{ github.event.inputs.prompt }}" ]; then
+
             echo "Using prompt from input, enhancing..."
             export PROMPT="${{ github.event.inputs.prompt }}"
+
           fi
 
-          sh prompt.sh
-          
+          if [ -n "${{ github.event.inputs.multiplier }}" ] && [ ${{ github.event.inputs.multiplier }} -gt 1 ]; then
+            python amountHelper.py ${{ github.event.inputs.multiplier }}
+
+            for ((i=0; i<=${{ github.event.inputs.multiplier }}; i++)); do
+              sh prompt.sh
+              mv prompt.txt prompt-$i.txt
+            done
+
+          else
+            python amountHelper.py 1
+            sh prompt.sh
+          fi
+             
         fi
 
     - name: Upload prompt
       uses: actions/upload-artifact@v4
       with:
         name: prompt
-        path: scripts/prompt.txt
+        path: scripts/*.txt
 
 
   ai:
@@ -134,6 +144,10 @@ jobs:
           export UPSCALE="3"
         fi
 
+        if [ -n "${{ github.event.inputs.multiplier }}" ] && [ ${{ github.event.inputs.multiplier }} -gt 1 ]; then
+          mv prompt-${{ matrix.num }}.txt prompt.txt
+        fi
+        
         sh image.sh   
 
     - name: Upload image
@@ -141,7 +155,6 @@ jobs:
       with:
         name: TMP-${{ matrix.model }}-${{ matrix.num }}
         path: scripts/out
-
 
   cleanup:
     runs-on: ubuntu-latest
