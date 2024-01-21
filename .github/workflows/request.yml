@@ -22,7 +22,7 @@ on:
       upscale:
         type: choice
         description: Enhance and upscale width and height
-        options: ['OFF', 2, 3, 4]
+        options: ['OFF', '2', '3', '4']
       
       multiplier:
         type: number
