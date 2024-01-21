@@ -1,4 +1,4 @@
-import json, sys, glob
+import json, sys, glob, subprocess
 from tqdm import tqdm
 from sdkit.generate import generate_images
 from sdkit.models import load_model, unload_model
@@ -17,6 +17,22 @@ with open(sys.argv[1] + '/models.json', 'r') as file:
     data = json.load(file)
     model = data[sys.argv[2]]
     model["name"] = sys.argv[2]
+
+
+print("| Using:")
+print("Model: " + model["name"])
+
+print("| With:")
+print("Request: " + prompt)
+
+if model["name"].endswith("online"):
+    subprocess.run("pip install -U g4f~=0.2.0.3")
+    subprocess.run(f'python ./online-providers/{model["name"]}.py "{prompt}"', shell=True)
+    sys.exit()
+
+print("Dimensions: " + str(sys.argv[3]) + "px x " + str(sys.argv[4]) + "px")
+print("Downloaded from: " + model["repo_url"])
+print("Inference count: " + str(model["inference_count"]))
 
 context = sdkit.Context()
 context.device = "cpu"
@@ -40,15 +56,6 @@ with urllib.request.urlopen(model["repo_url"]) as response, open('./tmp/'+model[
 
 context.model_paths['stable-diffusion'] = './tmp/'+model["name"]+"."+model["ext"]
 load_model(context, 'stable-diffusion')
-
-print("| Starting generation with:")
-print("Dimensions: " + str(sys.argv[3]) + "px x " + str(sys.argv[4]) + "px")
-print("Request: " + prompt)
-
-print("| Using:")
-print("Model: " + model["name"])
-print("Downloaded from: " + model["repo_url"])
-print("Inference count: " + str(model["inference_count"]))
 
 image = generate_images(context, width=int(sys.argv[3]), height=int(sys.argv[4]), prompt=prompt, seed=42, num_inference_steps=model["inference_count"])
 save_images(image, dir_path="./tmp/image/")

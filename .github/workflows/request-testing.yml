@@ -1,0 +1,197 @@
+name: Generator from request
+
+on: 
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: Prompt (blank for auto mode)
+
+      fast_mode:
+        type: boolean
+        description: Fast mode (only online generators)? (* -> unsupported when on)
+
+      image:
+        type: boolean
+        description: Is prompt image url?* (+ -> unsupported when on)
+
+      enhance_prompt:
+        type: boolean
+        description: Enhance prompt by AI language model?+
+
+      width:
+        type: number
+        description: Width (dividable by 8)*+
+
+      height:
+        type: number
+        description: Height (dividable by 8)*+
+
+      upscale:
+        type: choice
+        description: Enhance and upscale width and height*
+        options: ['OFF', '2', '3', '4']
+      
+      multiplier:
+        type: number
+        description: Images per AI (AI*x, 20 at once max)*+
+      
+
+jobs:
+  prompt:
+    runs-on: ubuntu-latest
+    outputs:
+      amount: ${{ steps.set-matrix.outputs.amount }}
+      models: ${{ steps.set-matrix.outputs.models }}
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Setup python
+      if: ${{ github.event.inputs.enhance_prompt || !github.event.inputs.prompt }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: Set matrix settings for generator
+      id: set-matrix
+      env:
+        FAST_MODE: ${{ github.event.inputs.fast_mode }}
+        RUNNERS_AMOUNT: ${{ github.event.inputs.multiplier }}
+        IS_IMAGE: ${{ github.event.inputs.image }}
+        REPO_DIR: '../../../'
+        CONFIG_FOLDER: 'config'
+      working-directory: .github/workflows/scripts/
+      run: python matrix.py
+
+    - name: Check if AI language model request needed
+      id: ai-request
+      env:
+        FAST_MODE: ${{ github.event.inputs.fast_mode }}
+        IS_IMAGE: ${{ github.event.inputs.image }}
+        PROMPT: ${{ github.event.inputs.prompt }}
+        ENH_PROMPT: ${{ github.event.inputs.enhance_prompt }}
+      working-directory: .github/workflows/scripts/
+      run: python ai-check.py
+    
+    - name: Online prompt
+      if: ${{ steps.ai-request.outputs.online }}
+      env:
+        AUTO: ${{ steps.ai-request.outputs.auto }}
+        PROMPT: ${{ github.event.inputs.prompt }}
+        AMOUNT: ${{ steps.set-matrix.outputs.amount }}
+        REPO_DIR: '../../../../'
+        CONFIG_FOLDER: 'config'
+      working-directory: .github/workflows/scripts/prompt_enhancer/
+      run: sh online.sh
+    
+    - name: Offline prompt
+      if: ${{ steps.ai-request.outputs.auto || steps.ai-request.outputs.enhance }}
+      env:
+        AUTO: ${{ steps.ai-request.outputs.auto }}
+        PROMPT: ${{ github.event.inputs.prompt }}
+        AMOUNT: ${{ steps.set-matrix.outputs.amount }}
+        REPO_DIR: '../../../../'
+        CONFIG_FOLDER: 'config'       
+      working-directory: .github/workflows/scripts/prompt_enhancer/
+      run: sh offline.sh
+
+    - name: Upload prompt
+      uses: actions/upload-artifact@v4
+      with:
+        name: TMP-prompt
+        path: |
+          prompt-*.txt
+
+  ai:
+    strategy:
+      matrix:
+        model: ${{fromJson(needs.prompt.outputs.models)}}
+        num: ${{fromJson(needs.prompt.outputs.amount)}}
+        
+    runs-on: ubuntu-latest
+    needs: prompt
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+        
+    - name: Download prompt
+      uses: actions/download-artifact@v4
+      with:
+        name: TMP-prompt
+        path: scripts
+
+    - name: Config & run generator
+      working-directory: scripts
+      run: |
+        export CONFIGPATH=config
+        export MATRIXMODEL=${{ matrix.model }}
+        export JOBINDEX=${{ strategy.job-index }}
+        export RUNID=${{ github.run_id }}
+        export RUNNUM=${{ github.run_number }}
+        if [ -n "${{ github.event.inputs.width }}" ]; then
+          echo "Using width from input ${{ github.event.inputs.width }}"
+          export WIDTH="${{ github.event.inputs.width }}"
+        else 
+          export WIDTH="768"
+        fi
+        if [ -n "${{ github.event.inputs.height }}" ]; then
+        echo "Using height from input ${{ github.event.inputs.height }}"
+          export HEIGHT="${{ github.event.inputs.height }}"
+        else 
+          export HEIGHT="768"
+        fi
+        if [ -n "${{ github.event.inputs.upscale }}" ]; then
+        echo "Using upscale from input ${{ github.event.inputs.upscale }}"
+          export UPSCALE="${{ github.event.inputs.upscale }}"
+        else 
+          export UPSCALE="3"
+        fi
+
+        if [ "${{ github.event.inputs.enhance_prompt }}" == true ] && [ -n "${{ github.event.inputs.multiplier }}" ] && [ ${{ github.event.inputs.multiplier }} -gt 1 ]; then
+          mv prompt-${{ matrix.num }}.txt prompt.txt
+        fi
+        
+        sh image.sh   
+
+    - name: Upload image
+      uses: actions/upload-artifact@v4
+      with:
+        name: TMP-${{ matrix.model }}-${{ matrix.num }}
+        path: scripts/out
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: ai
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: scripts/tmp
+        merge-multiple: true
+
+    - name: Upload as 1 artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: images
+        path: scripts/tmp
+
+    - name: Cleanup artifacts
+      uses: geekyeggo/delete-artifact@v4  
+      with:
+        name: TMP-*
