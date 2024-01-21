@@ -9,7 +9,7 @@ rm -rf ./tmp
 rm -rf ./prompt.txt
 
 cd ..
-git config --global user.name ai-images
+git config --global user.name ai
 git config --global user.email github-actions@github.com
 git add .
 git commit -m "Next photos"

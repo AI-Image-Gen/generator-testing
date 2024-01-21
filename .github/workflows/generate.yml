@@ -1,4 +1,4 @@
-name: Generate images
+name: Autonomous generation
 
 on: 
   workflow_dispatch:
