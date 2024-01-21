@@ -15,3 +15,4 @@ quoted_list = [f'"{element}"' for element in names]
 json_variable = json.dumps(quoted_list).replace(" ", "")
 
 subprocess.run(f'echo models={json_variable} >> $GITHUB_OUTPUT', shell=True)
+subprocess.run(f'echo models={json_variable}', shell=True)
