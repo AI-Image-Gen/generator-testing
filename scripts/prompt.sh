@@ -1,6 +1,6 @@
 pip install -U pip
 
-if [ "$EXPERIMENTAL" == true ]; then
+if [ -n "$EXPERIMENTAL" ]; then
     pip install -U tensorflow~=2.15.0.post1 
     pip install -U transformers~=4.36.2
 else
@@ -8,7 +8,7 @@ else
 fi
 
 mkdir -p ./tmp
-if [ "$EXPERIMENTAL" == true ]; then
+if [ -n "$EXPERIMENTAL" ]; then
     if [ -n "$PROMPT" ]; then
         python experimental-prompt.py $CONFIGPATH "$PROMPT"
     else 
