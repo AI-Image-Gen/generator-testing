@@ -70,7 +70,7 @@ jobs:
           if [ -n "${{ github.event.inputs.multiplier }}" ] && [ ${{ github.event.inputs.multiplier }} -gt 1 ]; then
             python amountHelper.py ${{ github.event.inputs.multiplier }}
 
-            for ((i=0; i<=${{ github.event.inputs.multiplier }}; i++)); do
+            for ((i=0; i<${{ github.event.inputs.multiplier }}; i++)); do
               sh prompt.sh
               mv prompt.txt prompt-$i.txt
             done
