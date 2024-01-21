@@ -10,7 +10,7 @@ with open(sys.argv[1] + '/models.json', 'r') as file:
 names = [name for name in data.keys()]
 if "upscaler" in names:
     names.remove("upscaler")
-    
+
 json_variable = json.dumps(names).replace(" ", "")
 
-subprocess.run(f'echo models={json_variable} >> $GITHUB_OUTPUT', shell=True)
+subprocess.run(f'echo models="{json_variable}" >> $GITHUB_OUTPUT', shell=True)
