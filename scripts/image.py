@@ -21,7 +21,7 @@ with open(sys.argv[1] + '/models.json', 'r') as file:
 context = sdkit.Context()
 context.device = "cpu"
 
-with urllib.request.urlopen(model["repo_url"]) as response, open('./tmp/'+model["name"], 'wb') as output_file:
+with urllib.request.urlopen(model["repo_url"]) as response, open('./tmp/'+model["name"]+"."+model["ext"], 'wb') as output_file:
     print('Downloading [' + model["repo_url"] + "]...")
      # Get the total file size in bytes
     file_size = int(response.getheader('Content-Length', 0))
@@ -38,7 +38,7 @@ with urllib.request.urlopen(model["repo_url"]) as response, open('./tmp/'+model[
     progress_bar.close()
     output_file.write(response.read())
 
-context.model_paths['stable-diffusion'] = './tmp/'+model["name"]
+context.model_paths['stable-diffusion'] = './tmp/'+model["name"]+"."+model["ext"]
 load_model(context, 'stable-diffusion')
 
 print("| Starting generation with:")

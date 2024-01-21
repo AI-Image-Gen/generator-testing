@@ -26,14 +26,15 @@ on:
       
       multiplier:
         type: number
-        description: Images per AI (AIs*x, 20 at once max), only when enhance is on
+        description: Images per AI (AI*x, 20 at once max), only when enhance is on
       
 
 jobs:
   prompt:
     runs-on: ubuntu-latest
     outputs:
-      step-output: ${{ steps.set-matrix.outputs.amount }}
+      amount: ${{ steps.set-matrix.outputs.amount }}
+      models: ${{ steps.set-matrix.outputs.models }}
 
     steps:
     - name: Clone repository
@@ -50,6 +51,7 @@ jobs:
       working-directory: scripts
       run: |
         export CONFIGPATH=config
+        python modelsHelper.py $CONFIGPATH
 
         if [ -n "${{ github.event.inputs.prompt }}" ] && [ "${{ github.event.inputs.enhance_prompt }}" == false ]; then
 
@@ -92,12 +94,8 @@ jobs:
   ai:
     strategy:
       matrix:
-        model: [
-          sd_xl_turbo_1.0.safetensors, 
-          v2-1_768-ema-pruned.safetensors,
-          v1-5-pruned-emaonly.safetensors,
-        ]
-        num: ${{fromJson(needs.prompt.outputs.step-output)}}
+        model: ${{fromJson(needs.prompt.outputs.models)}}
+        num: ${{fromJson(needs.prompt.outputs.amount)}}
         
     runs-on: ubuntu-latest
     needs: prompt
