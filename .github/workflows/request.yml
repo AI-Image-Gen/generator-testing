@@ -49,8 +49,11 @@ jobs:
       id: set-matrix
       working-directory: scripts
       run: |
-        python amountHelper.py ${{ github.event.inputs.multiplier }}
-        
+        if [ -n "${{ github.event.inputs.multiplier }}" ] && [ ${{ github.event.inputs.multiplier }} -gt 0 ]; then
+          python amountHelper.py ${{ github.event.inputs.multiplier }}
+        else
+          python amountHelper.py 1
+        fi
         export CONFIGPATH=config
 
         if [ -n "${{ github.event.inputs.prompt }}" ] && [ "${{ github.event.inputs.enhance_prompt }}" == false ]; then
