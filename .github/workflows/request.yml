@@ -26,7 +26,7 @@ on:
       
       multiplier:
         type: number
-        description: Images per AI (AIs*x, 20 at once max), only when enhance on
+        description: Images per AI (AIs*x, 20 at once max), only when enhance is on
       
 
 jobs:
@@ -144,7 +144,7 @@ jobs:
           export UPSCALE="3"
         fi
 
-        if [ -n "${{ github.event.inputs.multiplier }}" ] && [ ${{ github.event.inputs.multiplier }} -gt 1 ]; then
+        if [ "${{ github.event.inputs.enhance_prompt }}" == true ] && [ -n "${{ github.event.inputs.multiplier }}" ] && [ ${{ github.event.inputs.multiplier }} -gt 1 ]; then
           mv prompt-${{ matrix.num }}.txt prompt.txt
         fi
         
