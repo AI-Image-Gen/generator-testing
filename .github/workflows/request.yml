@@ -52,7 +52,6 @@ jobs:
       run: |
         export CONFIGPATH=config
         python modelsHelper.py $CONFIGPATH
-        echo $models
         if [ -n "${{ github.event.inputs.prompt }}" ] && [ "${{ github.event.inputs.enhance_prompt }}" == false ]; then
 
           echo "Using prompt from input"
