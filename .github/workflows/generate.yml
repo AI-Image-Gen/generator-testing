@@ -1,7 +1,7 @@
 name: Generate images
 
 on: 
-
+  workflow_dispatch:
   schedule:
     - cron: '0 */2 * * *'  # Repeat every 2h
 
