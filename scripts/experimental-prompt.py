@@ -26,8 +26,6 @@ ctx = data["prompt"] + " It must be EXACTLY AND ONLY 1 PROMPT, FORMATTED TO BE B
 if len(sys.argv) == 3:
     ctx = "Give me 1 nice prompt for ai image generator, that needs to generate \"" + sys.argv[2] + "\". It must be EXACTLY AND ONLY 1 PROMPT, FORMATTED TO BE BETWEEN \" MARKS. You can't use these prompts:" + '\n' + '\n'.join(all_justusedprompts)
 
-print('Generating output for question: ' + ctx)
-
 tokenizer = AutoTokenizer.from_pretrained('stabilityai/stablelm-2-zephyr-1_6b', trust_remote_code=True)
 model = AutoModelForCausalLM.from_pretrained(
     'stabilityai/stablelm-2-zephyr-1_6b',
@@ -50,8 +48,6 @@ tokens = model.generate(
 )
 response = tokenizer.decode(tokens[0], skip_special_tokens=False)
 
-print(response)
-
 # Extract text inside quotes
 inside_quotes = False
 result = []
@@ -64,6 +60,9 @@ for char in response:
         result.append(char)
 
 result = ''.join(result)
+
+print('Result:' + result)
+print('Response: ' + response)
 
 print('Writing to file: ' + result)
 
