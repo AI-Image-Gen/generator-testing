@@ -12,6 +12,8 @@ if [ "$UPSCALE" != "OFF" ]; then
     UPSCALE_INT=$(echo "$UPSCALE" | awk '{print int($1)}')
     python ./tmp/inference_script.py -i ./tmp/image/1.jpg --model_path ./tmp/model.pth -o ./out/ --fp32 -s $UPSCALE_INT
     echo "Upscaled image!"
+else
+    mv ./tmp/image/1.jpg ./out/
 fi
 
 mv ./out/*.jpg ./out/$RUNNUM-$JOBINDEX-$RUNID.jpg
