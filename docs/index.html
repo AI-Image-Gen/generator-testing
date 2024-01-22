@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usage of generator</title>
+    <script type="text/javascript" src="https://raw.githubusercontent.com/cure53/DOMPurify/main/src/purify.js"></script>
     <script type="module">
         import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
@@ -13,7 +14,7 @@
                 .then(response => response.text())
                 .then(markdown => {
                     // Convert Markdown to HTML using marked.js
-                    const html = marked.parse(markdown);
+                    const html = DOMPurify.sanitize(marked.parse(markdown));;
     
                     // Append the HTML to the body
                     document.body.innerHTML = html;
