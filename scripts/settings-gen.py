@@ -37,23 +37,26 @@ def check_min_max(var1, minim, maxim):
         int_var=maxim
     return int_var
 
+if not HEIGHT.strip():
+    HEIGHT = 768
+if not WIDTH.strip():
+    WIDTH = 768
 MULTIPLIER = check_min_max(MULTIPLIER, 1, 10)
 MULTIPLIER_ARRAY = dumps([i for i in range(MULTIPLIER)]).replace(" ", "")
 HEIGHT = check_min_max(HEIGHT, 256, 1920)
 WIDTH = check_min_max(WIDTH, 256, 1920)
 
 txt2txt_gen = {'active': 'false', 'prompt': '', 'num': 1}
-txt2img_gen = {'active': 'false', 'height': '768', 'width': '768', 'matrix': {'ai-models': [0], 'nums': [0]}}
-img2img_gen = {'active': 'false', 'download-link': '', 'matrix': {'ai-models': [0], 'nums': [0], 'txt2img-ais': [0]}}
-img_upscale_gen = {'active': 'false', 'download-link': '', 'upscale': '3', 'matrix': {'ai-models': [0], 'nums': [0], 'txt2img-ais': [0], 'img2img-ais': [0]}}
-img2vid_gen = {'active': 'false', 'download-link': '', 'matrix': {'ai-models': [0], 'nums': [0], 'txt2img-ais': [0], 'img2img-ais': [0]}}
+txt2img_gen = {'active': 'false', 'height': '768', 'width': '768', 'matrix': {'models': [0], 'nums': [0]}}
+img2img_gen = {'active': 'false', 'download': '', 'matrix': {'models': [0], 'nums': [0], 'txt2img': [0]}}
+img_upscale_gen = {'active': 'false', 'download': '', 'upscale': '3', 'matrix': {'models': [0], 'nums': [0], 'txt2img': [0], 'img2img': [0]}}
+img2vid_gen = {'active': 'false', 'download': '', 'matrix': {'models': [0], 'nums': [0], 'txt2img': [0], 'img2img': [0]}}
 
 # List AI models
 def get_model_list(models):
     models_list_tmp_1 = [model for model in models["online"].keys()]
     models_list_tmp_2 = [model for model in models["offline"].keys()]
-    quoted_list = [f'"{element}"' for element in models_list_tmp_1 + models_list_tmp_2]
-    models_list = dumps(quoted_list).replace(" ", "")
+    models_list = dumps(models_list_tmp_1+models_list_tmp_2).replace(" ", "")
     return models_list
 
 with open(path.join(CONFIG_FOLDER, 'models.json'), 'r') as file:
@@ -77,18 +80,18 @@ upscale_AIs = get_model_list(data["upscaler"])
 if ENHANCE_PROMPT == 'true':
 
     img2img_gen["active"] = 'true'
-    img2img_gen["matrix"]["ai-models"] = img2img_AIs
+    img2img_gen["matrix"]["models"] = img2img_AIs
 
     # Input => image
     if IS_IMAGE == 'true':
             
-        img2img_gen["download-link"] = PROMPT
+        img2img_gen["download"] = PROMPT
 
         # Output => video
         if OUT_TYPE == 'video':
             img2vid_gen["active"] = 'true'
-            img2vid_gen["matrix"]["ai-models"] = img2vid_AIs
-            img2vid_gen["matrix"]["img2img-ais"] = img2img_AIs
+            img2vid_gen["matrix"]["models"] = img2vid_AIs
+            img2vid_gen["matrix"]["img2img"] = img2img_AIs
 
         # Output => image
         else:
@@ -97,8 +100,8 @@ if ENHANCE_PROMPT == 'true':
             if UPSCALE != 'off':
                 img_upscale_gen["active"] = 'true'
                 img_upscale_gen["upscale"] = UPSCALE
-                img_upscale_gen["matrix"]["ai-models"] = upscale_AIs
-                img_upscale_gen["matrix"]["img2img-ais"] = img2img_AIs
+                img_upscale_gen["matrix"]["models"] = upscale_AIs
+                img_upscale_gen["matrix"]["img2img"] = img2img_AIs
 
     # Input => normal prompt
     else:
@@ -111,18 +114,18 @@ if ENHANCE_PROMPT == 'true':
         txt2img_gen['height'] = HEIGHT
         txt2img_gen['width'] = WIDTH
         txt2img_gen['matrix']["nums"] = MULTIPLIER_ARRAY
-        txt2img_gen['matrix']["ai-models"] = txt2img_AIs
+        txt2img_gen['matrix']["models"] = txt2img_AIs
 
         img2img_gen["matrix"]["nums"] = MULTIPLIER_ARRAY
-        img2img_gen["matrix"]["txt2img-ais"] = txt2img_AIs
+        img2img_gen["matrix"]["txt2img"] = txt2img_AIs
 
         # Output => video
         if OUT_TYPE == 'video':
             img2vid_gen["active"] = 'true'
             img2vid_gen["matrix"]["nums"] = MULTIPLIER_ARRAY
-            img2vid_gen["matrix"]["ai-models"] = img2vid_AIs
-            img2vid_gen["matrix"]["txt2img-ais"] = txt2img_AIs
-            img2vid_gen["matrix"]["img2img-ais"] = img2img_AIs
+            img2vid_gen["matrix"]["models"] = img2vid_AIs
+            img2vid_gen["matrix"]["txt2img"] = txt2img_AIs
+            img2vid_gen["matrix"]["img2img"] = img2img_AIs
 
         # Output => image
         else:
@@ -132,9 +135,9 @@ if ENHANCE_PROMPT == 'true':
                 img_upscale_gen["active"] = 'true'
                 img_upscale_gen["upscale"] = UPSCALE
                 img_upscale_gen["matrix"]["nums"] = MULTIPLIER_ARRAY
-                img_upscale_gen["matrix"]["ai-models"] = upscale_AIs
-                img_upscale_gen["matrix"]["txt2img-ais"] = txt2img_AIs
-                img_upscale_gen["matrix"]["img2img-ais"] = img2img_AIs
+                img_upscale_gen["matrix"]["models"] = upscale_AIs
+                img_upscale_gen["matrix"]["txt2img"] = txt2img_AIs
+                img_upscale_gen["matrix"]["img2img"] = img2img_AIs
 
 # Prompt enhancer off
 else:
@@ -145,8 +148,8 @@ else:
         # Output => video
         if OUT_TYPE == 'video':
             img2vid_gen["active"] == 'true'
-            img2vid_gen["download-link"] = PROMPT
-            img2vid_gen["matrix"]["ai-models"] = img2vid_AIs
+            img2vid_gen["download"] = PROMPT
+            img2vid_gen["matrix"]["models"] = img2vid_AIs
     
         # Output => image
         else:
@@ -157,8 +160,8 @@ else:
 
             img_upscale_gen["active"] = 'true'
             img_upscale_gen["upscale"] = UPSCALE
-            img_upscale_gen["download-link"] = PROMPT
-            img_upscale_gen["matrix"]["ai-models"] = upscale_AIs
+            img_upscale_gen["download"] = PROMPT
+            img_upscale_gen["matrix"]["models"] = upscale_AIs
 
 
     # Input => normal prompt
@@ -171,13 +174,13 @@ else:
         txt2img_gen['active'] = 'true'
         txt2img_gen['height'] = HEIGHT
         txt2img_gen['width'] = WIDTH
-        txt2img_gen['matrix']["ai-models"] = txt2img_AIs
+        txt2img_gen['matrix']["models"] = txt2img_AIs
 
         # Output => video
         if OUT_TYPE == 'video':
             img2vid_gen["active"] = 'true'
-            img2vid_gen["matrix"]["ai-models"] = img2vid_AIs
-            img2vid_gen["matrix"]["txt2img-ais"] = txt2img_AIs
+            img2vid_gen["matrix"]["models"] = img2vid_AIs
+            img2vid_gen["matrix"]["txt2img"] = txt2img_AIs
 
         # Output => image
         else:
@@ -186,8 +189,8 @@ else:
             if UPSCALE != 'off':
                 img_upscale_gen["active"] = 'true'
                 img_upscale_gen["upscale"] = UPSCALE
-                img_upscale_gen["matrix"]["ai-models"] = upscale_AIs
-                img_upscale_gen["matrix"]["txt2img-ais"] = txt2img_AIs
+                img_upscale_gen["matrix"]["models"] = upscale_AIs
+                img_upscale_gen["matrix"]["txt2img"] = txt2img_AIs
 
 
 # Save generated config
