@@ -12,6 +12,15 @@
             fetch('USAGE.md')
                 .then(response => response.text())
                 .then(markdown => {
+                    marked.setOptions({
+                        highlight: function(code, lang) {
+                            if (prism.languages[lang]) {
+                                return prism.highlight(code, prism.languages[lang], lang);
+                            } else {
+                                return code;
+                            }
+                        }
+                    });
                     // Convert Markdown to HTML using marked.js
                     const html = DOMPurify.sanitize(marked.parse(markdown));;
     
