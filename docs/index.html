@@ -13,7 +13,8 @@
 
 
             // Bugfix for dark mode in md file
-            var element = document.getElementsByClassName("markdown-styles")[0]
+            var element = document.getElementsByClassName("markdown-styles")
+            console.log(element)
             var firstChild = element.firstChild
             element.remove(firstChild)
         }
