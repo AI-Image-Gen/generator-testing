@@ -16,7 +16,7 @@
 
 ## 💬 Input strings
 🌐 *Example use:*
-```json
+```json\n
 "input": "{REPO}"
 ```
 | 🔢 Input {}   | 🛸 Meaning              | 🔥 Side notes   |
@@ -26,8 +26,8 @@
 <details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px; margin-bottom: 10px">
 <summary>
 
-```json
-"input": "{config.Input}"
+```json\n
+"input": "{config.Input}"\n
 ```
 </summary>
 
@@ -40,7 +40,7 @@
 <details style="border: 1px solid #00008B; border-radius: 10px; padding: 7px">
 <summary>
 
-```json
+```json\n
 "input": "{config.models.Input}"
 ```
 </summary>
@@ -60,7 +60,7 @@
 <details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
 <summary>
 
-```json
+```json\n
 "input": "{txt2txt.Input}"
 ```
 </summary>
@@ -81,7 +81,7 @@
 
 🚨 *Default values are used in **previews***  
 
-```json
+```json\n
 {
     "global": {},
     "txt2txt": {},
@@ -95,7 +95,7 @@
 <details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
 <summary>
 
-```json
+```json\n
 "global": {
     "clean_artifacts": true,
     "out_amount": 1,
@@ -112,7 +112,7 @@
 <details style="border: 1px solid #006400; border-radius: 10px; padding: 7px">
 <summary>
 
-```json
+```json\n
 "push": {
     "active": true,
     "imgs_dir": "{REPO}/content/img",
