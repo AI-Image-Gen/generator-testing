@@ -98,3 +98,8 @@ jobs:
       matrix:
         ai: ${{ fromJson(needs.config.outputs.config).txt2img.matrix.ai-models }}
         num: ${{ fromJson(needs.config.outputs.config).txt2img.matrix.nums }}
+    
+    steps:
+      - name: Clone repository
+        if: ${{ fromJson(needs.config.outputs.config).txt2img.active == 'true' }}
+        uses: actions/checkout@v4
