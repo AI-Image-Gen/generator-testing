@@ -3,8 +3,9 @@
 
 🚀 **Look at [`config/settings.json`](https://github.com/AI-Image-Gen/generator/blob/main/config/settings.json) as template**
 
-<details style="border: 1px solid #006400; border-radius: 10px; padding: 7px; margin-bottom: 10px">
+<details style="margin-bottom: 10px">
 <summary> 📖 Variables</summary>
+<div style="margin-left: 10px;">
 
 ## 📔 Types of data
 | 🔢 Input      | 🛸 Type | 🔥 Inputs              |
@@ -23,13 +24,14 @@
 |:-------------:|:-----------------------:|:---------------:|
 |`REPO`         | `str` repository path   |<details><summary>Example</summary> `"repo/path"`</details>|
 
-<details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px; margin-bottom: 10px">
+<details style="margin-bottom: 10px">
 <summary>
 
 ```json
 "input": "{config.Input}"
 ```
 </summary>
+<div style="margin-left: 10px;">
 
 | 🔢 Input | 🛸 Meaning           |🔥 Side notes         |
 |:------------------:|:--------------------:|:--------------------:|
@@ -37,13 +39,14 @@
 |`mix1`              | mix0 + previous ai amount `arr`     | 
 |`mix2`              | mix1 + previous ai amount `arr`     | 
 
-<details style="border: 1px solid #00008B; border-radius: 10px; padding: 7px">
+<details>
 <summary>
 
 ```json
 "input": "{config.models.Input}"
 ```
 </summary>
+<div style="margin-left: 10px;">
 
 🚀 *Will be generated from config/models.json*
 
@@ -54,16 +57,19 @@
 |`img_upscale`              | img_upscale supported AI models `arr` | 
 |`img2vid`              | img2vid supported AI models `arr`     | 
 
+</div>
 </details>
+</div>
 </details>
 
-<details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
+<details>
 <summary>
 
 ```json
 "input": "{txt2txt.Input}"
 ```
 </summary>
+<div style="margin-left: 10px;">
 
 🚀 *Will be generated from config/models.json*
 
@@ -71,11 +77,10 @@
 |:------------------:|:--------------------:|:--------------------:|
 |`prompt`              | AI optimized prompt `str` | <details><summary>Example</summary>`"Generate something"`</details>|
 
-
+</div>
 </details>
-
-
-
+<hr />
+</div>
 </details>  
 
 
