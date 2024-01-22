@@ -7,6 +7,7 @@ RUNNERS_AMOUNT = getenv('RUNNERS_AMOUNT')
 REPO_DIR = getenv('REPO_DIR')
 CONFIG_FOLDER = getenv('CONFIG_FOLDER')
 IS_IMAGE = getenv('IS_IMAGE')
+OUTPUT_TYPE = getenv('OUTPUT_TYPE')
 
 try:
     int_runners_amount = int(RUNNERS_AMOUNT)
@@ -37,4 +38,17 @@ models_list_tmp = [model for model in models.keys()]
 quoted_list = [f'"{element}"' for element in models_list_tmp]
 models_list = dumps(quoted_list).replace(" ", "")
 
-run(f'echo models={models_list  } >> $GITHUB_OUTPUT', shell=True)
+run(f'echo img-models={models_list} >> $GITHUB_OUTPUT', shell=True)
+
+if OUTPUT_TYPE.lower() == "video" and FAST_MODE.lower() == "false":
+    with open(path.join(REPO_DIR, CONFIG_FOLDER, 'models.json'), 'r') as file:
+        data = load(file)
+        models = data["img2vid"]
+
+    models_list_tmp = [model for model in models.keys()]
+    quoted_list = [f'"{element}"' for element in models_list_tmp]
+    models_list = dumps(quoted_list).replace(" ", "")
+else:
+    models_list='[off]'
+    
+run(f'echo vid-models={models_list} >> $GITHUB_OUTPUT', shell=True)

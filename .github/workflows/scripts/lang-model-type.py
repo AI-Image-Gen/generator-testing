@@ -8,7 +8,7 @@ ENH_PROMPT = getenv('ENH_PROMPT')
 
 def from_imput():
     print("Using direct prompt from input.")
-    run(f'echo "{PROMPT}" > prompt.txt')
+    run(f'echo "{PROMPT}" > prompt-0.txt')
 
 def from_imput_enhance(fastMode):
     if(fastMode):
@@ -27,7 +27,7 @@ def autonomous(fastMode):
     run(f'echo auto=true >> $GITHUB_OUTPUT', shell=True)
 
 if IS_IMAGE.strip() == 'true':
-    print("Using image to image enhancing method.")
+    print("Using image as input.")
 
 else:
     if bool(PROMPT.strip()):

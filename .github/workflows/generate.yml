@@ -2,8 +2,8 @@ name: Autonomous generation
 
 on: 
   workflow_dispatch:
-  schedule:
-    - cron: '0 */2 * * *'  # Repeat every 2h
+ # schedule:
+ #   - cron: '0 */2 * * *'  # Repeat every 2h
 
 
 jobs:

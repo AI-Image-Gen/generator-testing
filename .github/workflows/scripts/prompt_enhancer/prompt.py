@@ -21,10 +21,10 @@ with open(path.join(REPO_DIR, CONFIG_FOLDER, 'usedPrompts.json'), 'r') as file:
 
 for num in AMOUNT:
     all_justusedprompts = []
-    justusedprompts = listdir(path.join(REPO_DIR, CONFIG_FOLDER))
+    justusedprompts = listdir(path.join(REPO_DIR, 'prompts'))
     justusedprompts_array = [file for file in justusedprompts if file.endswith(".txt")]
     for txt_file in justusedprompts_array:
-        file_path = path.join(REPO_DIR, CONFIG_FOLDER, txt_file)  # Construct the full file path
+        file_path = path.join(REPO_DIR, 'prompts', txt_file)  # Construct the full file path
         with open(file_path, 'r') as file:
             prompt = file.read()
             all_justusedprompts.append(prompt)
@@ -106,7 +106,7 @@ for num in AMOUNT:
     print('\n\nOutput: ' + response)
     print("\n\nFormatted to: " + result)
 
-    with open(path.join(REPO_DIR, CONFIG_FOLDER, f'prompt-{num}.txt'), 'w') as file:
+    with open(path.join(REPO_DIR, 'prompts', f'prompt-{num}.txt'), 'w') as file:
         file.write(result)
 
 print('Generated all prompt.txt files.')
