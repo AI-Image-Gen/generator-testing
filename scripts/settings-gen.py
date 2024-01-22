@@ -192,7 +192,7 @@ else:
 
 # Save generated config
 settings = {'txt2txt': txt2txt_gen,'txt2img': txt2img_gen,'img2img': img2img_gen, 'img_upscale': img_upscale_gen, 'img2vid': img2vid_gen}
-run(f"mkdir -p {path.join(CONFIG_FOLDER, 'tmp')}")
+run(f"mkdir -p {path.join(CONFIG_FOLDER, 'tmp')}", shell=True, check=True)
 with open(path.join(CONFIG_FOLDER, 'tmp', 'settings.json'), 'w') as file:
     dump(settings, file, indent=2)
 settings_var = dumps(settings).replace(" ", "")
