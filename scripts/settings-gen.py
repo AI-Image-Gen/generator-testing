@@ -1,5 +1,6 @@
 from os import getenv, path
 from json import dumps, dump, load
+from subprocess import run
 
 PROMPT = getenv('PROMPT')
 IS_IMAGE = getenv('IS_IMAGE').lower()
@@ -191,12 +192,10 @@ else:
 
 # Save generated config
 settings = {'txt2txt': txt2txt_gen,'txt2img': txt2img_gen,'img2img': img2img_gen, 'img_upscale': img_upscale_gen, 'img2vid': img2vid_gen}
-
+run(f"mkdir -p {path.join(CONFIG_FOLDER, 'tmp')}")
 with open(path.join(CONFIG_FOLDER, 'tmp', 'settings.json'), 'w') as file:
     dump(settings, file, indent=2)
-
 settings_var = dumps(settings).replace(" ", "")
-
 run(f'echo config={settings_var} >> $GITHUB_OUTPUT', shell=True)
 
 print("Configuration for workflow set")
