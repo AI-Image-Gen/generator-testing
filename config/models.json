@@ -24,19 +24,18 @@
             "ext": "safetensors",
             "inference_count": 20
          }
-      }
+      },
+      "online": {}
    },
 
    "img2img": {
-      "offline": {
-
-      }
+      "offline": {},
+      "online": {}
    },
 
    "img2vid": {
-      "offline": {
-
-      }
+      "offline": {},
+      "online": {}
    },
 
    "txt2txt": {
@@ -62,6 +61,7 @@
             "inference_script": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN/master/inference_realesrgan.py",
             "repo_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth"   
          }
-      }
+      },
+      "online": {}
    }
 }
