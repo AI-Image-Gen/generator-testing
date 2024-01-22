@@ -13,13 +13,9 @@
 
 
             // Bugfix for dark mode in md file
-            var elements = document.getElementsByClassName("markdown-styles");
-            for (var i = 0; i < elements.length; i++) {
-                var element = elements[i];
-                var innerHTML = element.innerHTML;
-                innerHTML = innerHTML.replace('<style>:host{display:block;position:relative;contain:content;}:host([hidden]){display:none;}</style>', '');
-                element.innerHTML = innerHTML;
-            }
+            var element = document.getElementsByClassName("markdown-styles")[0]
+            var firstChild = elements.firstChild
+            element.remove(firstChild)
         }
         
         window.addEventListener('load', afterLoad);
