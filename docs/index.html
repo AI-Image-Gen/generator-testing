@@ -4,33 +4,250 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usage of generator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js"></script> 
     <script src="./external/prism.js"></script>   
     <link rel="stylesheet" href="./external/prism.css" />
-    <script>
-        window.onload = function () {
-            // Fetch the Markdown file
-            fetch('USAGE.md')
-                .then(response => response.text())
-                .then(markdown => {
-                    marked.setOptions({
-                        highlight: function(code, lang) {
-                            console.log(1);
-                            return Prism.highlight(code, Prism.languages[lang], lang);
-                        }
-                    });
-                    // Convert Markdown to HTML using marked.js
-                    const html = DOMPurify.sanitize(marked.parse(markdown));;
-    
-                    // Append the HTML to the body
-                    document.body.innerHTML = html;
-                })
-                .catch(error => console.error('Error fetching Markdown file:', error));
-        };
-    </script>
 </head>
 <body>
+    <h1 id="🍹-table-of-usage">🍹 Table of usage</h1>
+    <h2 id="🛸-custom-settingsjson-file">🛸 Custom settings.json file</h2>
+    <p>🚀 <strong>Look at <a href="https://github.com/AI-Image-Gen/generator/blob/main/config/settings.json"><code>config/settings.json</code></a> as template</strong></p>
+    
+    <details style="border: 1px solid #006400; border-radius: 10px; padding: 7px; margin-bottom: 10px">
+        <summary> 📖 Variables</summary>
 
+        <h2 id="📔-types-of-data">📔 Types of data</h2>
+        <table>
+            <thead><tr>
+                <th align="center">🔢 Input</th>
+                <th align="center">🛸 Type</th>
+                <th align="center">🔥 Inputs</th>
+               
+            </tr></thead>
+            <tbody><tr>
+                <td align="center"><code>bool</code></td>
+                <td align="center">boolean</td>
+                <td align="center"><code>true</code> or <code>false</code></td>
+            </tr>
+            <tr>
+                <td align="center"><code>int</code></td>
+                <td align="center">integer</td>
+                <td align="center">any <code>number</code></td>
+            </tr>
+            <tr>
+                <td align="center"><code>str</code></td>
+                <td align="center">string</td>
+                <td align="center">any <code>characters</code></td>
+            </tr>
+            <tr>
+                <td align="center"><code>arr</code></td>
+                <td align="center">array</td>
+                <td align="center">array of some <code>input</code>s</td>
+            </tr></tbody>
+        </table>
+    
+        <h2 id="💬-input-strings">💬 Input strings</h2>
+        <p>🌐 <em>Example use:</em></p>
+        <pre>
+            <code class="language-json">
+                "input": "{REPO}""
+            </code>
+        </pre>
+        <table>
+            <thead><tr>
+                <th align="center">🔢 Input {}</th>
+                <th align="center">🛸 Meaning</th>
+                <th align="center">🔥 Side notes</th>
+            </tr></thead>
+        <tbody><tr>
+            <td align="center"><code>REPO</code></td>
+            <td align="center"><code>str</code> repository path</td>
+            <td align="center"><details><summary>Example</summary> <code>&quot;repo/path&quot;</code></details></td>
+        </tr></tbody>
+    </table>
+    
+    <details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px; margin-bottom: 10px">
+    <summary>
+
+    <pre><code class="language-json">&quot;input&quot;: &quot;{config.Input}&quot;
+    </code></pre>
+    </summary>
+
+    <table>
+    <thead>
+    <tr>
+    <th align="center">🔢 Input</th>
+    <th align="center">🛸 Meaning</th>
+    <th align="center">🔥 Side notes</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+    <td align="center"><code>mix0</code></td>
+    <td align="center">Outputs amount <code>arr</code></td>
+    <td align="center"><details><summary>Example</summary><code>[0, 1]</code> for <br><code>out_amount: 2</code></details></td>
+    </tr>
+    <tr>
+    <td align="center"><code>mix1</code></td>
+    <td align="center">mix0 + previous ai amount <code>arr</code></td>
+    <td align="center"></td>
+    </tr>
+    <tr>
+    <td align="center"><code>mix2</code></td>
+    <td align="center">mix1 + previous ai amount <code>arr</code></td>
+    <td align="center"></td>
+    </tr>
+    </tbody></table>
+    <details style="border: 1px solid #00008B; border-radius: 10px; padding: 7px">
+    <summary>
+
+    <pre><code class="language-json">&quot;input&quot;: &quot;{config.models.Input}&quot;
+    </code></pre>
+    </summary>
+
+    <p>🚀 <em>Will be generated from config/models.json</em></p>
+    <table>
+    <thead>
+    <tr>
+    <th align="center">🔢 Input</th>
+    <th align="center">🛸 Meaning</th>
+    <th align="center">🔥 Side notes</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+    <td align="center"><code>txt2img</code></td>
+    <td align="center">txt2img supported AI models <code>arr</code></td>
+    <td align="center"><details><summary>Example</summary><code>[&quot;sd-v1.5&quot;]</code></details></td>
+    </tr>
+    <tr>
+    <td align="center"><code>img2img</code></td>
+    <td align="center">img2img supported AI models <code>arr</code></td>
+    <td align="center"></td>
+    </tr>
+    <tr>
+    <td align="center"><code>img_upscale</code></td>
+    <td align="center">img_upscale supported AI models <code>arr</code></td>
+    <td align="center"></td>
+    </tr>
+    <tr>
+    <td align="center"><code>img2vid</code></td>
+    <td align="center">img2vid supported AI models <code>arr</code></td>
+    <td align="center"></td>
+    </tr>
+    </tbody></table>
+    </details>
+    </details>
+
+    <details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
+    <summary>
+
+    <pre><code class="language-json">&quot;input&quot;: &quot;{txt2txt.Input}&quot;
+    </code></pre>
+    </summary>
+
+    <p>🚀 <em>Will be generated from config/models.json</em></p>
+    <table>
+    <thead>
+    <tr>
+    <th align="center">🔢 Input</th>
+    <th align="center">🛸 Meaning</th>
+    <th align="center">🔥 Side notes</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+    <td align="center"><code>prompt</code></td>
+    <td align="center">AI optimized prompt <code>str</code></td>
+    <td align="center"><details><summary>Example</summary><code>&quot;Generate something&quot;</code></details></td>
+    </tr>
+    </tbody></table>
+    </details>
+
+
+
+    </details>  
+
+
+    <p>🚨 <em>Default values are used in <strong>previews</strong></em>  </p>
+    <pre><code class="language-json">{
+        &quot;global&quot;: {},
+        &quot;txt2txt&quot;: {},
+        &quot;txt2img&quot;: {},
+        &quot;img2img&quot;: {},
+        &quot;img_upscale&quot;: {},
+        &quot;img2vid&quot;: {}
+    }
+    </code></pre>
+    <details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
+    <summary>
+
+    <pre><code class="language-json">&quot;global&quot;: {
+        &quot;clean_artifacts&quot;: true,
+        &quot;out_amount&quot;: 1,
+        &quot;push&quot;: {}
+    }
+    </code></pre>
+    </summary>
+
+    <table>
+    <thead>
+    <tr>
+    <th align="center">⚡ Setting</th>
+    <th align="center">🔢 Input</th>
+    <th align="center">🔥 Description</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+    <td align="center"><code>clean_artifacts</code></td>
+    <td align="center"><code>bool</code></td>
+    <td align="center">Delete temporary artifacts?</td>
+    </tr>
+    <tr>
+    <td align="center"><code>out_amount</code></td>
+    <td align="center"><code>int</code><br>in <strong>1</strong>-<strong>10</strong> range</td>
+    <td align="center">How many prompts should be called?<details style="border: 1px solid; border-radius: 10px; padding: 2px"><summary><em>Limitations</em> 🚧</summary>Edit available only with<br><strong>txt2txt</strong> <code>active: true</code></details></td>
+    </tr>
+    </tbody></table>
+    <details style="border: 1px solid #006400; border-radius: 10px; padding: 7px">
+    <summary>
+
+    <pre><code class="language-json">&quot;push&quot;: {
+        &quot;active&quot;: true,
+        &quot;imgs_dir&quot;: &quot;{REPO}/content/img&quot;,
+        &quot;vids_dir&quot;: &quot;{REPO}/content/vid&quot;,
+        &quot;prompt_dir&quot;: &quot;{REPO}/content/prompts&quot;,
+    }
+    </code></pre>
+    </summary>
+
+    <table>
+    <thead>
+    <tr>
+    <th align="center">⚡ Setting</th>
+    <th align="center">🔢 Input</th>
+    <th align="left">🔥 Description</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+    <td align="center"><code>active</code></td>
+    <td align="center"><code>bool</code></td>
+    <td align="left">Push to repository?</td>
+    </tr>
+    <tr>
+    <td align="center"><code>imgs_dir</code></td>
+    <td align="center"><code>str</code></td>
+    <td align="left">Images push path</td>
+    </tr>
+    <tr>
+    <td align="center"><code>vids_dir</code></td>
+    <td align="center"><code>str</code></td>
+    <td align="left">Videos push path</td>
+    </tr>
+    <tr>
+    <td align="center"><code>prompt_dir</code></td>
+    <td align="center"><code>str</code></td>
+    <td align="left">Prompts push path</td>
+    </tr>
+    </tbody></table>
+    </details>
+
+    </details>
 </body>
 </html>

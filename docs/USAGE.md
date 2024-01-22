@@ -16,8 +16,9 @@
 
 ## 💬 Input strings
 🌐 *Example use:*
-```json\n"input": "{REPO}"\n```\n
-
+```json
+"input": "{REPO}"
+```
 | 🔢 Input {}   | 🛸 Meaning              | 🔥 Side notes   |
 |:-------------:|:-----------------------:|:---------------:|
 |`REPO`         | `str` repository path   |<details><summary>Example</summary> `"repo/path"`</details>|
@@ -25,7 +26,9 @@
 <details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px; margin-bottom: 10px">
 <summary>
 
-```json\n"input": "{config.Input}"\n```\n
+```json
+"input": "{config.Input}"
+```
 </summary>
 
 | 🔢 Input | 🛸 Meaning           |🔥 Side notes         |
@@ -37,7 +40,9 @@
 <details style="border: 1px solid #00008B; border-radius: 10px; padding: 7px">
 <summary>
 
-```json\n"input": "{config.models.Input}"\n```\n
+```json
+"input": "{config.models.Input}"
+```
 </summary>
 
 🚀 *Will be generated from config/models.json*
@@ -55,7 +60,9 @@
 <details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
 <summary>
 
-```json\n"input": "{txt2txt.Input}"\n```\n
+```json
+"input": "{txt2txt.Input}"
+```
 </summary>
 
 🚀 *Will be generated from config/models.json*
@@ -74,12 +81,27 @@
 
 🚨 *Default values are used in **previews***  
 
-```json\n{"global": {},\n"txt2txt": {},\n"txt2img": {},\n"img2img": {},\,"img_upscale": {},\n"img2vid": {}\n}\n```\n
+```json
+{
+    "global": {},
+    "txt2txt": {},
+    "txt2img": {},
+    "img2img": {},
+    "img_upscale": {},
+    "img2vid": {}
+}
+```
 
 <details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
 <summary>
 
-```json\n"global": {\n"clean_artifacts": true,\n"out_amount": 1,\n"push": {}\n}\n```\n
+```json
+"global": {
+    "clean_artifacts": true,
+    "out_amount": 1,
+    "push": {}
+}
+```
 </summary>
 
 | ⚡ Setting      | 🔢 Input          | 🔥 Description  |
@@ -90,7 +112,14 @@
 <details style="border: 1px solid #006400; border-radius: 10px; padding: 7px">
 <summary>
 
-```json\n"push": {\n"active": true,\n"imgs_dir": "{REPO}/content/img",\n"vids_dir": "{REPO}/content/vid",\n"prompt_dir": "{REPO}/content/prompts",\n}\n```\n
+```json
+"push": {
+    "active": true,
+    "imgs_dir": "{REPO}/content/img",
+    "vids_dir": "{REPO}/content/vid",
+    "prompt_dir": "{REPO}/content/prompts",
+}
+```
 
 </summary>
 
