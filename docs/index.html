@@ -16,8 +16,6 @@
                         highlight: function(code, lang) {
                             if (prism.languages[lang]) {
                                 return prism.highlight(code, prism.languages[lang], lang);
-                            } else {
-                                return code;
                             }
                         }
                     });
