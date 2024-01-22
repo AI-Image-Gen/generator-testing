@@ -99,7 +99,7 @@
 }
 ```
 
-<details style="border: 1px solid; border-radius: 10px; padding: 7px">
+<div style="border: 1px solid; border-radius: 10px; padding: 7px">
 <summary>
 
 ```json
@@ -139,4 +139,4 @@
 
 </details>
 
-</details>
+</div>
