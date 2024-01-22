@@ -1,0 +1,19 @@
+.darkmode--activated h1, .darkmode--activated h2, .darkmode--activated p, .darkmode--activated summary, .darkmode--activated  {
+    color: #ffffff;
+}
+
+.darkmode--activated pre {
+    background-color: black;
+}
+
+.darkmode--activated .language-json .property {
+    color: red;
+}
+
+.darkmode--activated .language-json .operator {
+    color: #ffffff;
+}
+
+.darkmode--activated .language-json .string {
+    color: greenyellow;
+}
