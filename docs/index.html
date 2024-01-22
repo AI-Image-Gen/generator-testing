@@ -7,22 +7,27 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@2/dist/zero-md.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1/lib/darkmode-js.min.js"></script>
     <script>
-        function addDarkmodeWidget() {
+        function afterLoad() {
             const darkmode =  new Darkmode();
             darkmode.showWidget();
 
-            console.log("Dark mode: " + darkmode.isActivated())
+
+            // Bugfix for dark mode in md file
+            var elements = document.getElementsByClassName("markdown-styles");
+            for (var i = 0; i < elements.length; i++) {
+                var element = elements[i];
+                var innerHTML = element.innerHTML;
+                innerHTML = innerHTML.replace('<style>:host{display:block;position:relative;contain:content;}:host([hidden]){display:none;}</style>', '');
+                element.innerHTML = innerHTML;
+            }
         }
         
-        window.addEventListener('load', addDarkmodeWidget);
+        window.addEventListener('load', afterLoad);
 
     </script>
 </head>
 <body>
     <zero-md src="USAGE.md">
-        <template data-merge="prepend">
-            <style></style>
-        </template>
         <template data-merge="append">
             <link rel="stylesheet" href="md-style.css" />
         </template>
