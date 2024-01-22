@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usage of generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+</body>
+</html>
+
+<script>
+    window.onload = function () {
+        // Fetch the Markdown file
+        fetch('example.md')
+            .then(response => response.text())
+            .then(markdown => {
+                // Convert Markdown to HTML using marked.js
+                const html = marked(markdown);
+
+                // Append the HTML to the body
+                document.body.innerHTML = html;
+            })
+            .catch(error => console.error('Error fetching Markdown file:', error));
+    };
+</script>

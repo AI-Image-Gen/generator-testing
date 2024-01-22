@@ -3,9 +3,8 @@
 
 🚀 **Look at [`config/settings.json`](https://github.com/AI-Image-Gen/generator/blob/main/config/settings.json) as template**
 
-<details>
+<details style="border: 1px solid #006400; border-radius: 10px; padding: 7px; margin-bottom: 10px">
 <summary> 📖 Variables</summary>
-<div style="border: 1px solid; border-radius: 10px; padding: 7px; margin-bottom: 10px">
 
 ## 📔 Types of data
 | 🔢 Input      | 🛸 Type | 🔥 Inputs              |
@@ -24,7 +23,7 @@
 |:-------------:|:-----------------------:|:---------------:|
 |`REPO`         | `str` repository path   |<details><summary>Example</summary> `"repo/path"`</details>|
 
-<details>
+<details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px; margin-bottom: 10px">
 <summary>
 
 ```json
@@ -32,23 +31,19 @@
 ```
 </summary>
 
-<div style="border: 1px solid; border-radius: 10px; padding: 7px; margin-bottom: 10px">
-
 | 🔢 Input | 🛸 Meaning           |🔥 Side notes         |
 |:------------------:|:--------------------:|:--------------------:|
 |`mix0`              | Outputs amount `arr` | <details><summary>Example</summary>`[0, 1]` for <br>`out_amount: 2`</details>|
 |`mix1`              | mix0 + previous ai amount `arr`     | 
 |`mix2`              | mix1 + previous ai amount `arr`     | 
 
-<details>
+<details style="border: 1px solid #00008B; border-radius: 10px; padding: 7px">
 <summary>
 
 ```json
 "input": "{config.models.Input}"
 ```
 </summary>
-
-<div style="border: 1px solid; border-radius: 10px; padding: 7px">
 
 🚀 *Will be generated from config/models.json*
 
@@ -59,19 +54,16 @@
 |`img_upscale`              | img_upscale supported AI models `arr` | 
 |`img2vid`              | img2vid supported AI models `arr`     | 
 
-</div>
 </details>
-</div>
 </details>
 
-<details>
+<details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
 <summary>
 
 ```json
 "input": "{txt2txt.Input}"
 ```
 </summary>
-<div style="border: 1px solid; border-radius: 10px; padding: 7px">
 
 🚀 *Will be generated from config/models.json*
 
@@ -79,10 +71,11 @@
 |:------------------:|:--------------------:|:--------------------:|
 |`prompt`              | AI optimized prompt `str` | <details><summary>Example</summary>`"Generate something"`</details>|
 
-</div>
+
 </details>
 
-</div>
+
+
 </details>  
 
 
@@ -99,7 +92,7 @@
 }
 ```
 
-<div style="border: 1px solid; border-radius: 10px; padding: 7px">
+<details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
 <summary>
 
 ```json
@@ -139,4 +132,4 @@
 
 </details>
 
-</div>
+</details>
