@@ -1,12 +1,6 @@
 # 🎉 AI img gen
 
-## 🍹 Images are under `/img`
-
-**`abc`-`x`-`defghi`.jpg**
-
-## 💬 Prompts are under `/img/prompts`
-
-**`abc`-`defghi`.txt**
+## 🍹 USAGE [LINK](https://ai-image-gen.github.io/generator-testing/)
 
 ## 🛸 Naming description
 
