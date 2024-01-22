@@ -5,7 +5,7 @@
 
 <details>
 <summary> 📖 Variables</summary>
-<div style="border: 1px solid #006400; border-radius: 10px; padding: 7px; margin-bottom: 10px">
+<div style="border: 1px solid; border-radius: 10px; padding: 7px; margin-bottom: 10px">
 
 ## 📔 Types of data
 | 🔢 Input      | 🛸 Type | 🔥 Inputs              |
@@ -32,7 +32,7 @@
 ```
 </summary>
 
-<div style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px; margin-bottom: 10px">
+<div style="border: 1px solid; border-radius: 10px; padding: 7px; margin-bottom: 10px">
 
 | 🔢 Input | 🛸 Meaning           |🔥 Side notes         |
 |:------------------:|:--------------------:|:--------------------:|
@@ -48,7 +48,7 @@
 ```
 </summary>
 
-<div style="border: 1px solid #00008B; border-radius: 10px; padding: 7px">
+<div style="border: 1px solid; border-radius: 10px; padding: 7px">
 
 🚀 *Will be generated from config/models.json*
 
@@ -71,7 +71,7 @@
 "input": "{txt2txt.Input}"
 ```
 </summary>
-<div style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
+<div style="border: 1px solid; border-radius: 10px; padding: 7px">
 
 🚀 *Will be generated from config/models.json*
 
@@ -99,7 +99,7 @@
 }
 ```
 
-<details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
+<details style="border: 1px solid; border-radius: 10px; padding: 7px">
 <summary>
 
 ```json
