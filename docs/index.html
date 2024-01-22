@@ -16,11 +16,8 @@
                 .then(markdown => {
                     marked.setOptions({
                         highlight: function(code, lang) {
-                            marked.setOptions({
-                                highlight: function (code, lang) {
-                                    return Prism.highlight(code, Prism.languages[lang], lang);
-                                }
-                            });
+                            console.log(1);
+                            return Prism.highlight(code, Prism.languages[lang], lang);
                         }
                     });
                     // Convert Markdown to HTML using marked.js
