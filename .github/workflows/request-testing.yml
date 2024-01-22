@@ -77,7 +77,7 @@ jobs:
     - name: Upload settings
       uses: actions/upload-artifact@v4
       with:
-        name: job settings
+        name: settings
         path: config/tmp/settings.json
 
   txt2txt:
