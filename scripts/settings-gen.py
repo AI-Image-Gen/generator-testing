@@ -55,7 +55,7 @@ def get_model_list(models):
     models_list = dumps(quoted_list).replace(" ", "")
     return models_list
 
-with open(path.join(CONFIG_FOLDER + 'models.json'), 'r') as file:
+with open(path.join(CONFIG_FOLDER, 'models.json'), 'r') as file:
     data = load(file)
 
 txt2img_AIs = get_model_list(data["txt2img"])
