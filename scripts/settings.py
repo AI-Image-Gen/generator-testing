@@ -1,29 +1,6 @@
-from os import getenv, path
+from os import path
 from json import dumps, dump, load
 from subprocess import run
-
-PROMPT = getenv('PROMPT')
-IS_IMAGE = getenv('IS_IMAGE').lower()
-ENHANCE_PROMPT = getenv('ENHANCE_PROMPT').lower()
-WIDTH = getenv('WIDTH')
-HEIGHT = getenv('HEIGHT')
-UPSCALE = getenv('UPSCALE').lower()
-OUT_TYPE = getenv('OUT_TYPE').lower()
-DISPATCHED_BY = getenv('DISPATCHED_BY').lower()
-MULTIPLIER = getenv('MULTIPLIER')
-CONFIG_FOLDER = getenv('CONFIG_FOLDER')
-
-# Autonomous
-if DISPATCHED_BY != 'workflow_dispatch':
-    print('Autonomous mode on.')
-    PROMPT=""
-    IS_IMAGE="false"
-    ENHANCE_PROMPT="true"
-    WIDTH="768"
-    HEIGHT="768"
-    UPSCALE="3"
-    OUT_TYPE="image"
-    MULTIPLIER="1"
 
 # Make values in range
 def check_min_max(var1, minim, maxim):
@@ -47,16 +24,15 @@ HEIGHT = check_min_max(HEIGHT, 256, 1920)
 WIDTH = check_min_max(WIDTH, 256, 1920)
 
 txt2txt_gen = {'active': 'false', 'prompt': '', 'num': 1}
-txt2img_gen = {'active': 'false', 'height': '768', 'width': '768', 'matrix': {'models': [0], 'nums': [0]}}
-img2img_gen = {'active': 'false', 'download': '', 'matrix': {'models': [0], 'nums': [0], 'txt2img': [0]}}
-img_upscale_gen = {'active': 'false', 'download': '', 'upscale': '3', 'matrix': {'models': [0], 'nums': [0], 'txt2img': [0], 'img2img': [0]}}
-img2vid_gen = {'active': 'false', 'download': '', 'matrix': {'models': [0], 'nums': [0], 'txt2img': [0], 'img2img': [0]}}
+txt2img_gen = {'active': 'false', 'prompt': '', 'height': '768', 'width': '768', 'matrix': {'models': [0], 'nums': [0]}}
+img2img_gen = {'active': 'false', 'height': '768', 'width': '768', 'download': '', 'matrix': {'models': [0], 'nums': [0], 'txt2img': [0]}}
+img_upscale_gen = {'active': 'false', 'download': '', 'upscale': '3', 'matrix': {'models': [0], 'nums': [0], 'previous': [0]}}
+img2vid_gen = {'active': 'false', 'download': '', 'matrix': {'models': [0], 'nums': [0], 'previous': [0]}}
 
 # List AI models
 def get_model_list(models):
-    models_list_tmp_1 = [model for model in models["online"].keys()]
-    models_list_tmp_2 = [model for model in models["offline"].keys()]
-    models_list = dumps(models_list_tmp_1+models_list_tmp_2).replace(" ", "")
+    models_list_tmp = [model for model in models.keys()]
+    models_list = dumps(models_list_tmp).replace(" ", "")
     return models_list
 
 with open(path.join(CONFIG_FOLDER, 'models.json'), 'r') as file:
@@ -71,27 +47,28 @@ upscale_AIs = get_model_list(data["upscaler"])
 #  Nice config generator
 
 #   Enhancer, * => on
-#   txt=>img: txt? => txt?* => img => img* =? upscaler
+#   txt=>img: txt? => txt?* => img => =? upscaler
 #   img=>img: img => img*/upscaler =? upscaler
 #   img=>vid: img => img* => vid
-#   txt=>vid: txt? => txt?* => img => img* => vid
+#   txt=>vid: txt? => txt?* => img => vid
 
 # Prompt enhancer on
 if ENHANCE_PROMPT == 'true':
 
-    img2img_gen["active"] = 'true'
-    img2img_gen["matrix"]["models"] = img2img_AIs
-
     # Input => image
     if IS_IMAGE == 'true':
             
+        img2img_gen["active"] = 'true'
+        img2img_gen["matrix"]["models"] = img2img_AIs
         img2img_gen["download"] = PROMPT
+        img2img_gen["height"] = HEIGHT
+        img2img_gen["width"] = WIDTH
 
         # Output => video
         if OUT_TYPE == 'video':
             img2vid_gen["active"] = 'true'
             img2vid_gen["matrix"]["models"] = img2vid_AIs
-            img2vid_gen["matrix"]["img2img"] = img2img_AIs
+            img2vid_gen["matrix"]["previous"] = img2img_AIs
 
         # Output => image
         else:
@@ -101,7 +78,7 @@ if ENHANCE_PROMPT == 'true':
                 img_upscale_gen["active"] = 'true'
                 img_upscale_gen["upscale"] = UPSCALE
                 img_upscale_gen["matrix"]["models"] = upscale_AIs
-                img_upscale_gen["matrix"]["img2img"] = img2img_AIs
+                img_upscale_gen["matrix"]["previous"] = img2img_AIs
 
     # Input => normal prompt
     else:
@@ -116,16 +93,12 @@ if ENHANCE_PROMPT == 'true':
         txt2img_gen['matrix']["nums"] = MULTIPLIER_ARRAY
         txt2img_gen['matrix']["models"] = txt2img_AIs
 
-        img2img_gen["matrix"]["nums"] = MULTIPLIER_ARRAY
-        img2img_gen["matrix"]["txt2img"] = txt2img_AIs
-
         # Output => video
         if OUT_TYPE == 'video':
             img2vid_gen["active"] = 'true'
             img2vid_gen["matrix"]["nums"] = MULTIPLIER_ARRAY
             img2vid_gen["matrix"]["models"] = img2vid_AIs
-            img2vid_gen["matrix"]["txt2img"] = txt2img_AIs
-            img2vid_gen["matrix"]["img2img"] = img2img_AIs
+            img2vid_gen["matrix"]["previous"] = txt2img_AIs
 
         # Output => image
         else:
@@ -136,8 +109,7 @@ if ENHANCE_PROMPT == 'true':
                 img_upscale_gen["upscale"] = UPSCALE
                 img_upscale_gen["matrix"]["nums"] = MULTIPLIER_ARRAY
                 img_upscale_gen["matrix"]["models"] = upscale_AIs
-                img_upscale_gen["matrix"]["txt2img"] = txt2img_AIs
-                img_upscale_gen["matrix"]["img2img"] = img2img_AIs
+                img_upscale_gen["matrix"]["previous"] = txt2img_AIs
 
 # Prompt enhancer off
 else:
@@ -170,6 +142,8 @@ else:
         # Bad request, tune input
         if not PROMPT.strip():
             txt2txt_gen["active"] = 'true'
+        else:
+            txt2img_gen['prompt'] = PROMPT
 
         txt2img_gen['active'] = 'true'
         txt2img_gen['height'] = HEIGHT
@@ -180,7 +154,7 @@ else:
         if OUT_TYPE == 'video':
             img2vid_gen["active"] = 'true'
             img2vid_gen["matrix"]["models"] = img2vid_AIs
-            img2vid_gen["matrix"]["txt2img"] = txt2img_AIs
+            img2vid_gen["matrix"]["previous"] = txt2img_AIs
 
         # Output => image
         else:
@@ -190,7 +164,7 @@ else:
                 img_upscale_gen["active"] = 'true'
                 img_upscale_gen["upscale"] = UPSCALE
                 img_upscale_gen["matrix"]["models"] = upscale_AIs
-                img_upscale_gen["matrix"]["txt2img"] = txt2img_AIs
+                img_upscale_gen["matrix"]["previous"] = txt2img_AIs
 
 
 # Save generated config

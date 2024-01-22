@@ -3,45 +3,9 @@ name: Generator from request
 on: 
   workflow_dispatch:
     inputs:
-      prompt:
-        description: Prompt (blank for auto mode)
+      custom_settings:
+        description: Url for custom settings json file
 
-      image:
-        type: boolean
-        description: Is prompt image url?
-
-      enhance_prompt:
-        type: boolean
-        description: | 
-          Enhance prompt by AI?
-          txt=>img: txt? => txt?* => img => img* =? upscale
-          img=>img: img? => img*/upscale =? upscale
-          img=>vid: img? => img* => vid
-          txt=>vid: txt? => txt?* => img => img* => vid
-          * - steps with feature on
-
-      width:
-        type: number
-        description: Width (dividable by 8)
-
-      height:
-        type: number
-        description: Height (dividable by 8)
-
-      upscale:
-        type: choice
-        description: Enhance and upscale width and height
-        options: ['OFF', '2', '3', '4']
-
-      output_type:
-        type: choice
-        description: What to create?
-        options: ['image', 'video']
-      
-      multiplier:
-        type: number
-        description: Images per AI (AI*x, 20 at once max)
-      
 
 jobs:
   config:
@@ -58,21 +22,14 @@ jobs:
       with:
         python-version: 3.11
 
-    - name: Generate flow settings file
+    - name: Check flow settings file
       working-directory: scripts
       id: settings
       env:
-        PROMPT: ${{ github.event.inputs.prompt }}
-        IS_IMAGE: ${{ github.event.inputs.image }}
-        ENHANCE_PROMPT: ${{ github.event.inputs.enhance_prompt }}
-        WIDTH: ${{ github.event.inputs.width }}
-        HEIGHT: ${{ github.event.inputs.height }}
-        UPSCALE: ${{ github.event.inputs.upscale }}
-        OUT_TYPE: ${{ github.event.inputs.output_type }}
-        MULTIPLIER: ${{ github.event.inputs.multiplier }}
+        SETTINGS: ${{ github.event.inputs.custom_settings }}
         CONFIG_FOLDER: '../config'
-        DISPATCHED_BY: ${{ github.event_name }}
-      run: python settings-gen.py
+        
+      run: python settings.py
       
     - name: Upload settings
       uses: actions/upload-artifact@v4

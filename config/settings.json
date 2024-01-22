@@ -1,0 +1,58 @@
+{
+    "global": {
+        "clean_artifacts": true,
+        "out_amount": 1,
+        "push": {
+            "active": true,
+            "dir": "{REPO}/img"
+        }
+    },
+
+    "txt2txt": {
+        "active": true, 
+        "prompt": "Generate prompt for AI image generator, you can't use these prompts: {usedPrompts}",
+        "save_as_used": true
+    },
+    "txt2img": {
+        "active": true, 
+        "prompt": "{txt2txt.prompt}",
+        "height": 768, 
+        "width": 768, 
+        "matrix": {
+            "models": "{config.models.txt2img}",
+            "mix-0": "{config.mix0}"
+        }
+    },
+    "img2img": {
+        "active": false, 
+        "prompt": "",
+        "height": 768, 
+        "width": 768, 
+        "matrix": {
+            "models": "{config.models.img2img}", 
+            "mix-0": "{config.mix0}", 
+            "mix-1" : "{config.mix1}"
+        }
+    },
+    "img_upscale": {
+        "active": false, 
+        "prompt": "",
+        "scale": 3, 
+        "matrix": {
+            "models": "{config.models.img_upscale}", 
+            "mix-0": "{config.mix0}", 
+            "mix-1" : "{config.mix1}",
+            "mix-2" : "{config.mix2}"
+        }
+    },
+    "img2vid": {
+        "active": false, 
+        "prompt": "",
+        "matrix": {
+            "models": "{config.models.img2vid}", 
+            "mix-0": "{config.mix0}", 
+            "mix-1" : "{config.mix1}",
+            "mix-2" : "{config.mix2}"
+        }
+    }
+}
