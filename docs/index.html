@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usage of generator</title>
-    <link rel="stylesheet" href="style.css">
     <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@2/dist/zero-md.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
     <script>
@@ -21,8 +20,8 @@
 </head>
 <body>
     <zero-md src="USAGE.md">
-        <template data-merge="prepend">
-            <link rel="stylesheet" href="style.css" />
+        <template data-merge="append">
+            <link rel="stylesheet" href="md-style.css" />
         </template>
     </zero-md>
 </body>
