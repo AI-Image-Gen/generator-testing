@@ -10,18 +10,16 @@
 </body>
 </html>
 
-<script>
-    window.onload = function () {
-        // Fetch the Markdown file
-        fetch('USAGE.md')
-            .then(response => response.text())
-            .then(markdown => {
-                // Convert Markdown to HTML using marked.js
-                const html = marked(markdown);
-
-                // Append the HTML to the body
-                document.body.innerHTML = html;
-            })
-            .catch(error => console.error('Error fetching Markdown file:', error));
-    };
+<script type="module">
+    import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+    // Fetch the Markdown file
+    fetch('USAGE.md')
+        .then(response => response.text())
+        .then(markdown => {
+            // Convert Markdown to HTML using marked.js
+            const html = marked.parse(markdown);
+            // Append the HTML to the body
+            document.body.innerHTML = html;
+        })
+    .catch(error => console.error('Error fetching Markdown file:', error));
 </script>
