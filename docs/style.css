@@ -28,6 +28,9 @@ pre .small {
     text-align: center;
     overflow-x: auto;
     max-width: 100%;
+    white-space: nowrap;
+    padding: 5px;
+    margin-bottom: 5px;
 }
 .nice code {
     color: rgb(243, 241, 238);
