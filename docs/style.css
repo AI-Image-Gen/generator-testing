@@ -8,6 +8,9 @@ h1 {
 h2 {
     font-size: 30px;
 }
+p  {
+    margin: 10px;
+}
 p, .reqs {
     font-size: 20px;
 }
@@ -18,9 +21,6 @@ a .link {
     font-size: 20px;
     color: rgb(225, 213, 199);
     background-color: rgba(255, 228, 196, 0.236);
-}
-pre .small {
-    font-size: 17px;
 }
 
 .nice {
@@ -39,8 +39,10 @@ pre .small {
     padding: 2px;
     border-radius: 6px;
 }
-.nice .code-format-off {
-    color: #ebeaea;
+.nice .code {
+    padding: 6px 10px;
+}
+.nice .format-off {
     background-color: initial;
     font-size: initial;
     padding: initial;
@@ -65,41 +67,25 @@ pre .small {
     background-color: rgba(235, 88, 35, 0.216);
     border-radius: 10px;
 }
-.nice .code {
-    padding: 6px 10px;
-}
 
-.vars-box {
-    border: 3px solid #b0a330;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-.vars-box .h2-vars {
+.vars-box .sum-txt {
     font-size: 23px;
     font-weight: bold;
 }
-.vars-box pre {
-    font-size: 20px;
-}
-
-.vars-config-box {
+.more-info {
     margin-top: 10px;
-    border: 3px solid #3b9520;
     border-radius: 10px;
     padding: 7px;
 }
-
-.vars-config-models-box {
-    margin-top: 10px;
-    border: 3px solid #0599a7; 
-    border-radius: 10px; 
-    padding: 7px;
+.green {
+    border: 3px solid #3b9520;
 }
-
-.vars-txt2txt-box {
-    margin-top: 10px;
+.blue {
+    border: 3px solid #0599a7; 
+}
+.purple {
     border: 3px solid #6105a7; 
-    border-radius: 10px; 
-    padding: 7px
+}
+.yellow {
+    border: 3px solid #b0a330;
 }

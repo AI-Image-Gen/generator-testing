@@ -12,8 +12,8 @@
     <h1>🍹 Usage of custom settings.json file</h1>
     <h2>🛸 Look at <a href="https://github.com/AI-Image-Gen/generator/blob/main/config/settings.json" target="_blank"><code class="link">config/settings.json</code></a> as template</h2>
     
-    <details class="vars-box">
-        <summary class="h2-vars">📖 Variables</summary>
+    <details class="more-info vars-box yellow">
+        <summary class="sum-txt">📖 Variables</summary>
 
         <h2>📔 Types of data</h2>
         <div class="nice"><table>
@@ -79,7 +79,7 @@
             </tr></tbody>
          </table></div>
 
-        <details class="vars-config-box">
+        <details class="more-info green">
             <summary>
                 <pre><code class="language-json">
                     "input": "{config.Input}"
@@ -115,7 +115,7 @@
                 </tbody>
             </table></div>
 
-            <details class="vars-config-models-box">
+            <details class="more-info blue">
                 <summary>
                     <pre><code class="language-json">
                         "input": "{config.models.Input}"
@@ -158,46 +158,36 @@
             </details>
         </details>
 
-        <details class="vars-txt2txt-box">
+        <details class="more-info purple">
             <summary>
                 <pre><code class="language-json">
                     "input": "{txt2txt.Input}"
                 </code></pre>
             </summary>
 
-            <p>🚀 <em>Generated during workflow</em></p>
-            <p><details class="reqs" open>
-                <summary>🍎 Requirements</summary>
-                <pre><code class="language-json small">
+            <details open>
+                <summary class="reqs">🍎 Requirements</summary>
+                <pre><code class="language-json">
                     "txt2txt": {
                         "active": true
                     }
                 </code></pre>
-            </details></p>
+            </details>
+            <p>🚀 <em>Generated during workflow</em></p>
             <div class="nice"><table>
                 <thead><tr>
                     <th class="limited">🔢 Input</th>
-                    <th>🛸 Meaning</th>
-                    <th>🔥 Side notes</th>
+                    <th class="limited">🛸 Meaning</th>
+                    <th class="limited">🔥 Side notes</th>
                 </tr></thead>
                 <tbody>
                     <tr>
                         <td class="code"><code>prompt</code></td>
                         <td>AI optimized prompt <code>str</code></td>
-                        <td>
-                            <details>
-                                <summary>Example</summary>
-                                <div><code>"Generate capybara"</code></div>
-                            </details>
-                            <details open>
-                                <summary>🚧 Limitations</summary>
-                                <pre><code class="language-json code-format-off">
-                                    "txt2txt": {
-                                        "active": true
-                                    }
-                                </code></pre>
-                            </details>
-                        </td>
+                        <td><details open>
+                            <summary>Example</summary>
+                            <div><code>"Generate capybara"</code></div>
+                        </details></td>
                     </tr>
                 </tbody>
             </table></div>
@@ -205,7 +195,7 @@
     </details>  
 
 
-    <p>🚨 <em>Default values are used in <strong>previews</strong></em>  </p>
+    <p>🚨 <em>Default values are used in <b>previews</b></em> </p>
     <pre><code class="language-json">
         {
             "global": {},
@@ -216,79 +206,118 @@
             "img2vid": {}
         }
     </code></pre>
-    <details style="border: 1px solid #8B8000; border-radius: 10px; padding: 7px">
-    <summary>
 
-    <pre><code class="language-json">global&quot;: {
-        &quot;clean_artifacts&quot;: true,
-        &quot;out_amount&quot;: 1,
-        &quot;push&quot;: {}
-    }
-    </code></pre>
-    </summary>
+    <details class="more-info green">
+        <summary>
+            <pre><code class="language-json">
+                "global": {
+                    "clean_artifacts": true,
+                    "out_amount": 1,
+                    "push": {}
+                }
+            </code></pre>
+        </summary>
 
-    <div class="nice"><table>
-    <thead>
-    <tr>
-    <th>⚡ Setting</th>
-    <th>🔢 Input</th>
-    <th>🔥 Description</th>
-    </tr>
-    </thead>
-    <tbody><tr>
-    <td><code>clean_artifacts</code></td>
-    <td><code>bool</code></td>
-    <td>Delete temporary artifacts?</td>
-    </tr>
-    <tr>
-    <td><code>out_amount</code></td>
-    <td><code>int</code><br>in <strong>1</strong>-<strong>10</strong> range</td>
-    <td>How many prompts should be called?<details style="border: 1px solid; border-radius: 10px; padding: 2px"><summary><em>Limitations</em> 🚧</summary>Edit available only with<br><strong>txt2txt</strong> <code>active: true</code></details></td>
-    </tr>
-    </tbody></table></div>
-    <details style="border: 1px solid #006400; border-radius: 10px; padding: 7px">
-    <summary>
+        <div class="nice"><table>
+            <thead><tr>
+                <th>⚡ Setting</th>
+                <th>🔢 Input</th>
+                <th>🔥 Description</th>
+            </tr></thead>
+            <tbody>
+                <tr>
+                    <td class="code"><code>clean_artifacts</code></td>
+                    <td><code>bool</code></td>
+                    <td>Delete temporary artifacts?</td>
+                </tr>
+                <tr>
+                    <td class="code limited"><code>out_amount</code></td>
+                    <td class="limited">
+                        <code>int</code>
+                        <details open>
+                            <summary>🚧</summary>
+                            <pre><code class="language-">
+                                in range 1 - 10
+                            </code></pre>
+                        </details>
+                    </td>
+                    <td class="limited">
+                        How many prompts should be called?
+                        <details open>
+                            <summary>🚧</summary>
+                            <pre><code class="language-json format-off">
+                                "txt2txt": {
+                                    "active": true
+                                }
+                            </code></pre>
+                        </details>
+                    </td>
+                </tr>
+            </tbody>
+        </table></div>
+    
+        <details class="more-info yellow">
+            <summary>
+                <pre><code class="language-json">
+                    "push": {
+                        "active": true,
+                        "imgs_dir": "{REPO}/content/img",
+                        "vids_dir": "{REPO}/content/vid",
+                        "prompt_dir": "{REPO}/content/prompts",
+                    }
+                </code></pre>
+            </summary>
 
-    <pre><code class="language-json">&quot;push&quot;: {
-        &quot;active&quot;: true,
-        &quot;imgs_dir&quot;: &quot;{REPO}/content/img&quot;,
-        &quot;vids_dir&quot;: &quot;{REPO}/content/vid&quot;,
-        &quot;prompt_dir&quot;: &quot;{REPO}/content/prompts&quot;,
-    }
-    </code></pre>
-    </summary>
+            <div class="nice"><table>
+                <thead><tr>
+                    <th>⚡ Setting</th>
+                    <th>🔢 Input</th>
+                    <th>🔥 Description</th>
+                </tr></thead>
+                <tbody>
+                    <tr>
+                        <td class="code"><code>active</code></td>
+                        <td><code>bool</code></td>
+                        <td>Push to repository?</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><details>
+                            <summary>🚧 Requirements</summary>
+                            <pre><code class="language-json format-off">
+                                "active": true
+                            </code></pre>
+                        </details></td>
+                    </tr>
+                    <tr>
+                        <td class="code"><code>imgs_dir</code></td>
+                        <td><code>str</code></td>
+                        <td>Images push path</td>
+                    </tr>
+                    <tr>
+                        <td class="code"><code>vids_dir</code></td>
+                        <td><code>str</code></td>
+                        <td>Videos push path</td>
+                    </tr>
+                    <tr>
+                        <td class="code"><code>prompt_dir</code></td>
+                        <td><code>str</code></td>
+                        <td>Prompts push path</td>
+                    </tr>
+                </tbody>
+            </table></div>
 
-    <div class="nice"><table>
-    <thead>
-    <tr>
-    <th>⚡ Setting</th>
-    <th>🔢 Input</th>
-    <thalign="left">🔥 Description</th>
-    </tr>
-    </thead>
-    <tbody><tr>
-    <td><code>active</code></td>
-    <td><code>bool</code></td>
-    <tdalign="left">Push to repository?</td>
-    </tr>
-    <tr>
-    <td><code>imgs_dir</code></td>
-    <td><code>str</code></td>
-    <tdalign="left">Images push path</td>
-    </tr>
-    <tr>
-    <td><code>vids_dir</code></td>
-    <td><code>str</code></td>
-    <tdalign="left">Videos push path</td>
-    </tr>
-    <tr>
-    <td><code>prompt_dir</code></td>
-    <td><code>str</code></td>
-    <tdalign="left">Prompts push path</td>
-    </tr>
-    </tbody></table></div>
-    </details>
-
+          
+            <div class="nice"><table>
+                <thead><tr>
+                    <th>⚡ Setting</th>
+                    <th>🔢 Input</th>
+                    <th>🔥 Description</th>
+                </tr></thead>
+                <tbody>
+                  
+                </tbody>
+            </table></div>
+        </details>
     </details>
 </body>
 </html>
