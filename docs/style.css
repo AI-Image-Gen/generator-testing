@@ -1,12 +1,27 @@
 body {
     background-color: #282c34;
     color: #ebeaea;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 h1 {
     font-size: 35px;
+    text-align: center;
+    border: 3px solid rgba(255, 0, 0, 0.778);
+    padding: 20px;
+    border-radius: 20px;
 }
-h2 {
-    font-size: 30px;
+.subtitle {
+    text-align: center;
+    border: 3px solid rgba(21, 255, 0, 0.686);
+    padding: 15px;
+    border-radius: 20px
+}
+h2, .subtitle {
+    font-size: 25px;
 }
 p {
     margin: 10px;
@@ -19,6 +34,13 @@ a .link {
     font-size: 20px;
     color: rgb(225, 213, 199);
     background-color: rgba(255, 228, 196, 0.236);
+}
+table {
+    margin: auto;
+}
+pre {
+    display: flex;
+    justify-content: center;
 }
 
 .nice {
@@ -79,19 +101,19 @@ a .link {
 }
 
 .more-info {
-    margin-top: 10px;
+    margin-top: 7px;
     border-radius: 10px;
     padding: 7px;
 }
 .green {
-    border: 3px solid #3b9520;
+    border: 2px solid #3b9520;
 }
 .blue {
-    border: 3px solid #0599a7; 
+    border: 2px solid #0599a7; 
 }
 .purple {
-    border: 3px solid #6105a7; 
+    border: 2px solid #6105a7; 
 }
 .yellow {
-    border: 3px solid #b0a330;
+    border: 2px solid #b0a330;
 }
