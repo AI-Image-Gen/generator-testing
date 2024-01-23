@@ -38,8 +38,6 @@ a .link {
     background-color: rgba(255, 228, 196, 0.236);
 }
 .pre {
-    justify-content: center;
-    align-items: center;
     width: fit-content;
     margin: auto;
     overflow-x: auto;
