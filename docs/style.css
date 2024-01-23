@@ -1,8 +1,6 @@
 body {
     background-color: #282c34;
     color: #ebeaea;
-    display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -13,12 +11,16 @@ h1 {
     border: 3px solid rgba(255, 0, 0, 0.778);
     padding: 20px;
     border-radius: 20px;
+    width: fit-content;
+    margin: auto;
 }
 .subtitle {
     text-align: center;
     border: 3px solid rgba(21, 255, 0, 0.686);
     padding: 15px;
-    border-radius: 20px
+    border-radius: 20px;
+    width: fit-content;
+    margin: 10px auto;
 }
 h2, .subtitle {
     font-size: 25px;
@@ -35,7 +37,9 @@ a .link {
     color: rgb(225, 213, 199);
     background-color: rgba(255, 228, 196, 0.236);
 }
-table {
+.pre {
+    width: fit-content;
+    max-width: 95%;
     margin: auto;
 }
 pre {
@@ -51,6 +55,8 @@ pre {
     white-space: nowrap;
     padding: 5px 0px;
     margin-bottom: 5px;
+    margin: auto;
+    width: fit-content;
 }
 .nice code {
     color: rgb(243, 241, 238);
@@ -95,15 +101,19 @@ pre {
     color: rgba(255, 255, 0, 0.804);
 }
 
-.vars-box .sum-txt {
+.more-info-main .sum-txt {
     font-size: 23px;
     font-weight: bold;
 }
 
 .more-info {
-    margin-top: 7px;
     border-radius: 10px;
     padding: 7px;
+    margin: 7px auto auto;
+}
+.more-info-main {
+    width: fit-content;
+    max-width: 95%;
 }
 .green {
     border: 2px solid #3b9520;
