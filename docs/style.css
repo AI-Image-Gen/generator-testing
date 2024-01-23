@@ -38,13 +38,10 @@ a .link {
     background-color: rgba(255, 228, 196, 0.236);
 }
 .pre {
-    width: fit-content;
-    max-width: 95%;
-    margin: auto;
-}
-pre {
-    display: flex;
     justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: auto;
 }
 
 .nice {
