@@ -26,6 +26,8 @@ pre .small {
 .nice {
     font-size: 18px;
     text-align: center;
+    overflow-x: auto;
+    max-width: 100%;
 }
 .nice code {
     color: rgb(243, 241, 238);
@@ -89,7 +91,7 @@ pre .small {
     margin-top: 10px;
     border: 3px solid #0599a7; 
     border-radius: 10px; 
-    padding: 7px
+    padding: 7px;
 }
 
 .vars-txt2txt-box {
