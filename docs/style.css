@@ -69,6 +69,9 @@ a .link {
     padding: 3px 6px;
     margin: 7px;
 }
+.nice .fa-circle-info {
+    color: rgba(255, 255, 0, 0.804);
+}
 
 .vars-box .sum-txt {
     font-size: 23px;
