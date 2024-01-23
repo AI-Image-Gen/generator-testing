@@ -67,11 +67,18 @@ a .link {
     background-color: rgba(235, 88, 35, 0.216);
     border-radius: 10px;
 }
+.nice .req {
+    border: 2px solid #b0a3305d; 
+    border-radius: 10px;
+    padding: 3px 6px;
+    margin: 7px;
+}
 
 .vars-box .sum-txt {
     font-size: 23px;
     font-weight: bold;
 }
+
 .more-info {
     margin-top: 10px;
     border-radius: 10px;
