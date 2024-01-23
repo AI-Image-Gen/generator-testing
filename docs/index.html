@@ -13,7 +13,7 @@
     <h1>🍹 Usage of custom settings.json file</h1>
     <h2 class="subtitle">🚀 Look at <a href="https://github.com/AI-Image-Gen/generator/blob/main/config/settings.json" target="_blank"><code class="link">config/settings.json</code></a> as template</h2>
     
-    <details class="more-info more-info-main yellow">
+    <details class="more-info yellow">
         <summary class="sum-txt">📖 Variables</summary>
 
         <h2>📔 Types of data</h2>
@@ -68,7 +68,7 @@
             <thead><tr>
                 <th>🔢 Input</th>
                 <th>🛸 Gives</th>
-                <th>🔥 Side notes</th>
+                <th>🔥 Notes</th>
             </tr></thead>
             <tbody><tr>
                 <td class="code"><code>REPO</code></td>
@@ -81,17 +81,16 @@
          </table></div>
 
         <details class="more-info green">
-            <summary>
-                <div class="pre"><pre><code class="language-json">
-                    "input": "{config.Input}"
-                </code></pre></div>
-            </summary>
+            <summary class="format-code"> <i style="color: greenyellow; font-size: 20px;" class="fa-solid fa-gears"></i>  <code>config</code></summary>
+            <div class="pre"><pre><code class="language-json">
+                "input": "{config.Input}"
+            </code></pre></div>
 
             <div class="nice"><table>
                 <thead><tr>
                     <th>🔢 Input</th>
                     <th>🛸 Meaning</th>
-                    <th>🔥 Side notes</th>
+                    <th>🔥 Notes</th>
                 </tr></thead>
                 <tbody>
                     <tr>
@@ -117,18 +116,17 @@
             </table></div>
 
             <details class="more-info blue">
-                <summary>
-                    <div class="pre"><pre><code class="language-json">
-                        "input": "{config.models.Input}"
-                    </code></pre></div>
-                </summary>
+                <summary class="format-code"> <i style="color: #0599a7; font-size: 20px;" class="fa-solid fa-screwdriver-wrench"></i>  <code>models</code></summary>
+                <div class="pre"><pre><code class="language-json">
+                    "input": "{config.models.Input}"
+                </code></pre></div>
 
                 <p>🚀 <em>Always generated using config/models.json</em></p>
                 <div class="nice"><table>
                     <thead><tr>
                         <th>🔢 Input</th>
                         <th>🛸 Meaning</th>
-                        <th>🔥 Side notes</th>
+                        <th>🔥 Notes</th>
                     </tr></thead>
                     <tbody>
                         <tr>
@@ -160,11 +158,10 @@
         </details>
 
         <details class="more-info purple">
-            <summary>
-                <div class="pre"><pre><code class="language-json">
-                    "input": "{txt2txt.Input}"
-                </code></pre></div>
-            </summary>
+            <summary class="format-code"> <i style="color: #8e35d2; font-size: 20px;" class="fa-solid fa-text-width"></i>  <code>txt2txt</code></summary>
+            <div class="pre"><pre><code class="language-json">
+                "input": "{txt2txt.Input}"
+            </code></pre></div>
 
             <p>🚀 <em>Generated during workflow</em></p>
             <div class="nice"><table>
@@ -172,7 +169,7 @@
                     <tr>
                         <th>🔢 Input</th>
                         <th>🛸 Meaning</th>
-                        <th>🔥 Side notes</th>
+                        <th>🔥 Notes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -211,16 +208,15 @@
         }
     </code></pre></div>
 
-    <details class="more-info more-info-main green">
-        <summary>
-            <div class="pre"><pre><code class="language-json">
-                "global": {
-                    "clean_artifacts": true,
-                    "out_amount": 1,
-                    "push": {}
-                }
-            </code></pre></div>
-        </summary>
+    <details class="more-info green">
+        <summary class="format-code"> <i style="color: greenyellow; font-size: 20px;" class="fa-solid fa-globe"></i>  <code>global</code></summary>
+        <div class="pre"><pre><code class="language-json">
+            "global": {
+                "clean_artifacts": true,
+                "out_amount": 1,
+                "push": {}
+            }
+        </code></pre></div>
 
         <div class="nice"><table>
             <thead><tr>
@@ -260,16 +256,15 @@
         </table></div>
     
         <details class="more-info yellow">
-            <summary>
-                <div class="pre"><pre><code class="language-json">
-                    "push": {
-                        "active": true,
-                        "imgs_dir": "{REPO}/content/img",
-                        "vids_dir": "{REPO}/content/vid",
-                        "prompt_dir": "{REPO}/content/prompts",
-                    }
-                </code></pre></div>
-            </summary>
+            <summary class="format-code"> <i style="color: #efdd36; font-size: 20px;" class="fa-solid fa-cloud-arrow-up"></i>  <code>push</code></summary>
+            <div class="pre"><pre><code class="language-json">
+                "push": {
+                    "active": true,
+                    "imgs_dir": "{REPO}/content/img",
+                    "vids_dir": "{REPO}/content/vid",
+                    "prompt_dir": "{REPO}/content/prompts",
+                }
+            </code></pre></div>
 
             <div class="nice"><table>
                 <thead><tr>
@@ -312,7 +307,9 @@
         </details>
     </details>
 
-
+    <br>
+    <p>Made by LukeMech <i class="fa-regular fa-copyright"></i> 2024</p>
+      
 
 </body>
 </html>
