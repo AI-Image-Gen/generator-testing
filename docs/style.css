@@ -1,0 +1,100 @@
+body {
+    background-color: #282c34;
+    color: #ebeaea;
+}
+h1 {
+    font-size: 35px;
+}
+h2 {
+    font-size: 30px;
+}
+p, .reqs {
+    font-size: 20px;
+}
+summary {
+    cursor: pointer;
+}
+a .link {
+    font-size: 20px;
+    color: rgb(225, 213, 199);
+    background-color: rgba(255, 228, 196, 0.236);
+}
+pre .small {
+    font-size: 17px;
+}
+
+.nice {
+    font-size: 18px;
+    text-align: center;
+}
+.nice code {
+    color: rgb(243, 241, 238);
+    background-color: rgba(161, 124, 75, 0.609);
+    font-size: 17px;
+    padding: 2px;
+    border-radius: 6px;
+}
+.nice .code-format-off {
+    color: #ebeaea;
+    background-color: initial;
+    font-size: initial;
+    padding: initial;
+    border-radius: initial;
+}
+.nice div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.nice th {
+    padding: 5px 10px;
+    background-color: rgba(255, 225, 55, 0.226) ;
+    border-radius: 10px;
+}
+.nice td {
+    padding: 3px 10px;
+    background-color: rgba(240, 226, 221, 0.226);
+    border-radius: 10px;
+}
+.nice .limited {
+    padding: 3px 10px;
+    background-color: rgba(235, 88, 35, 0.216);
+    border-radius: 10px;
+}
+.nice .code {
+    padding: 6px 10px;
+}
+
+.vars-box {
+    border: 3px solid #b0a330;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.vars-box .h2-vars {
+    font-size: 23px;
+    font-weight: bold;
+}
+.vars-box pre {
+    font-size: 20px;
+}
+
+.vars-config-box {
+    margin-top: 10px;
+    border: 3px solid #3b9520;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.vars-config-models-box {
+    margin-top: 10px;
+    border: 3px solid #0599a7; 
+    border-radius: 10px; 
+    padding: 7px
+}
+
+.vars-txt2txt-box {
+    margin-top: 10px;
+    border: 3px solid #6105a7; 
+    border-radius: 10px; 
+    padding: 7px
+}
