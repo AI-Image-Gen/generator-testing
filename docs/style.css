@@ -8,10 +8,8 @@ h1 {
 h2 {
     font-size: 30px;
 }
-p  {
+p {
     margin: 10px;
-}
-p, .reqs {
     font-size: 20px;
 }
 summary {
@@ -63,9 +61,7 @@ a .link {
     border-radius: 10px;
 }
 .nice .limited {
-    padding: 3px 10px;
     background-color: rgba(235, 88, 35, 0.216);
-    border-radius: 10px;
 }
 .nice .req {
     border: 2px solid #b0a3305d; 
