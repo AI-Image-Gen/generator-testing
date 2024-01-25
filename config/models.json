@@ -55,7 +55,7 @@
       }
    },
 
-   "upscaler": {
+   "img_upscale": {
       "realesrgan-x4-plus": {
          "repo_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
          "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],

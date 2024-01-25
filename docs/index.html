@@ -86,13 +86,13 @@
         <h2>💬 Input strings</h2>
         <p>🌐 <em>Example use:</em></p>
         <div class="pre"><pre><code class="language-json">
-            "input": "{config.mix0}"
+            "input": "{global.out_amount}"
         </code></pre></div>
 
         <details class="more-info green">
-            <summary class="format-code"> <i style="color: greenyellow; font-size: 20px;" class="fa-solid fa-gears"></i>  <code>config</code></summary>
+            <summary class="format-code"> <i style="color: greenyellow; font-size: 20px;" class="fa-solid fa-earth-europe"></i>  <code>global</code></summary>
             <div class="pre"><pre><code class="language-json">
-                "input": "{config.Input}"
+                "input": "{global.Input}"
             </code></pre></div>
 
             <div class="nice"><table>
@@ -103,7 +103,7 @@
                 </tr></thead>
                 <tbody>
                     <tr>
-                        <td class="code"><code>mix0</code></td>
+                        <td class="code"><code>out_amount</code></td>
                         <td>Outputs amount <code>arr</code></td>
                         <td><details open>
                             <summary>Example</summary>
@@ -112,60 +112,17 @@
                         </details></td>
                     </tr>
                     <tr>
-                        <td class="code"><code>mix1</code></td>
-                        <td>mix0 + previous ai amount <code>arr</code></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="code"><code>mix2</code></td>
-                        <td>mix1 + previous ai amount <code>arr</code></td>
-                        <td></td>
+                        <td class="code"><code>used_prompts</code></td>
+                        <td>Used prompts <code>arr</code></td>
+                        <td><details>
+                            <summary>Example</summary>
+                            <div><code>["someAIprompt", "someNewerPrompt"]</code></div>
+                        </details></td>
                     </tr>
                 </tbody>
             </table></div>
-
-            <details class="more-info blue">
-                <summary class="format-code"> <i style="color: #0599a7; font-size: 20px;" class="fa-solid fa-screwdriver-wrench"></i>  <code>models</code></summary>
-                <div class="pre"><pre><code class="language-json">
-                    "input": "{config.models.Input}"
-                </code></pre></div>
-
-                <p>🚀 <em>Always generated using config/models.json</em></p>
-                <div class="nice"><table>
-                    <thead><tr>
-                        <th>🔢 Input</th>
-                        <th>🛸 Meaning</th>
-                        <th>🔥 Notes</th>
-                    </tr></thead>
-                    <tbody>
-                        <tr>
-                            <td class="code"><code>txt2img</code></td>
-                            <td>txt2img supported AI models <code>arr</code></td>
-                            <td><details open>
-                                <summary>Example</summary>
-                                <div><code>["sd-v1.5", "sd-xl-v1.0"]</code></div>
-                            </details></td>
-                        </tr>
-                        <tr>
-                            <td class="code"><code>img2img</code></td>
-                            <td>img2img supported AI models <code>arr</code></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="code"><code>img_upscale</code></td>
-                            <td>img_upscale supported AI models <code>arr</code></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="code"><code>img2vid</code></td>
-                            <td>img2vid supported AI models <code>arr</code></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table></div>
-            </details>
         </details>
-
+        
         <details class="more-info purple">
             <summary class="format-code"> <i style="color: #8e35d2; font-size: 20px;" class="fa-solid fa-text-width"></i>  <code>txt2txt</code></summary>
             <div class="pre"><pre><code class="language-json">
@@ -191,11 +148,60 @@
                             </code></pre></div>
                     </details></th></tr>
                     <tr>
-                        <td class="code"><code>prompt</code></td>
-                        <td>AI optimized prompt <code>str</code></td>
-                        <td><details open>
+                        <td class="code"><code>out</code></td>
+                        <td>Generated AI optimized prompt <code>str</code></td>
+                        <td><details>
                             <summary>Example</summary>
-                            <div><code>"Generate capybara"</code></div>
+                            <div><code>"Generate prompt for AI image generator, make sure it's between \" marks. Subject: XD"</code></div>
+                        </details></td>
+                    </tr>
+                    <tr>
+                        <td class="code"><code>prompt</code></td>
+                        <td>Prompt from the provided config file <code>str</code></td>
+                        <td><details>
+                            <summary>Example</summary>
+                            <div><code>"loll"</code></div>
+                        </details></td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </details>
+
+        <details class="more-info blue">
+            <summary class="format-code"> <i style="color: #0599a7; font-size: 20px;" class="fa-solid fa-file-image"></i>  <code>txt2img</code></summary>
+            <div class="pre"><pre><code class="language-json">
+                "input": "{txt2img.Input}"
+            </code></pre></div>
+
+            <div class="nice"><table>
+                <thead><tr>
+                    <th>🔢 Input</th>
+                    <th>🛸 Meaning</th>
+                    <th>🔥 Notes</th>
+                </tr></thead>
+                <tbody>
+                    <tr>
+                        <td class="code"><code>models</code></td>
+                        <td>txt2img supported AI models <code>arr</code></td>
+                        <td><details>
+                            <summary>Example</summary>
+                            <div><code>["sd-xl-v1.0"]</code></div>
+                        </details></td>
+                    </tr>
+                    <tr><th colspan="3" class="limited"><details>
+                        <summary><i class="fa-solid fa-circle-info"></i> Requirements</summary>
+                        <div class="pre"><pre><code class="language-json format-off">
+                                "txt2img": {
+                                    "active": true
+                                }
+                            </code></pre></div>
+                    </details></th></tr>
+                    <tr>
+                        <td class="code"><code>out</code></td>
+                        <td>Generated by this function images path <code>str</code></td>
+                        <td><details>
+                            <summary>Example</summary>
+                            <div><code>"/some/imgs/path/"</code></div>
                         </details></td>
                     </tr>
                 </tbody>
@@ -219,8 +225,7 @@
         <div class="pre"><pre><code class="language-json">
             "global": {
                 "clean_artifacts": true,
-                "out_amount": 1,
-                "push": true
+                "out_amount": 1
             }
         </code></pre></div>
 
@@ -256,11 +261,6 @@
                         </details></div>
                     </td>
                     <td><div>How many prompts should be called?</div></td>
-                </tr>
-                <tr>
-                    <td class="code"><code>push</code></td>
-                    <td><code>bool</code></td>
-                    <td>Push to repository?</td>
                 </tr>
             </tbody>
         </table></div>

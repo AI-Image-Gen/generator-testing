@@ -1,55 +1,57 @@
 {
     "global": {
         "clean_artifacts": true,
-        "out_amount": 1,
-        "push": true
+        "out_amount": 1
     },
 
     "txt2txt": {
         "active": true, 
-        "prompt": "Generate prompt for AI image generator, you can't use these prompts: {usedPrompts}",
+        "prompt": "any. You can't use these prompts: {global.used_prompts}",
+        "prompt_pre": "Generate prompt for AI image generator, make sure it's between \" marks. Subject: {txt2txt.prompt}",
         "save_as_used": true
     },
     "txt2img": {
         "active": true, 
-        "prompt": "{txt2txt.prompt}",
+        "prompt": "{txt2txt.out}",
         "height": 768, 
         "width": 768, 
         "matrix": {
-            "models": "{config.models.txt2img}",
-            "mix-0": "{config.mix0}"
+            "models": "{txt2img.models}",
+            "mix-0": "{global.out_amount}"
         }
     },
     "img2img": {
         "active": false, 
         "prompt": "",
+        "image": "",
         "height": 768, 
         "width": 768, 
         "matrix": {
-            "models": "{config.models.img2img}", 
-            "mix-0": "{config.mix0}", 
-            "mix-1" : "{config.mix1}"
+            "models": "{img2img.models}", 
+            "mix-0": "{global.out_amount}", 
+            "mix-1" : "{txt2img.models}"
         }
     },
     "img_upscale": {
-        "active": false, 
-        "prompt": "",
-        "scale": 3, 
+        "active": true, 
+        "image": "{txt2img.out}",
+        "scale": 3,
         "matrix": {
-            "models": "{config.models.img_upscale}", 
-            "mix-0": "{config.mix0}", 
-            "mix-1" : "{config.mix1}",
-            "mix-2" : "{config.mix2}"
+            "models": "{img_upscale.models}", 
+            "mix-0": "{global.out_amount}", 
+            "mix-1" : "{txt2img.models}",
+            "mix-2" : "{img2img.models}"
         }
     },
     "img2vid": {
         "active": false, 
         "prompt": "",
+        "image": "",
         "matrix": {
-            "models": "{config.models.img2vid}", 
-            "mix-0": "{config.mix0}", 
-            "mix-1" : "{config.mix1}",
-            "mix-2" : "{config.mix2}"
+            "models": "{img2vid.models}", 
+            "mix-0": "{global.out_amount}", 
+            "mix-1" : "{txt2img.models}",
+            "mix-2" : "{img2img.models}"
         }
     }
 }
