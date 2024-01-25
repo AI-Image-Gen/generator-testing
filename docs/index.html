@@ -13,6 +13,31 @@
     <h1>🍹 Usage of custom settings.json file</h1>
     <h2 class="subtitle">🚀 Look at <a href="https://github.com/AI-Image-Gen/generator/blob/main/config/settings.json" target="_blank"><code class="link">config/settings.json</code></a> as template</h2>
     
+    <p>🚨 <em><b>Default</b> values are used in previews</em> </p>
+
+    <div class="nice"><table>
+        <thead>
+            <tr>
+                <th>🏵️ Cell color</th>
+                <th>🛸 If not properly configured</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="limited">Red</td>
+                <td>Gives whole generation error</td>
+            </tr>
+            <tr>
+                <td class="limited-y">Blue</td>
+                <td>Repair or fallback to default value</td>
+            </tr>
+            <tr>
+                <td>Normal</td>
+                <td>Fallback to default value</td>
+            </tr>
+        </tbody>
+    </table></div>
+
     <details class="more-info yellow">
         <summary class="sum-txt">📖 Variables</summary>
 
@@ -61,24 +86,8 @@
         <h2>💬 Input strings</h2>
         <p>🌐 <em>Example use:</em></p>
         <div class="pre"><pre><code class="language-json">
-            "input": "{REPO}"
+            "input": "{config.mix0}"
         </code></pre></div>
-        
-        <div class="nice"><table>
-            <thead><tr>
-                <th>🔢 Input</th>
-                <th>🛸 Gives</th>
-                <th>🔥 Notes</th>
-            </tr></thead>
-            <tbody><tr>
-                <td class="code"><code>REPO</code></td>
-                <td><code>str</code> repository path</td>
-                <td><details open>
-                    <summary>Example</summary> 
-                    <div><code>"repo/path"</code></div>
-                </details></td>
-            </tr></tbody>
-         </table></div>
 
         <details class="more-info green">
             <summary class="format-code"> <i style="color: greenyellow; font-size: 20px;" class="fa-solid fa-gears"></i>  <code>config</code></summary>
@@ -194,9 +203,6 @@
         </details>
     </details>  
 
-
-    <p>🚨 <em><b>Default</b> values are used in previews</em> </p>
-
     <div class="pre"><pre><code class="language-json">
         {
             "global": {},
@@ -214,7 +220,7 @@
             "global": {
                 "clean_artifacts": true,
                 "out_amount": 1,
-                "push": {}
+                "push": true
             }
         </code></pre></div>
 
@@ -231,11 +237,10 @@
                     <td>Delete temporary artifacts?</td>
                 </tr>
                 <tr>
-                    <td class="code limited">
+                    <td class="code limited-y">
                         <code>out_amount</code>
-
                     </td>
-                    <td class="limited">
+                    <td class="limited-y">
                         <div><code>int</code></div>
                         <div class="req"><details>
                             <summary><i class="fa-solid fa-circle-info"></i></summary>
@@ -252,59 +257,13 @@
                     </td>
                     <td><div>How many prompts should be called?</div></td>
                 </tr>
+                <tr>
+                    <td class="code"><code>push</code></td>
+                    <td><code>bool</code></td>
+                    <td>Push to repository?</td>
+                </tr>
             </tbody>
         </table></div>
-    
-        <details class="more-info yellow">
-            <summary class="format-code"> <i style="color: #efdd36; font-size: 20px;" class="fa-solid fa-cloud-arrow-up"></i>  <code>push</code></summary>
-            <div class="pre"><pre><code class="language-json">
-                "push": {
-                    "active": true,
-                    "imgs_dir": "{REPO}/content/img",
-                    "vids_dir": "{REPO}/content/vid",
-                    "prompt_dir": "{REPO}/content/prompts"
-                }
-            </code></pre></div>
-
-            <div class="nice"><table>
-                <thead><tr>
-                    <th>⚡ Setting</th>
-                    <th>🔢 Input</th>
-                    <th>🔥 Description</th>
-                </tr></thead>
-                <tbody>
-                    <tr>
-                        <td class="code"><code>active</code></td>
-                        <td><code>bool</code></td>
-                        <td>Push to repository?</td>
-                    </tr>
-                    <tr>
-                        <th colspan="3" class="limited"><details>
-                            <summary><i class="fa-solid fa-circle-info"></i> Requirements</summary>
-                            <div class="pre"><pre><code class="language-json format-off">
-                                "active": true
-                            </code></pre></div>
-                        </details></th>
-                    </tr>
-                    <tr>
-                        <td class="code"><code>imgs_dir</code></td>
-                        <td><code>str</code></td>
-                        <td>Images push path</td>
-                    </tr>
-                    <tr>
-                        <td class="code"><code>vids_dir</code></td>
-                        <td><code>str</code></td>
-                        <td>Videos push path</td>
-                    </tr>
-                    <tr>
-                        <td class="code"><code>prompt_dir</code></td>
-                        <td><code>str</code></td>
-                        <td>Prompts push path</td>
-                    </tr>
-                </tbody>
-            </table></div>
-
-        </details>
     </details>
 
     <br>

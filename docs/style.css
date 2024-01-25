@@ -39,7 +39,7 @@ a .link {
 }
 .pre {
     width: fit-content;
-    margin: auto;
+    margin: 10px auto;
     overflow-x: auto;
     max-width: 100%;
 }
@@ -87,6 +87,9 @@ a .link {
 }
 .nice .limited {
     background-color: rgba(235, 88, 35, 0.216);
+}
+.nice .limited-y {
+    background-color: rgba(35, 232, 235, 0.216);
 }
 .nice .req {
     border: 2px solid #b0a3305d; 

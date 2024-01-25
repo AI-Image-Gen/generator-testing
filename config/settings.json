@@ -2,12 +2,7 @@
     "global": {
         "clean_artifacts": true,
         "out_amount": 1,
-        "push": {
-            "active": true,
-            "imgs_dir": "{REPO}/content/img",
-            "vids_dir": "{REPO}/content/vid",
-            "prompt_dir": "{REPO}/content/prompts"
-        }
+        "push": true
     },
 
     "txt2txt": {
