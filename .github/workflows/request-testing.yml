@@ -28,7 +28,7 @@ jobs:
       env:
         SETTINGS: ${{ github.event.inputs.custom_settings }}
         CONFIG_FOLDER: '../config'
-      run: python parse_cfg.py
+      run: pip install pillow && python parse_cfg.py
       
     - name: Upload settings
       uses: actions/upload-artifact@v4
