@@ -53,17 +53,17 @@ jobs:
 
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.txt2txt).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2txt).active }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.txt2txt).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2txt).active }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.txt2txt).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2txt).active }}
         working-directory: scripts
         id: out
         env:
@@ -84,17 +84,17 @@ jobs:
     
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.txt2img).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
         uses: actions/checkout@v4
       
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.txt2img).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.txt2img).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
         working-directory: scripts
         id: out
         env:
@@ -116,17 +116,17 @@ jobs:
           
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.img2img).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2img).active }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.img2img).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2img).active }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.img2img).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2img).active }}
         working-directory: scripts
         id: out
         env:
@@ -149,17 +149,17 @@ jobs:
 
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.imgUpscale).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.imgUpscale).active }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.imgUpscale).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.imgUpscale).active }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.imgUpscale).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.imgUpscale).active }}
         working-directory: scripts
         id: out
         env:
@@ -182,17 +182,17 @@ jobs:
 
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.img2vid).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2vid).active }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.img2vid).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2vid).active }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.img2vid).active == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2vid).active }}
         working-directory: scripts
         id: out
         env:
