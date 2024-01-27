@@ -79,7 +79,7 @@ jobs:
 
     strategy:
       matrix:
-        ai: ${{ fromJson(needs.config.outputs.txt2img).ai }}
+        ai: ${{ fromJson(needs.config.outputs.txt2img.ai) }}
         mix0: ${{ fromJson(needs.config.outputs.amount) }}
     
     steps:
