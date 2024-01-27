@@ -17,13 +17,9 @@ jobs:
       amount: ${{ steps.settings.outputs.amount }}
       txt2txt: ${{ steps.settings.outputs.txt2txt }}
       txt2img: ${{ steps.settings.outputs.txt2img }}
-      txt2img_ai: ${{ steps.settings.outputs.txt2img_ai }}
       img2img: ${{ steps.settings.outputs.img2img }}
-      img2img_ai: ${{ steps.settings.outputs.img2img_ai }}
       imgUpscale: ${{ steps.settings.outputs.imgUpscale }}
-      imgUpscale_ai: ${{ steps.settings.outputs.imgUpscale_ai }}
       img2vid: ${{ steps.settings.outputs.img2vid }}
-      img2vid_ai: ${{ steps.settings.outputs.img2vid_ai }}
 
     steps:
     - name: Clone repository
@@ -57,17 +53,17 @@ jobs:
 
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.txt2txt) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2txt).active == 'true' }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.txt2txt) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2txt).active == 'true' }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.txt2txt) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2txt).active == 'true' }}
         working-directory: scripts
         id: out
         env:
@@ -83,22 +79,22 @@ jobs:
 
     strategy:
       matrix:
-        ai: ${{ fromJson(needs.config.outputs.txt2img_ai) }}
+        ai: ${{ fromJson(needs.config.outputs.txt2img).ai }}
         mix0: ${{ fromJson(needs.config.outputs.amount) }}
     
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.txt2img) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2img).active == 'true' }}
         uses: actions/checkout@v4
       
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.txt2img) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2img).active == 'true' }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.txt2img) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.txt2img).active == 'true' }}
         working-directory: scripts
         id: out
         env:
@@ -114,23 +110,23 @@ jobs:
 
     strategy:
       matrix:
-        ai: ${{ fromJson(needs.config.outputs.img2img_ai) }}
+        ai: ${{ fromJson(needs.config.outputs.img2img).ai }}
         mix0: ${{ fromJson(needs.config.outputs.amount) }}
-        mix1: ${{ fromJson(needs.config.outputs.txt2img_ai) }}
+        mix1: ${{ fromJson(needs.config.outputs.txt2img).ai }}
           
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.img2img) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2img).active == 'true' }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.img2img) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2img).active == 'true' }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.img2img) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2img).active == 'true' }}
         working-directory: scripts
         id: out
         env:
@@ -146,24 +142,24 @@ jobs:
 
     strategy:
       matrix:
-        ai: ${{ fromJson(needs.config.outputs.imgUpscale_ai) }}
+        ai: ${{ fromJson(needs.config.outputs.imgUpscale).ai }}
         mix0: ${{ fromJson(needs.config.outputs.amount) }}
-        mix1: ${{ fromJson(needs.config.outputs.txt2img_ai) }}
-        mix2: ${{ fromJson(needs.config.outputs.img2img_ai) }}
+        mix1: ${{ fromJson(needs.config.outputs.txt2img).ai }}
+        mix2: ${{ fromJson(needs.config.outputs.img2img).ai }}
 
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.imgUpscale) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.imgUpscale).active == 'true' }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.imgUpscale) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.imgUpscale).active == 'true' }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.imgUpscale) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.imgUpscale).active == 'true' }}
         working-directory: scripts
         id: out
         env:
@@ -179,24 +175,24 @@ jobs:
 
     strategy:
       matrix:
-        ai: ${{ fromJson(needs.config.outputs.img2vid_ai) }}
+        ai: ${{ fromJson(needs.config.outputs.img2vid).ai }}
         mix0: ${{ fromJson(needs.config.outputs.amount) }}
-        mix1: ${{ fromJson(needs.config.outputs.txt2img_ai) }}
-        mix2: ${{ fromJson(needs.config.outputs.img2img_ai) }}
+        mix1: ${{ fromJson(needs.config.outputs.txt2img).ai }}
+        mix2: ${{ fromJson(needs.config.outputs.img2img).ai }}
 
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.img2vid) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2vid).active == 'true' }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.img2vid) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2vid).active == 'true' }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.img2vid) == 'true' }}
+        if: ${{ fromJson(needs.config.outputs.img2vid).active == 'true' }}
         working-directory: scripts
         id: out
         env:
