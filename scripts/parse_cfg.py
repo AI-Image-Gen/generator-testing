@@ -1,6 +1,8 @@
 from os import getenv, path
 import urllib.request as web
 import json, sys
+from PIL import Image
+from io import BytesIO
 
 settings_url = getenv("SETTINGS")
 cfg_folder = getenv("CONFIG_FOLDER")
@@ -72,8 +74,29 @@ def process_type(variable, datatype):
     if not isinstance(variable, datatype):
             print(f"ERROR IN DEFAULT: {variable} is not proper value for field.")
             sys.exit(1)
-
-# Process default config file
+def check_models(array, mtype, default=False):
+    models_names = list(def_models[mtype].keys())
+    for model in models_names:
+        if not search_json(array, model):
+            if default:
+                print(f"ERROR IN DEFAULT: Some or all models in {mtype} were not found.")
+                sys.exit(1)
+            else:
+                return False
+    return True
+def is_valid_image(path, isurl=False):
+    try:
+        if not isurl:
+            with Image.open(path) as img:
+                return True
+        else:
+            response = web.urlopen(path)
+            data = response.read()
+            with Image.open(BytesIO(data)) as img:
+                return True
+            
+    except (IOError, OSError, web.error.URLError):
+        return False
 
 # Check var types
 ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["img_upscale"]["scale"]]
@@ -82,11 +105,17 @@ bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def
 for integer in ints: process_type(integer, int)
 for string in strs: process_type(string, str)
 for boolean in bools: process_type(boolean, bool)
+if not def_cfg["txt2txt"]["active"]:
+    def_cfg["global"]["out_amount"] = 1
+if not def_cfg["txt2txt"]["prompt_pre"].strip():
+    print(f"ERROR IN DEFAULT: Default value for prompt_pre in txt2txt not found")
+    sys.exit(1)
 # Integers values optimization
 width_height_modules = [def_cfg["txt2img"], def_cfg["img2img"]]
 for module in width_height_modules:
     module["width"] = process_integer_value(256, 1024, module["width"], 8)
     module["height"] = process_integer_value(256, 1024, module["height"], 8)
+def_cfg["global"]["out_amount"] = process_integer_value(1, 10, def_cfg["global"]["out_amount"])
 def_cfg["img_upscale"]["scale"] = process_integer_value(2, 4, def_cfg["img_upscale"]["scale"])
 # Variable -> model type array
 def_cfg_string = json.dumps(def_cfg)
@@ -94,6 +123,9 @@ model_types = ["txt2img", "img2img", "img_upscale", "img2vid"]
 for model_type in model_types:
     def_cfg_string = replace_models_in_string(model_type, def_cfg_string)
 def_cfg = json.loads(def_cfg_string)
+# Check if all models are correct
+for model_type in model_types:
+    check_models(def_cfg[model_type]["matrix"]["models"], model_type, True)
 # Check if variables used are proper
 settings_types = model_types + ["txt2txt"]
 for set_type in settings_types:
@@ -110,6 +142,7 @@ for module in width_height_modules:
     module["width"] = process_integer_value(256, 1024, module["width"], 8)
     module["height"] = process_integer_value(256, 1024, module["height"], 8)
 settings_json["img_upscale"]["scale"] = process_integer_value(2, 4, settings_json["img_upscale"]["scale"])
+settings_json["global"]["out_amount"] = process_integer_value(1, 10, settings_json["global"]["out_amount"])
 
 # Variable -> model type array
 settings_json_string = json.dumps(settings_json)
@@ -118,6 +151,11 @@ for model_type in model_types:
     settings_json_string = replace_models_in_string(model_type, settings_json_string)
 settings_json = json.loads(settings_json_string)
 
+# Check if all models are correct, if not fallback to default
+for model_type in model_types:
+    if not check_models(settings_json[model_type]["matrix"]["models"], model_type):
+        settings_json[model_type]["matrix"]["models"] = def_cfg[model_type]["matrix"]["models"]
+
 # Check if variables used are proper
 settings_types = model_types + ["txt2txt"]
 for set_type in settings_types:
@@ -125,54 +163,77 @@ for set_type in settings_types:
         print(f"ERROR IN CUSTOM: Used {set_type} variable without turning on module")
         sys.exit(1)
 
-
-
-json_string = json.dumps(settings_json)
-
-model_types = ["txt2img", "img2img", "img_upscale", "img2vid"]
-for model_type in model_types:
-    json_string = push_models_to_json(model_type, json_string)
-
-
-### MODULES ###
-
-# -- Global --
-if settings_json["global"]["clean_artifacts"] != True: 
-    settings_json["global"]["clean_artifacts"] = False
-settings_json["global"]["out_amount"] = process_integer_value(1, 10, settings_json["global"]["out_amount"])
-if settings_json["global"]["push"] != True: 
-    settings_json["global"]["push"] = False
-
-# -- Txt2txt --
-if settings_json["txt2txt"]["active"] != True: 
-    settings_json["txt2txt"]["active"] = False
+# Stabilize booleans
+bools = [settings_json["global"]["clean_artifacts"], settings_json["txt2txt"]["active"], settings_json["txt2txt"]["save_as_used"], settings_json["txt2img"]["active"], settings_json["img2img"]["active"], settings_json["img_upscale"]["active"], settings_json["img2vid"]["active"]]        
+for boolean in bools:
+    if boolean != True: 
+        boolean = False
+if not settings_json["txt2txt"]["active"]:
     settings_json["global"]["out_amount"] = 1
-    # Variables
-    if search_json(settings_json, "{txt2txt."):
-        print("Error: Used txt2txt variable without module active")
-        sys.exit(1)
-else:
-    if not settings_json["txt2txt"]["prompt_base"].strip(): 
-        settings_json["txt2txt"]["prompt_base"] = def_cfg["txt2txt"]["prompt_base"]
-    if not settings_json["txt2txt"]["prompt"].strip(): 
-        settings_json["txt2txt"]["prompt"] = def_cfg["txt2txt"]["prompt"]
-    if settings_json["txt2txt"]["save_as_used"] != True: 
-        settings_json["txt2txt"]["save_as_used"] = False
 
-# -- Txt2img --
-if settings_json["txt2img"]["active"] != True: 
-    settings_json["txt2img"]["active"] = False
-    # Variables
-    if search_json(settings_json, "{txt2img."):
-        print("Error: Used txt2img variable without module active")
-        sys.exit(1)
-else:
-    if not settings_json["txt2img"]["prompt"].strip(): 
-        settings_json["txt2img"]["prompt"] = def_cfg["txt2img"]["prompt"]
-    settings_json["txt2img"]["height"] = process_integer_value(256, 1024, settings_json["txt2img"]["height"], 8)
-    settings_json["txt2img"]["width"] = process_integer_value(256, 1024, settings_json["txt2img"]["width"], 8)
+# Stabilize strings
+strs = [settings_json["txt2txt"]["prompt"], settings_json["txt2txt"]["prompt_pre"]]
+if settings_json["txt2txt"]["active"]:
+    for string in strs:
+        if not string.strip(): 
+            print("ERROR: Not found prompt for txt2txt")
+            sys.exit(1)
+strs = [settings_json["txt2img"]["prompt"]]
+if settings_json["txt2img"]["active"]:
+    for string in strs:
+        if not string.strip(): 
+            print("ERROR: Not found prompt for txt2img")
+            sys.exit(1)
+strs = [settings_json["img2img"]["prompt"], settings_json["img2img"]["image"]]
+if settings_json["img2img"]["active"]:
+    for string in strs:
+        if not string.strip(): 
+            print("ERROR: Not found prompt or image for img2img")
+            sys.exit(1)
+strs = [settings_json["img_upscale"]["image"]]
+if settings_json["img_upscale"]["active"]:
+    for string in strs:
+        if not string.strip(): 
+            print("ERROR: Not found image for img_upscale")
+            sys.exit(1)
+strs = [settings_json["img2vid"]["prompt"], settings_json["img2vid"]["image"]]
+if settings_json["img2vid"]["active"]:
+    for string in strs:
+        if not string.strip(): 
+            print("ERROR: Not found prompt or image for img2vid")
+            sys.exit(1)
 
-    if settings_json["txt2img"]["matrix"]["models"]:
-        models_array = settings_json["txt2img"]["matrix"]["models"]
-    else:
-        settings_json["txt2img"]["matrix"]["models"] = def_cfg[""]
+# Post-check some settings, ensure the program will run properly
+if not settings_json["txt2txt"]["active"]:
+    for key in settings_json["txt2txt"].keys():
+        settings_json["txt2txt"][key] = False
+
+if not settings_json["txt2img"]["active"]:
+    for key in settings_json["txt2img"].keys():
+        settings_json["txt2img"][key] = False
+
+if not settings_json["img2img"]["active"]:
+    for key in settings_json["img2img"].keys():
+        settings_json["img2img"][key] = False
+elif not is_valid_image(settings_json["img2img"]["image"]) and (not settings_json["txt2img"]["active"] or not settings_json["img2img"]["image"] == "{txt2img.out}"):
+    print("ERROR: Image url or path not valid for img2img")
+    sys.exit(1)
+
+if not settings_json["img_upscale"]["active"]:
+    for key in settings_json["img_upscale"].keys():
+        settings_json["img_upscale"][key] = False
+elif not is_valid_image(settings_json["img_upscale"]["image"]) and (not settings_json["txt2img"]["active"] or not settings_json["img_upscale"]["image"] == "{txt2img.out}") and (not settings_json["img2img"]["active"] or not settings_json["img_upscale"]["image"] == "{img2img.out}"):
+    print("ERROR: Image url or path not valid for img_upscale")
+    sys.exit(1)
+
+if not settings_json["img2vid"]["active"]:
+    for key in settings_json["img2vid"].keys():
+        settings_json["img2vid"][key] = False
+elif not is_valid_image(settings_json["img2vid"]["image"]) and (not settings_json["txt2img"]["active"] or not settings_json["img2vid"]["image"] == "{txt2img.out}") and (not settings_json["img2img"]["active"] or not settings_json["img2vid"]["image"] == "{img2img.out}"):
+    print("ERROR: Image url or path not valid for img2vid (warning, output from upscaler also unsupported)")
+    sys.exit(1)
+
+json_file_path = f"{cfg_folder}/cfg.json"
+with open(json_file_path, 'w') as json_file:
+    json.dump(settings_json, json_file, indent=4)
+print(f'Checks completed, output saved as {json_file_path}')

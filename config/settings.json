@@ -16,8 +16,7 @@
         "height": 768, 
         "width": 768, 
         "matrix": {
-            "models": "{txt2img.models}",
-            "mix-0": "{global.out_amount}"
+            "models": "{txt2img.models}"
         }
     },
     "img2img": {
@@ -27,9 +26,7 @@
         "height": 768, 
         "width": 768, 
         "matrix": {
-            "models": "{img2img.models}", 
-            "mix-0": "{global.out_amount}", 
-            "mix-1" : "{txt2img.models}"
+            "models": "{img2img.models}"
         }
     },
     "img_upscale": {
@@ -37,10 +34,7 @@
         "image": "{txt2img.out}",
         "scale": 3,
         "matrix": {
-            "models": "{img_upscale.models}", 
-            "mix-0": "{global.out_amount}", 
-            "mix-1" : "{txt2img.models}",
-            "mix-2" : "{img2img.models}"
+            "models": "{img_upscale.models}"
         }
     },
     "img2vid": {
@@ -48,10 +42,7 @@
         "prompt": "",
         "image": "",
         "matrix": {
-            "models": "{img2vid.models}", 
-            "mix-0": "{global.out_amount}", 
-            "mix-1" : "{txt2img.models}",
-            "mix-2" : "{img2img.models}"
+            "models": "{img2vid.models}"
         }
     }
 }

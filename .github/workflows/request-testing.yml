@@ -34,28 +34,28 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: settings
-        path: config/tmp/settings.json
+        path: config/cfg.json
 
-  txt2txt:
-    runs-on: ubuntu-latest
-    needs: config
+  # txt2txt:
+  #   runs-on: ubuntu-latest
+  #   needs: config
 
-    steps:
-      - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.config).txt2txt.active == 'true' }}
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Clone repository
+  #       if: ${{ fromJson(needs.config.outputs.config).txt2txt.active == 'true' }}
+  #       uses: actions/checkout@v4
 
 
-  txt2img:
-    runs-on: ubuntu-latest
-    needs: [config, txt2txt]
+  # txt2img:
+  #   runs-on: ubuntu-latest
+  #   needs: [config, txt2txt]
       
-    strategy:
-      matrix:
-        ai: ${{ fromJson(needs.config.outputs.config).txt2img.matrix.ai-models }}
-        num: ${{ fromJson(needs.config.outputs.config).txt2img.matrix.nums }}
+  #   strategy:
+  #     matrix:
+  #       ai: ${{ fromJson(needs.config.outputs.config).txt2img.matrix.ai-models }}
+  #       num: ${{ fromJson(needs.config.outputs.config).txt2img.matrix.nums }}
     
-    steps:
-      - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.config).txt2img.active == 'true' }}
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Clone repository
+  #       if: ${{ fromJson(needs.config.outputs.config).txt2img.active == 'true' }}
+  #       uses: actions/checkout@v4
