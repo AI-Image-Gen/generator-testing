@@ -246,24 +246,40 @@ amount_array = [i for i in range(settings_json["global"]["out_amount"])]
 run(f'echo amount={json.dumps(amount_array).replace(" ", "")} >> $GITHUB_OUTPUT', shell=True)
 
 if settings_json["txt2txt"]["active"]:
-    run('echo txt2txt={"active":true} >> $GITHUB_OUTPUT', shell=True)
-else: run('echo txt2txt={"active":false} >> $GITHUB_OUTPUT', shell=True)
+    run('echo txt2txt=true >> $GITHUB_OUTPUT', shell=True)
+else: run('echo txt2txt=false >> $GITHUB_OUTPUT', shell=True)
 
 if settings_json["txt2img"]["active"]:
-    run('echo txt2img={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(settings_json["txt2img"]["matrix"]["models"]).replace(" ", "")), shell=True)
-else: run('echo txt2img={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+    dump = json.dumps(settings_json["txt2img"]["matrix"]["models"]).replace(" ", "")
+    run('echo txt2img=true >> $GITHUB_OUTPUT', shell=True)
+    run(f'echo txt2img_ai={dump} >> $GITHUB_OUTPUT', shell=True)
+else: 
+    run('echo txt2img=false >> $GITHUB_OUTPUT', shell=True)
+    run('echo txt2img_ai=["0"] >> $GITHUB_OUTPUT', shell=True)
 
 if settings_json["img2img"]["active"]:
-    run('echo img2img={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(settings_json["img2img"]["matrix"]["models"]).replace(" ", "")), shell=True)
-else: run('echo img2img={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+    dump = json.dumps(settings_json["img2img"]["matrix"]["models"]).replace(" ", "")
+    run('echo img2img=true >> $GITHUB_OUTPUT', shell=True)
+    run(f'echo img2img_ai={dump} >> $GITHUB_OUTPUT', shell=True)
+else: 
+    run('echo img2img=false >> $GITHUB_OUTPUT', shell=True)
+    run('echo img2img_ai=["0"] >> $GITHUB_OUTPUT', shell=True)
 
 if settings_json["img_upscale"]["active"]:
-    run('echo imgUpscale={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(settings_json["img_upscale"]["matrix"]["models"]).replace(" ", "")), shell=True)
-else: run('echo imgUpscale={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+    dump = json.dumps(settings_json["img_upscale"]["matrix"]["models"]).replace(" ", "")
+    run('echo imgUpscale=true >> $GITHUB_OUTPUT', shell=True)
+    run(f'echo imgUpscale_ai={dump} >> $GITHUB_OUTPUT', shell=True)
+else: 
+    run('echo imgUpscale=false >> $GITHUB_OUTPUT', shell=True)
+    run('echo imgUpscale_ai=["0"] >> $GITHUB_OUTPUT', shell=True)
 
 if settings_json["img2vid"]["active"]:
-    run('echo img2vid={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(settings_json["img2vid"]["matrix"]["models"]).replace(" ", "")), shell=True)
-else: run('echo img2vid={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+    dump = json.dumps(settings_json["img2vid"]["matrix"]["models"]).replace(" ", "")
+    run('echo img2vid=true >> $GITHUB_OUTPUT', shell=True)
+    run(f'echo img2vid_ai={dump} >> $GITHUB_OUTPUT', shell=True)
+else: 
+    run('echo img2vid=false >> $GITHUB_OUTPUT', shell=True)
+    run('echo img2vid_ai=["0"] >> $GITHUB_OUTPUT', shell=True)
 
 json_file_path = f"{cfg_folder}/cfg.json"
 with open(json_file_path, 'w') as json_file:
