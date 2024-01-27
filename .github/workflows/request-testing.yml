@@ -68,7 +68,7 @@ jobs:
         id: out
         env:
           CONFIG_FOLDER: '../config'
-        run: python
+        run: echo ${{ fromJson(needs.config.outputs.txt2img).ai  }}
 
 
   txt2img:
@@ -79,8 +79,8 @@ jobs:
 
     strategy:
       matrix:
-        ai: ${{ needs.config.outputs.txt2img.ai }}
-        mix0: ${{ needs.config.outputs.amount }}
+        ai: ${{ fromJson(needs.config.outputs.txt2img).ai }}
+        mix0: ${{ fromJson(needs.config.outputs.amount) }}
     
     steps:
       - name: Clone repository
