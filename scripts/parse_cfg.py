@@ -3,6 +3,7 @@ import urllib.request
 import json, sys
 from PIL import Image
 from io import BytesIO
+from subprocess import run
 
 settings_url = getenv("SETTINGS")
 cfg_folder = getenv("CONFIG_FOLDER")
@@ -238,7 +239,31 @@ elif not is_valid_image(settings_json["img2vid"]["image"]) and (not settings_jso
     print("ERROR: Image url or path not valid for img2vid (warning, output from upscaler also unsupported)")
     sys.exit(1)
 
+amount_array = [i for i in range(settings_json["global"]["out_amount"])]
+run(f'echo amount={json.dumps(amount_array).replace(" ", "")} >> $GITHUB_OUTPUT', shell=True)
+
+if settings_json["txt2txt"]["active"]:
+    run('echo txt2txt={"active":True} >> $GITHUB_OUTPUT', shell=True)
+else: run('echo txt2txt={"active":False} >> $GITHUB_OUTPUT', shell=True)
+
+if settings_json["txt2img"]["active"]:
+    run('echo txt2img={"active":True,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(settings_json["txt2img"]["matrix"]["models"]).replace(" ", "")), shell=True)
+else: run('echo txt2img={"active":False,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+
+if settings_json["img2img"]["active"]:
+    run('echo img2img={"active":True,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(settings_json["img2img"]["matrix"]["models"]).replace(" ", "")), shell=True)
+else: run('echo img2img={"active":False,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+
+if settings_json["img_upscale"]["active"]:
+    run('echo imgUpscale={"active":True,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(settings_json["img_upscale"]["matrix"]["models"]).replace(" ", "")), shell=True)
+else: run('echo imgUpscale={"active":False,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+
+if settings_json["img2vid"]["active"]:
+    run('echo img2vid={"active":True,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(settings_json["img2vid"]["matrix"]["models"]).replace(" ", "")), shell=True)
+else: run('echo img2vid={"active":False,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+
 json_file_path = f"{cfg_folder}/cfg.json"
 with open(json_file_path, 'w') as json_file:
     json.dump(settings_json, json_file, indent=4)
+
 print(f'Checks completed, output saved as {json_file_path}')
