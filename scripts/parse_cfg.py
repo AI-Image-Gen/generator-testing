@@ -212,11 +212,13 @@ if not settings_json["txt2txt"]["active"]:
 if not settings_json["txt2img"]["active"]:
     for key in settings_json["txt2img"].keys():
         settings_json["txt2img"][key] = False
+    settings_json["txt2img"]["matrix"] = {}
     settings_json["txt2img"]["matrix"]["models"] = [0]
 
 if not settings_json["img2img"]["active"]:
     for key in settings_json["img2img"].keys():
         settings_json["img2img"][key] = False
+    settings_json["img2img"]["matrix"] = {}
     settings_json["img2img"]["matrix"]["models"] = [0]
 elif not is_valid_image(settings_json["img2img"]["image"]) and (not settings_json["txt2img"]["active"] or not settings_json["img2img"]["image"] == "{txt2img.out}"):
     print("ERROR: Image url or path not valid for img2img")
@@ -225,6 +227,7 @@ elif not is_valid_image(settings_json["img2img"]["image"]) and (not settings_jso
 if not settings_json["img_upscale"]["active"]:
     for key in settings_json["img_upscale"].keys():
         settings_json["img_upscale"][key] = False
+    settings_json["img_upscale"]["matrix"] = {}
     settings_json["img_upscale"]["matrix"]["models"] = [0]
 elif not is_valid_image(settings_json["img_upscale"]["image"]) and (not settings_json["txt2img"]["active"] or not settings_json["img_upscale"]["image"] == "{txt2img.out}") and (not settings_json["img2img"]["active"] or not settings_json["img_upscale"]["image"] == "{img2img.out}"):
     print("ERROR: Image url or path not valid for img_upscale")
@@ -233,6 +236,7 @@ elif not is_valid_image(settings_json["img_upscale"]["image"]) and (not settings
 if not settings_json["img2vid"]["active"]:
     for key in settings_json["img2vid"].keys():
         settings_json["img2vid"][key] = False
+    settings_json["img2vid"]["matrix"] = {}
     settings_json["img2vid"]["matrix"]["models"] = [0]
 elif not is_valid_image(settings_json["img2vid"]["image"]) and (not settings_json["txt2img"]["active"] or not settings_json["img2vid"]["image"] == "{txt2img.out}") and (not settings_json["img2img"]["active"] or not settings_json["img2vid"]["image"] == "{img2img.out}"):
     print("ERROR: Image url or path not valid for img2vid (warning, output from upscaler also unsupported)")
