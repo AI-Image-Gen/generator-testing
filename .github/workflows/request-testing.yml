@@ -68,7 +68,7 @@ jobs:
         id: out
         env:
           CONFIG_FOLDER: '../config'
-        run: echo ${{ fromJson(needs.config.outputs.txt2img).ai  }}
+        run: python
 
 
   txt2img:
