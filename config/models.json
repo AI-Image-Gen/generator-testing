@@ -1,6 +1,6 @@
 {
    "txt2img": {
-      "sd-xl-turbo-v1.0": {
+      "sd_xl_turbo_v1.0": {
          "repo_url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0.safetensors",
          "ext": "safetensors",
          "inference_count": 16,
@@ -9,7 +9,7 @@
          "helper": "sdkit" 
       },
    
-      "sd-xl-v1.0": {
+      "sd_xl_v1.0": {
          "repo_url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors",
          "ext": "safetensors",
          "inference_count": 16,
@@ -18,7 +18,7 @@
          "helper": "sdkit" 
       },
    
-      "sd-v2.1-768": {
+      "sd_v2.1_768": {
          "repo_url": "https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors",
          "ext": "safetensors",
          "inference_count": 23,
@@ -27,7 +27,7 @@
          "helper": "sdkit" 
       },
    
-      "sd-v1.5": {
+      "sd_v1.5": {
          "repo_url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors",
          "ext": "safetensors",
          "inference_count": 20,
