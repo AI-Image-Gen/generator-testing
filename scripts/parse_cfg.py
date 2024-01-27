@@ -250,7 +250,8 @@ if settings_json["txt2txt"]["active"]:
 else: run('echo txt2txt=false >> $GITHUB_OUTPUT', shell=True)
 
 if settings_json["txt2img"]["active"]:
-    dump = json.dumps(settings_json["txt2img"]["matrix"]["models"]).replace(" ", "")
+    quoted_list = [f'"{element}"' for element in settings_json["txt2img"]["matrix"]["models"]]
+    dump = json.dumps(quoted_list).replace(" ", "")
     run('echo txt2img=true >> $GITHUB_OUTPUT', shell=True)
     run(f'echo txt2img_ai={dump} >> $GITHUB_OUTPUT', shell=True)
 else: 
