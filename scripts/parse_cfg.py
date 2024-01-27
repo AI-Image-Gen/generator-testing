@@ -26,7 +26,7 @@ try:
     settings_json = json.loads(data.decode('utf-8'))
     print("Settings file:")
 
-except (urllib.error.URLError, json.JSONDecodeError):
+except (urllib.error.URLError, json.JSONDecodeError, ValueError):
     print("Error: Unable to fetch data from the URL.")
 
     settings_json = def_cfg
