@@ -1,5 +1,5 @@
 from os import getenv, path
-import urllib.request as web
+import urllib.request
 import json, sys
 from PIL import Image
 from io import BytesIO
@@ -19,14 +19,14 @@ except (FileNotFoundError, json.JSONDecodeError):
 
 try:
     # Download JSON data from the URL
-    response = web.urlopen(settings_url)
+    response = urllib.request.urlopen(settings_url)
     data = response.read()
 
     # Load the JSON data
     settings_json = json.loads(data.decode('utf-8'))
     print("Settings file:")
 
-except (web.error.URLError, json.JSONDecodeError):
+except (urllib.error.URLError, json.JSONDecodeError):
     print("Error: Unable to fetch data from the URL.")
 
     settings_json = def_cfg
@@ -90,12 +90,12 @@ def is_valid_image(path, isurl=False):
             with Image.open(path) as img:
                 return True
         else:
-            response = web.urlopen(path)
+            response = urllib.request.urlopen(path)
             data = response.read()
             with Image.open(BytesIO(data)) as img:
                 return True
             
-    except (IOError, OSError, web.error.URLError):
+    except (IOError, OSError, urllib.error.URLError):
         return False
 
 # Check var types
