@@ -79,8 +79,8 @@ jobs:
 
     strategy:
       matrix:
-        ai: ${{ fromJson(needs.config.outputs.txt2img).ai }}
-        mix0: ${{ fromJson(needs.config.outputs.amount) }}
+        ai: ${{ needs.config.outputs.txt2img.ai }}
+        mix0: ${{ needs.config.outputs.amount }}
     
     steps:
       - name: Clone repository
