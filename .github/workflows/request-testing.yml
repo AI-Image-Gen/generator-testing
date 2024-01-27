@@ -79,8 +79,8 @@ jobs:
 
     strategy:
       matrix:
-        ai: ${{ fromJson(needs.config.outputs.txt2img).ai }}
         mix0: ${{ fromJson(needs.config.outputs.amount) }}
+        ai: ${{ fromJson(needs.config.outputs.txt2img).ai }}
     
     steps:
       - name: Clone repository
@@ -111,8 +111,8 @@ jobs:
     strategy:
       matrix:
         ai: ${{ fromJson(needs.config.outputs.img2img).ai }}
-        mix0: ${{ fromJson(needs.config.outputs.amount) }}
         mix1: ${{ fromJson(needs.config.outputs.txt2img).ai }}
+        mix0: ${{ fromJson(needs.config.outputs.amount) }}
           
     steps:
       - name: Clone repository
@@ -143,9 +143,9 @@ jobs:
     strategy:
       matrix:
         ai: ${{ fromJson(needs.config.outputs.imgUpscale).ai }}
-        mix0: ${{ fromJson(needs.config.outputs.amount) }}
-        mix1: ${{ fromJson(needs.config.outputs.txt2img).ai }}
         mix2: ${{ fromJson(needs.config.outputs.img2img).ai }}
+        mix1: ${{ fromJson(needs.config.outputs.txt2img).ai }}
+        mix0: ${{ fromJson(needs.config.outputs.amount) }}
 
     steps:
       - name: Clone repository
@@ -176,9 +176,9 @@ jobs:
     strategy:
       matrix:
         ai: ${{ fromJson(needs.config.outputs.img2vid).ai }}
-        mix0: ${{ fromJson(needs.config.outputs.amount) }}
-        mix1: ${{ fromJson(needs.config.outputs.txt2img).ai }}
         mix2: ${{ fromJson(needs.config.outputs.img2img).ai }}
+        mix1: ${{ fromJson(needs.config.outputs.txt2img).ai }}
+        mix0: ${{ fromJson(needs.config.outputs.amount) }}
 
     steps:
       - name: Clone repository
