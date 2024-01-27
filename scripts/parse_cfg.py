@@ -251,9 +251,9 @@ else: run('echo txt2txt={"active":false} >> $GITHUB_OUTPUT', shell=True)
 
 if settings_json["txt2img"]["active"]:
     run('echo txt2img={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(settings_json["txt2img"]["matrix"]["models"]).replace(" ", "")), shell=True)
-    run('echo $txt2img', shell=True)
-
 else: run('echo txt2img={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+
+print(getenv('txt2img'))
 
 if settings_json["img2img"]["active"]:
     run('echo img2img={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(settings_json["img2img"]["matrix"]["models"]).replace(" ", "")), shell=True)
