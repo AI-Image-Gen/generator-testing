@@ -64,7 +64,7 @@ for num in range(int(data["global"]["out_amount"])):
 
     result = ''.join(result)
 
-    print('\n\Response: ' + response)
+    print('\n\nResponse: ' + response)
     print("\n\nFormatted to: " + result)
 
     with open(path.join(cfg_folder, 'prompts', f'prompt-{num}.txt'), 'w') as file:
@@ -72,12 +72,14 @@ for num in range(int(data["global"]["out_amount"])):
 
 # Get all prompts
 prompts_arr = []
+justusedprompts = listdir(path.join(cfg_folder, 'prompts'))
 prompts = [file for file in justusedprompts if file.endswith(".txt")]
 for txt_file in prompts:
     file_path = path.join(cfg_folder, 'prompts', txt_file)  # Construct the full file path
     with open(file_path, 'r') as file:
         prompt = file.read()
         prompts_arr.append(prompt)
+
 # Construct nice output
 prompts_json_str = ""
 for num in range(int(data["global"]["out_amount"])):
