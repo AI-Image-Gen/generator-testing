@@ -43,8 +43,8 @@ for num in range(int(data["global"]["out_amount"])):
 
     # Add current prompt
     prompt_str = data["txt2txt"]["prompt"]
-    data_str = data_str.replace('{prompt}', prompt_str)
-    data = json.loads(data_str)
+    models_str = models_str.replace('{prompt}', prompt_str)
+    models = json.loads(models_str)
 
     ctx = models["gpt-4"]["prompt_template"]
     print('\nGenerating online output for question: ' + ctx)
