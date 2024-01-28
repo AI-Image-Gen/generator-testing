@@ -104,16 +104,13 @@ def is_valid_image(path, isurl=False):
 
 # Check var types
 ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["img_upscale"]["scale"]]
-strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2txt"]["prompt_pre"], def_cfg["txt2img"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["img_upscale"]["image"], def_cfg["img2vid"]["prompt"], def_cfg["img2vid"]["image"]]
+strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2img"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["img_upscale"]["image"], def_cfg["img2vid"]["prompt"], def_cfg["img2vid"]["image"]]
 bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def_cfg["txt2txt"]["save_as_used"], def_cfg["txt2img"]["active"], def_cfg["img2img"]["active"], def_cfg["img_upscale"]["active"], def_cfg["img2vid"]["active"]]
 for integer in ints: process_type(integer, int)
 for string in strs: process_type(string, str)
 for boolean in bools: process_type(boolean, bool)
 if not def_cfg["txt2txt"]["active"]:
     def_cfg["global"]["out_amount"] = 1
-if not def_cfg["txt2txt"]["prompt_pre"].strip():
-    print(f"ERROR IN DEFAULT: Default value for prompt_pre in txt2txt not found")
-    sys.exit(1)
 # Integers values optimization
 width_height_modules = [def_cfg["txt2img"], def_cfg["img2img"]]
 for module in width_height_modules:
@@ -176,7 +173,7 @@ if not settings_json["txt2txt"]["active"]:
     settings_json["global"]["out_amount"] = 1
 
 # Stabilize strings
-strs = [settings_json["txt2txt"]["prompt"], settings_json["txt2txt"]["prompt_pre"]]
+strs = [settings_json["txt2txt"]["prompt"]]
 if settings_json["txt2txt"]["active"]:
     for string in strs:
         if not string.strip(): 
