@@ -6,8 +6,7 @@
 
     "txt2txt": {
         "active": true, 
-        "prompt": "any. You can't use these prompts: {global.used_prompts}",
-        "prompt_pre": "Generate prompt for AI image generator, make sure it's between \" marks. Subject: {txt2txt.prompt}",
+        "prompt": "some nice image",
         "save_as_used": true
     },
     "txt2img": {

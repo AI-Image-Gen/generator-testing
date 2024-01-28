@@ -1,21 +1,22 @@
 from os import getenv, path, listdir, makedirs
 import json
 from subprocess import run
+import importlib
 
 cfg_folder = getenv("CONFIG_FOLDER")
-
-run('pip install -U g4f~=0.2.0.7', shell=True)
-
-import g4f
 
 with open(path.join(cfg_folder, 'usedPrompts.json'), 'r') as file:
     usedPrompts = json.load(file)
 
 with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
-        data = json.load(file)
+    data = json.load(file)
+
+with open(path.join(cfg_folder, 'models.json'), 'r') as file:
+    models = json.load(file)["txt2txt"] 
 
 makedirs(path.join(cfg_folder, "prompts"), exist_ok=True)
 
+run(f"pip install {' '.join(models["gpt-4"]['packages'])}", shell=True)
 for num in range(int(data["global"]["out_amount"])):
     # Restore variables on every literation
     with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
@@ -31,26 +32,25 @@ for num in range(int(data["global"]["out_amount"])):
             all_justusedprompts.append(prompt)
 
     
-    data_str = json.dumps(data)
+    models_str = json.dumps(models)
     # Add old prompts
     used_prompts_str = '\\\\n'.join(p for p in usedPrompts) + '\\\\n' + '\\\\n'.join(p for p in all_justusedprompts)
-    data_str = data_str.replace('{global.used_prompts}', used_prompts_str)
-    data = json.loads(data_str)
+    models_str = models_str.replace('{used_prompts}', used_prompts_str)
+    models = json.loads(models_str)
+
+    models_str = models_str.replace('{used_prompts_template}', models["gpt-4"]["used_prompts_template"])
+    models = json.loads(models_str)
 
     # Add current prompt
     prompt_str = data["txt2txt"]["prompt"]
-    data_str = data_str.replace('{txt2txt.prompt}', prompt_str)
+    data_str = data_str.replace('{prompt}', prompt_str)
     data = json.loads(data_str)
 
-    ctx = data["txt2txt"]["prompt_pre"]
-
+    ctx = models["gpt-4"]["prompt_template"]
     print('\nGenerating online output for question: ' + ctx)
 
-    g4f.debug.logging = True
-    response = g4f.ChatCompletion.create(
-        model=data["model"],
-        messages=[{"role": "user", "content": ctx}]
-    )
+    helper = importlib.import_module(f"txt2txt-helpers.{models["gpt-4"]["helper"]}")
+    response = helper.run(models["gpt-4"]['model'], ctx)
 
     inside_quotes = False
     result = []
