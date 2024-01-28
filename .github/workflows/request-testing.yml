@@ -67,7 +67,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: settings
-          path: ../config
+          path: config
 
       - name: Run scripts
         if: ${{ fromJson(needs.config.outputs.txt2txt).active }}
