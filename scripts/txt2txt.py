@@ -4,7 +4,7 @@ from subprocess import run
 
 cfg_folder = getenv("CONFIG_FOLDER")
 
-run('pip install -U g4f~=0.2.0.7')
+run('pip install -U g4f~=0.2.0.7', shell=True)
 
 import g4f
 

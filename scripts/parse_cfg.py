@@ -1,6 +1,6 @@
 
 from subprocess import run
-run('pip install -U pillow~=10.2.0')
+run('pip install -U pillow~=10.2.0', shell=True)
 
 from os import getenv, path
 import urllib.request
