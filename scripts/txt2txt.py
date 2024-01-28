@@ -49,7 +49,7 @@ for num in range(int(data["global"]["out_amount"])):
     ctx = models["gpt-4"]["prompt_template"]
     print('\nGenerating online output for question: ' + ctx)
 
-    helper = importlib.import_module(f"txt2txt-helpers.{models["gpt-4"]["helper"]}")
+    helper = importlib.import_module(f"txt2txt-helpers.{models['gpt-4']['helper']}")
     response = helper.run(models["gpt-4"]['model'], ctx)
 
     inside_quotes = False
