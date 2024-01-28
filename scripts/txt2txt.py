@@ -14,7 +14,7 @@ with open(path.join(cfg_folder, 'usedPrompts.json'), 'r') as file:
 with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
         data = json.load(file)
 
-for num in int(data["global"]["out_amount"]):
+for num in range(int(data["global"]["out_amount"])):
     # Restore variables on every literation
     with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
         data = json.load(file)
@@ -68,6 +68,7 @@ for num in int(data["global"]["out_amount"]):
     with open(path.join(cfg_folder, 'prompts', f'prompt-{num}.txt'), 'w') as file:
         file.write(result)
 
+# Get all prompts
 prompts_arr = []
 prompts = [file for file in justusedprompts if file.endswith(".txt")]
 for txt_file in prompts:
@@ -75,9 +76,9 @@ for txt_file in prompts:
     with open(file_path, 'r') as file:
         prompt = file.read()
         prompts_arr.append(prompt)
-
+# Construct nice output
 prompts_json_str = ""
-for num in int(data["global"]["out_amount"]):
+for num in range(int(data["global"]["out_amount"])):
     if num == 0:
         prompts_json_str = '{"num":"current"'.replace("current", prompts_arr[num]).replace("num", num).replace(" ", '~')
     else:
