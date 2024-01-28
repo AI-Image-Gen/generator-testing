@@ -84,9 +84,9 @@ for txt_file in prompts:
 prompts_json_str = ""
 for num in range(int(data["global"]["out_amount"])):
     if num == 0:
-        prompts_json_str = '{"num":"current"'.replace("current", str(prompts_arr[num])).replace("num", str(num)).replace(" ", '~')
+        prompts_json_str = '{"num":"current"'.replace("current", str(prompts_arr[num])).replace("num", str(num)).replace(" ", '*').replace("/n", '*')
     else:
-        prompts_json_str = prompts_json_str + ',"num":"current"'.replace("current", str(prompts_arr[num])).replace("num", str(num)).replace(" ", '~')
+        prompts_json_str = prompts_json_str + ',"num":"current"'.replace("current", str(prompts_arr[num])).replace("num", str(num)).replace(" ", '*').replace("/n", '*')
 prompts_json_str = prompts_json_str + "}"
 
 run(f'echo out={prompts_json_str} >> $GITHUB_OUTPUT', shell=True)
