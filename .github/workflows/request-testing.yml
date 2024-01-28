@@ -36,7 +36,7 @@ jobs:
       env:
         SETTINGS: ${{ github.event.inputs.custom_settings }}
         CONFIG_FOLDER: '../config'
-      run: pip install pillow && python parse_cfg.py
+      run: python parse_cfg.py
       
     - name: Upload settings
       uses: actions/upload-artifact@v4
@@ -62,13 +62,20 @@ jobs:
         with:
           python-version: ${{ env.python }}
 
+      - name: Download config
+        if: ${{ fromJson(needs.config.outputs.txt2txt).active }}
+        uses: actions/download-artifact@v4
+        with:
+          name: settings
+          path: ../config
+
       - name: Run scripts
         if: ${{ fromJson(needs.config.outputs.txt2txt).active }}
         working-directory: scripts
         id: out
         env:
           CONFIG_FOLDER: '../config'
-        run: python
+        run: python txt2txt.py
 
 
   txt2img:

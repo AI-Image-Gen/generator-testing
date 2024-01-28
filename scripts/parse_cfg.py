@@ -1,18 +1,21 @@
+
+from subprocess import run
+run('pip install -U pillow~=10.2.0')
+
 from os import getenv, path
 import urllib.request
 import json, sys
 from PIL import Image
 from io import BytesIO
-from subprocess import run
 
 settings_url = getenv("SETTINGS")
 cfg_folder = getenv("CONFIG_FOLDER")
 
 try:
     with open(path.join(cfg_folder, "settings.json"), 'r') as file:
-        def_cfg = json.loads(file.read())
+        def_cfg = json.load(file)
     with open(path.join(cfg_folder, "models.json"), 'r') as file:
-        def_models = json.loads(file.read())
+        def_models = json.load(file)
 
 except (FileNotFoundError, json.JSONDecodeError):
     print("Error: Unable to get the default settings")
