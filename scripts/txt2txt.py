@@ -14,6 +14,7 @@ with open(path.join(cfg_folder, 'usedPrompts.json'), 'r') as file:
 with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
         data = json.load(file)
 
+run(f'mkdir -p {path.join(cfg_folder, "prompts")}', shell=True)
 for num in range(int(data["global"]["out_amount"])):
     # Restore variables on every literation
     with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
