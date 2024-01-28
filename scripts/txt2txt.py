@@ -33,7 +33,7 @@ for num in range(int(data["global"]["out_amount"])):
     
     data_str = json.dumps(data)
     # Add old prompts
-    used_prompts_str = '\n'.join(p for p in usedPrompts) + '\n' + '\n'.join(p for p in all_justusedprompts)
+    used_prompts_str = '\\n'.join(p for p in usedPrompts) + '\\n' + '\\n'.join(p for p in all_justusedprompts)
     data_str = data_str.replace('{global.used_prompts}', used_prompts_str)
     print(data_str)
     data = json.loads(data_str)
