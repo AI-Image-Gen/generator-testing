@@ -48,7 +48,7 @@
    "txt2txt": {
       "gpt-4": {
          "model": "gpt-4",
-         "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, FORMATTED FOR AUTOMATED SCRIPT TO BE BETWEEN \" SYMBOLS. {prompt} {used_prompts_template}",
+         "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, FORMATTED TO BE BETWEEN \" SYMBOLS. It needs to be THE ONLY THING in your message. {prompt} {used_prompts_template}",
          "used_prompts_template": "You can't use these prompts: {used_prompts}",
          "packages": ["g4f~=0.2.0.7"],
          "helper": "g4f" 

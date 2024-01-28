@@ -6,7 +6,7 @@
 
     "txt2txt": {
         "active": true, 
-        "prompt": "some nice image",
+        "prompt": "Make it fresh and creative",
         "save_as_used": true
     },
     "txt2img": {
