@@ -1,4 +1,4 @@
-from os import getenv, path, listdir
+from os import getenv, path, listdir, makedirs
 import json
 from subprocess import run
 
@@ -14,7 +14,8 @@ with open(path.join(cfg_folder, 'usedPrompts.json'), 'r') as file:
 with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
         data = json.load(file)
 
-run(f'mkdir -p {path.join(cfg_folder, "prompts")}', shell=True)
+makedirs(path.join(cfg_folder, "prompts"), exist_ok=True)
+
 for num in range(int(data["global"]["out_amount"])):
     # Restore variables on every literation
     with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
