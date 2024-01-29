@@ -51,26 +51,23 @@ jobs:
     outputs:
       out: ${{ steps.out.outputs.out }}
 
+    if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.txt2txt).active }}
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.txt2txt).active }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.txt2txt).active }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
       - name: Download config
-        if: ${{ fromJson(needs.config.outputs.txt2txt).active }}
         uses: actions/download-artifact@v4
         with:
           name: settings
           path: config
 
-      - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.txt2txt).active }}
+      - name: Run script
         working-directory: scripts
         id: out
         env:
@@ -84,6 +81,7 @@ jobs:
     outputs:
       out: ${{ steps.out.outputs.out }}
 
+    if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.txt2img).active }}
     strategy:
       matrix:
         mix0: ${{ fromJson(needs.config.outputs.amount) }}
@@ -91,22 +89,25 @@ jobs:
     
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
         uses: actions/checkout@v4
       
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
-      - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
+      - name: Download config
+        uses: actions/download-artifact@v4
+        with:
+          name: settings
+          path: config
+
+      - name: Run script
         working-directory: scripts
         id: out
         env:
           CONFIG_FOLDER: '../config'
-        run: python
+        run: python txt2img.py
       
 
   img2img:
@@ -115,6 +116,7 @@ jobs:
     outputs:
       out: ${{ steps.out.outputs.out }}
 
+    if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.img2img).active }}
     strategy:
       matrix:
         ai: ${{ fromJson(needs.config.outputs.img2img).ai }}
@@ -123,22 +125,25 @@ jobs:
           
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.img2img).active }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.img2img).active }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
-      - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.img2img).active }}
+      - name: Download config
+        uses: actions/download-artifact@v4
+        with:
+          name: settings
+          path: config
+          
+      - name: Run script
         working-directory: scripts
         id: out
         env:
           CONFIG_FOLDER: '../config'
-        run: python
+        run: python img2img.py
 
 
   img_upscale:
@@ -146,7 +151,8 @@ jobs:
     needs: [config, txt2img, img2img]
     outputs:
       out: ${{ steps.out.outputs.out }}
-
+    
+    if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.imgUpscale).active }}
     strategy:
       matrix:
         ai: ${{ fromJson(needs.config.outputs.imgUpscale).ai }}
@@ -156,22 +162,25 @@ jobs:
 
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.imgUpscale).active }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.imgUpscale).active }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
-      - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.imgUpscale).active }}
+      - name: Download config
+        uses: actions/download-artifact@v4
+        with:
+          name: settings
+          path: config
+
+      - name: Run script
         working-directory: scripts
         id: out
         env:
           CONFIG_FOLDER: '../config'
-        run: python
+        run: python img_upscale.py
 
 
   img2vid:
@@ -180,6 +189,7 @@ jobs:
     outputs:
       out: ${{ steps.out.outputs.out }}
 
+    if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.img2vid).active }}
     strategy:
       matrix:
         ai: ${{ fromJson(needs.config.outputs.img2vid).ai }}
@@ -189,19 +199,22 @@ jobs:
 
     steps:
       - name: Clone repository
-        if: ${{ fromJson(needs.config.outputs.img2vid).active }}
         uses: actions/checkout@v4
 
       - name: Setup python
-        if: ${{ fromJson(needs.config.outputs.img2vid).active }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
 
-      - name: Run scripts
-        if: ${{ fromJson(needs.config.outputs.img2vid).active }}
+      - name: Download config
+        uses: actions/download-artifact@v4
+        with:
+          name: settings
+          path: config
+
+      - name: Run script
         working-directory: scripts
         id: out
         env:
           CONFIG_FOLDER: '../config'
-        run: python
+        run: python img2vid.py
