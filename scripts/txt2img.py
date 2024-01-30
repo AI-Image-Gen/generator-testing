@@ -27,5 +27,4 @@ helper = importlib.import_module(f"txt2img-helpers.{models[ai]['helper']}")
 path = helper.run(models[ai], ctx, config["height"], config["width"])
 
 run(f'echo out={path} >> $GITHUB_OUTPUT', shell=True)
-
 print(f'Generated image and saved to {path}')

@@ -10,14 +10,14 @@ def run(model, ctx, h, w):
     cfg_folder = getenv("CONFIG_FOLDER")
 
     print('\nGenerating image for question: ' + ctx, flush=True)
-    print("| Using:")
-    print("Model from: " + model["dld_url"])
-    print("Dimensions: " + str(h) + "px x " + str(w) + "px")
+    print("| Using:", flush=True)
+    print("Model from: " + model["dld_url"], flush=True)
+    print("Dimensions: " + str(h) + "px x " + str(w) + "px", flush=True)
 
     context = sdkit.Context()
     context.device = "cpu"
 
-    makedirs(path.join(".", "/tmp"), exist_ok=True)
+    makedirs("./tmp/x", exist_ok=True)
     with urllib.request.urlopen(model["dld_url"]) as response, open('./tmp/'+"model."+model["ext"], 'wb') as output_file:
         print('Downloading [' + model["dld_url"] + "]...", flush=True)
         # Get the total file size in bytes

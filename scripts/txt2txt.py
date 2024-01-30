@@ -85,11 +85,8 @@ for txt_file in prompts:
 prompts_list = []
 for num in range(int(data["global"]["out_amount"])):
     prompts_list.append(str(prompts_arr[num]).replace(" ", '*').replace("\n", '*'))
-
-quoted_list = [f'"{element}"' for element in prompts_list]
-
-prompts_json_str = json.dumps(quoted_list).replace(" ", "")
+prompts_list = [f'"{element}"' for element in prompts_list]
+prompts_json_str = json.dumps(prompts_list).replace(" ", "")
 
 run('echo out=' + prompts_json_str + ' >> $GITHUB_OUTPUT', shell=True)
-
 print('Generated all prompt.txt files and set out to ' + prompts_json_str)
