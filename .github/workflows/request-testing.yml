@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: config
     outputs:
-      out: ${{ fromJson(steps.out.outputs.out) }}
+      out: ${{ steps.out.outputs.out }}
 
     if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.txt2txt).active }}
     steps:
@@ -105,7 +105,7 @@ jobs:
         id: out
         env:
           CONFIG_FOLDER: '../config'
-          txt2txt: ${{ fromJson(needs.txt2txt.outputs.out) }}
+          txt2txt: ${{ needs.txt2txt.outputs.out }}
           ai: ${{ matrix.ai }}
           num: ${{ matrix.mix0 }}
         run: python txt2img.py
