@@ -1,8 +1,7 @@
 from sdkit.filter import apply_filters
 from sdkit.models import load_model
-import sdkit, urllib.request, glob
+import sdkit, urllib.request
 from tqdm import tqdm
-from PIL import Image
 from os import makedirs, path, getenv
 
 def run(model, image, scale):
