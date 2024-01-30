@@ -10,7 +10,7 @@
    
       "sd-xl-v1.0": {
          "dld_url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors",
-         "inference_count": 16,
+         "inference_count": 14,
          "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
          "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
          "helper": "stable-diffusion" 
