@@ -2,7 +2,6 @@
    "txt2img": {
       "sd-xl-turbo-v1.0": {
          "dld_url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0.safetensors",
-         "ext": "safetensors",
          "inference_count": 16,
          "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
          "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
@@ -11,7 +10,6 @@
    
       "sd-xl-v1.0": {
          "dld_url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors",
-         "ext": "safetensors",
          "inference_count": 16,
          "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
          "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
@@ -20,7 +18,6 @@
    
       "sd-v2.1-768": {
          "dld_url": "https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors",
-         "ext": "safetensors",
          "inference_count": 23,
          "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
          "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
@@ -29,7 +26,6 @@
    
       "sd-v1.5": {
          "dld_url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors",
-         "ext": "safetensors",
          "inference_count": 20,
          "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
          "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
@@ -39,6 +35,15 @@
 
    "img2img": {
 
+   },
+
+   "img_upscale": {
+      "realesrgan-x4-plus": {
+         "dld_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+         "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
+         "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
+         "helper": "realesrgan" 
+      }
    },
 
    "img2vid": {
@@ -52,15 +57,6 @@
          "used_prompts_template": "You can't use these prompts: {used_prompts}",
          "packages": ["g4f~=0.2.0.7"],
          "helper": "g4f" 
-      }
-   },
-
-   "img_upscale": {
-      "realesrgan-x4-plus": {
-         "dld_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
-         "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
-         "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
-         "helper": "sdkit" 
       }
    }
 }

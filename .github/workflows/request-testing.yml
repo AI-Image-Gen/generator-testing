@@ -218,6 +218,12 @@ jobs:
           mix2: ${{ matrix.mix2 }}
         run: python img_upscale.py
 
+      - name: Upload image
+        uses: actions/upload-artifact@v4
+        with:
+          name: img_upscale-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.mix2 }}-${{ matrix.ai }}
+          path: ${{ steps.out.outputs.out }}
+
 
   img2vid:
     runs-on: ubuntu-latest

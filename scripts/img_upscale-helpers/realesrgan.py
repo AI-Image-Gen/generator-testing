@@ -1,18 +1,16 @@
-from sdkit.generate import generate_images
+from sdkit.filter import apply_filters
 from sdkit.models import load_model
-from sdkit.utils import save_images
 import sdkit, urllib.request, glob
 from tqdm import tqdm
 from PIL import Image
 from os import makedirs, path, getenv
 
-def run(model, ctx, h, w):
+def run(model, image, scale):
     cfg_folder = getenv("CONFIG_FOLDER")
 
-    print('\nGenerating image for question: ' + ctx, flush=True)
+    print('\nUpscaling image by ' + scale + 'x', flush=True)
     print("| Using:", flush=True)
     print("Model from: " + model["dld_url"], flush=True)
-    print("Dimensions: " + str(h) + "px x " + str(w) + "px", flush=True)
 
     makedirs("./tmp/x", exist_ok=True)
     with urllib.request.urlopen(model["dld_url"]) as response, open('./tmp/'+"model.xd", 'wb') as output_file:
@@ -34,14 +32,13 @@ def run(model, ctx, h, w):
 
     context = sdkit.Context()
     context.device = "cpu"
-    context.model_paths['stable-diffusion'] = './tmp/'+"model.xd"
-    load_model(context, 'stable-diffusion')
+    context.model_paths['realesrgan'] = './tmp/'+"model.xd"
+    load_model(context, 'realesrgan')
 
-    image = generate_images(context, width=int(w), height=int(h), prompt=ctx, seed=42, num_inference_steps=model["inference_count"])
-    save_images(image, dir_path=path.join(cfg_folder, "txt2img"))
+    image_upscaled = apply_filters(context, "realesrgan", image, scale=scale)   
+        
+    savepath = path.join(path.abspath(cfg_folder), 'img_upscale', '1.jpg')
 
-    savepath = path.join(path.abspath(cfg_folder), 'txt2img', '1.jpg')
-    jpeg_image = Image.open(glob.glob(path.join(cfg_folder, 'txt2img', '*.jpeg'))[0])
-    jpeg_image.save(savepath, format="JPEG")
+    image_upscaled.save(savepath)
 
     return savepath

@@ -88,19 +88,19 @@ def check_models(array, mtype, default=False):
             else:
                 return False
     return True
-def is_valid_image(path, isurl=False):
+def is_valid_image(path):
     try:
-        if not isurl:
-            with Image.open(path) as img:
-                return True
-        else:
+        with Image.open(path) as img:
+            return True
+    except:
+        try: 
             response = urllib.request.urlopen(path)
             data = response.read()
             with Image.open(BytesIO(data)) as img:
                 return True
-            
-    except (IOError, OSError, urllib.error.URLError):
-        return False
+        
+        except:
+            return False
 
 # Check var types
 ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["img_upscale"]["scale"]]
