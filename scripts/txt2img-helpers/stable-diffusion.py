@@ -15,7 +15,8 @@ def run(model, ctx, h, w):
     print("Dimensions: " + str(h) + "px x " + str(w) + "px", flush=True)
 
     makedirs("./tmp/x", exist_ok=True)
-    with urllib.request.urlopen(model["dld_url"]) as response, open('./tmp/'+"model.xd", 'wb') as output_file:
+    ext=model["dld_url"].split(".")[-1]
+    with urllib.request.urlopen(model["dld_url"]) as response, open('./tmp/'+"model."+ext, 'wb') as output_file:
         print('Downloading [' + model["dld_url"] + "]...", flush=True)
         # Get the total file size in bytes
         file_size = int(response.getheader('Content-Length', 0))
@@ -34,7 +35,7 @@ def run(model, ctx, h, w):
 
     context = sdkit.Context()
     context.device = "cpu"
-    context.model_paths['stable-diffusion'] = './tmp/'+"model.xd"
+    context.model_paths['stable-diffusion'] = './tmp/'+"model."+ext
     load_model(context, 'stable-diffusion')
 
     image = generate_images(context, width=int(w), height=int(h), prompt=ctx, seed=42, num_inference_steps=model["inference_count"])

@@ -13,7 +13,8 @@ def run(model, image, scale):
     print("Model from: " + model["dld_url"], flush=True)
 
     makedirs("./tmp/x", exist_ok=True)
-    with urllib.request.urlopen(model["dld_url"]) as response, open('./tmp/'+"model.xd", 'wb') as output_file:
+    ext=model["dld_url"].split(".")[-1]
+    with urllib.request.urlopen(model["dld_url"]) as response, open('./tmp/'+"model."+ext, 'wb') as output_file:
         print('Downloading [' + model["dld_url"] + "]...", flush=True)
         # Get the total file size in bytes
         file_size = int(response.getheader('Content-Length', 0))
@@ -35,7 +36,7 @@ def run(model, image, scale):
     context.model_paths['realesrgan'] = './tmp/'+"model.xd"
     load_model(context, 'realesrgan')
 
-    image_upscaled = apply_filters(context, "realesrgan", image, scale=scale)   
+    image_upscaled = apply_filters(context, "realesrgan"+ext, image, scale=scale)   
         
     savepath = path.join(path.abspath(cfg_folder), 'img_upscale', '1.jpg')
 
