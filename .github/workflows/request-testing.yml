@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: config
     outputs:
-      out: ${{ steps.out.outputs.out }}
+      out: ${{ fromJson(steps.out.outputs.out) }}
 
     if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.txt2txt).active }}
     steps:
