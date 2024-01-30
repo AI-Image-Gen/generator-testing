@@ -14,9 +14,6 @@ def run(model, ctx, h, w):
     print("Model from: " + model["dld_url"], flush=True)
     print("Dimensions: " + str(h) + "px x " + str(w) + "px", flush=True)
 
-    context = sdkit.Context()
-    context.device = "cpu"
-
     makedirs("./tmp/x", exist_ok=True)
     with urllib.request.urlopen(model["dld_url"]) as response, open('./tmp/'+"model."+model["ext"], 'wb') as output_file:
         print('Downloading [' + model["dld_url"] + "]...", flush=True)
@@ -35,6 +32,8 @@ def run(model, ctx, h, w):
         progress_bar.close()
         output_file.write(response.read())
 
+    context = sdkit.Context()
+    context.device = "cpu"
     context.model_paths['stable-diffusion'] = './tmp/'+"model."+model["ext"]
     load_model(context, 'stable-diffusion')
 
