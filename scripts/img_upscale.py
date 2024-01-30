@@ -1,6 +1,7 @@
 from os import getenv, path, makedirs
 from subprocess import run
-import json, importlib, BytesIO, urllib.request
+import json, importlib, urllib.request
+from io import BytesIO
 from PIL import Image
 
 cfg_folder = getenv("CONFIG_FOLDER")
