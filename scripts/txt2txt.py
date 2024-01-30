@@ -47,10 +47,11 @@ for num in range(int(data["global"]["out_amount"])):
     models = json.loads(models_str)
 
     ctx = models["gpt-4"]["prompt_template"]
-    print('\nGenerating online output for question: ' + ctx)
+
+    print('\nUsing helper: ' + models['gpt-4']['helper'], flush=True)
 
     helper = importlib.import_module(f"txt2txt-helpers.{models['gpt-4']['helper']}")
-    response = helper.run(models["gpt-4"]['model'], ctx)
+    response = helper.run(models["gpt-4"], ctx)
 
     inside_quotes = False
     result = []

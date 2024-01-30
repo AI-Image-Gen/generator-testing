@@ -77,15 +77,13 @@ jobs:
 
   txt2img:
     runs-on: ubuntu-latest
-    needs: [config, txt2txt]
-    outputs:
-      out: ${{ steps.out.outputs.out }}
+    needs: [config, txt2txt]     
 
     if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.txt2img).active }}
     strategy:
       matrix:
-        mix0: ${{ fromJson(needs.config.outputs.amount) }}
         ai: ${{ fromJson(needs.config.outputs.txt2img).ai }}
+        mix0: ${{ fromJson(needs.config.outputs.amount) }}
     
     steps:
       - name: Clone repository
@@ -107,14 +105,20 @@ jobs:
         id: out
         env:
           CONFIG_FOLDER: '../config'
+          txt2txt: ${{ needs.txt2txt.outputs.out }}
+          ai: ${{ matrix.ai }}
+          num: ${{ matrix.mix0 }}
         run: python txt2img.py
       
+      - name: Upload image
+        uses: actions/upload-artifact@v4
+        with:
+          name: txt2img-${{ matrix.mix0 }}-${{ matrix.ai }}
+          path: ${{ steps.out.outputs.out }}
 
   img2img:
     runs-on: ubuntu-latest
-    needs: [config, txt2txt, txt2img]
-    outputs:
-      out: ${{ steps.out.outputs.out }}
+    needs: [config, txt2img]
 
     if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.img2img).active }}
     strategy:
@@ -137,18 +141,33 @@ jobs:
         with:
           name: settings
           path: config
+
+      - name: Download images from txt2img
+        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
+        uses: actions/download-artifact@v4
+        with:
+          name: txt2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}
+          path: config/txt2img
           
       - name: Run script
         working-directory: scripts
         id: out
         env:
           CONFIG_FOLDER: '../config'
+          ai: ${{ matrix.ai }}
+          num: ${{ matrix.mix0 }}
+          mix1: ${{ matrix.mix1 }}
         run: python img2img.py
 
+      - name: Upload image
+        uses: actions/upload-artifact@v4
+        with:
+          name: img2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.ai }}
+          path: ${{ steps.out.outputs.out }}
 
   img_upscale:
     runs-on: ubuntu-latest
-    needs: [config, txt2img, img2img]
+    needs: [config, img2img]
     outputs:
       out: ${{ steps.out.outputs.out }}
     
@@ -174,18 +193,35 @@ jobs:
         with:
           name: settings
           path: config
+      
+      - name: Download images from txt2img
+        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
+        uses: actions/download-artifact@v4
+        with:
+          name: txt2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}
+          path: config/txt2img
+      - name: Download images from img2img
+        if: ${{ fromJson(needs.config.outputs.img2img).active }}
+        uses: actions/download-artifact@v4
+        with:
+          name: img2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.mix2 }}
+          path: config/img2img
 
       - name: Run script
         working-directory: scripts
         id: out
         env:
           CONFIG_FOLDER: '../config'
+          ai: ${{ matrix.ai }}
+          num: ${{ matrix.mix0 }}
+          mix1: ${{ matrix.mix1 }}
+          mix2: ${{ matrix.mix2 }}
         run: python img_upscale.py
 
 
   img2vid:
     runs-on: ubuntu-latest
-    needs: [config, txt2img, img2img]
+    needs: [config, img2img]
     outputs:
       out: ${{ steps.out.outputs.out }}
 
@@ -212,9 +248,25 @@ jobs:
           name: settings
           path: config
 
+      - name: Download images from txt2img
+        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
+        uses: actions/download-artifact@v4
+        with:
+          name: txt2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}
+          path: config/txt2img
+      - name: Download images from img2img
+        if: ${{ fromJson(needs.config.outputs.img2img).active }}
+        uses: actions/download-artifact@v4
+        with:
+          name: img2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.mix2 }}
+          path: config/img2img
+
       - name: Run script
         working-directory: scripts
         id: out
         env:
           CONFIG_FOLDER: '../config'
+          num: ${{ matrix.mix0 }}
+          mix1: ${{ matrix.mix1 }}
+          mix2: ${{ matrix.mix2 }}
         run: python img2vid.py
