@@ -13,7 +13,7 @@ with open(path.join(cfg_folder, 'models.json'), 'r') as file:
     models = json.load(file)["txt2img"] 
 
 if config["txt2txt"]["active"]:
-    txt2txt = json.loads(getenv("txt2txt"))
+    txt2txt = json.loads(getenv("txt2txt").replace('*', ' '))
     config = json.loads(json.dumps(config).replace("{txt2txt.out}", txt2txt[num]))
 config = config["txt2img"]
 
