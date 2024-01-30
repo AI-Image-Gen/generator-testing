@@ -33,11 +33,12 @@ def run(model, image, scale):
 
     context = sdkit.Context()
     context.device = "cpu"
-    context.model_paths['realesrgan'] = './tmp/'+"model.xd"
+    context.model_paths['realesrgan'] = './tmp/'+"model."+ext
     load_model(context, 'realesrgan')
+    load_model(context, "nsfw_checker")
 
-    image_upscaled = apply_filters(context, "realesrgan"+ext, image, scale=scale)   
-        
+    image_upscaled = apply_filters(context, ["realesrgan", "nsfw_checker"], image, scale=scale)   
+    
     savepath = path.join(path.abspath(cfg_folder), 'img_upscale', '1.jpg')
 
     image_upscaled.save(savepath)

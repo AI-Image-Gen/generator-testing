@@ -17,7 +17,7 @@ try:
     with open(path.join(cfg_folder, "models.json"), 'r') as file:
         def_models = json.load(file)
 
-except (FileNotFoundError, json.JSONDecodeError):
+except:
     print("Error: Unable to get the default settings")
     sys.exit(1)
 
@@ -30,7 +30,7 @@ try:
     settings_json = json.loads(data.decode('utf-8'))
     print("Settings file:")
 
-except (urllib.error.URLError, json.JSONDecodeError, ValueError):
+except:
     print("Error: Unable to fetch data from the URL.")
 
     settings_json = def_cfg
