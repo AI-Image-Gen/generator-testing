@@ -82,13 +82,10 @@ for txt_file in prompts:
         prompts_arr.append(prompt)
 
 # Construct nice output
-prompts_json_str = ""
+prompts_list = []
 for num in range(int(data["global"]["out_amount"])):
-    if num == 0:
-        prompts_json_str = '{"num":"current"'.replace("current", str(prompts_arr[num])).replace("num", str(num)).replace(" ", '*').replace("/n", '*')
-    else:
-        prompts_json_str = prompts_json_str + ',"num":"current"'.replace("current", str(prompts_arr[num])).replace("num", str(num)).replace(" ", '*').replace("/n", '*')
-prompts_json_str = prompts_json_str + "}"
+    prompts_list.append(str(prompts_arr[num]).replace(" ", '*').replace("\n", '*'))
+prompts_json_str = json.dumps(prompts_list).replace("\"", "\"\"").replace(" ", "")
 
 run('echo out=' + prompts_json_str + ' >> $GITHUB_OUTPUT', shell=True)
 
