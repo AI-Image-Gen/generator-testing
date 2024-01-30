@@ -88,5 +88,18 @@ for num in range(int(data["global"]["out_amount"])):
 prompts_list = [f'"{element}"' for element in prompts_list]
 prompts_json_str = json.dumps(prompts_list).replace(" ", "")
 
+# Add to end of job, to push
+
+# if data["txt2txt"]["save_as_used"]:
+#     print('Saving as used...')
+#     with open(path.join(cfg_folder, 'usedPrompts.json'), 'r') as file:
+#         data = json.load(file)
+#     while len(data) >= 10:
+#         data.pop(0)
+#     for prompt in prompts_arr:
+#         data.append(prompt)
+#     with open(path.join(cfg_folder, 'usedPrompts.json'), 'w') as file:
+#         json.dump(data, file, indent=2)
+
 run('echo out=' + prompts_json_str + ' >> $GITHUB_OUTPUT', shell=True)
 print('Generated all prompt.txt files and set out to ' + prompts_json_str)
