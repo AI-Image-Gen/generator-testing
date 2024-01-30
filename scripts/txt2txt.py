@@ -90,6 +90,6 @@ for num in range(int(data["global"]["out_amount"])):
         prompts_json_str = prompts_json_str + ',"num":"current"'.replace("current", str(prompts_arr[num])).replace("num", str(num)).replace(" ", '*').replace("/n", '*')
 prompts_json_str = prompts_json_str + "}"
 
-run(f'echo out={prompts_json_str.replace('"', '"\"')} >> $GITHUB_OUTPUT', shell=True)
+run(f'echo out={prompts_json_str.replace('\"', '\\\""')} >> $GITHUB_OUTPUT', shell=True)
 
 print(f'Generated all prompt.txt files and set out to {prompts_json_str}')
