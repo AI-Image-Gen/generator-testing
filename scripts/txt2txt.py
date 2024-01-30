@@ -85,7 +85,7 @@ for txt_file in prompts:
 prompts_list = []
 for num in range(int(data["global"]["out_amount"])):
     prompts_list.append(str(prompts_arr[num]).replace(" ", '*').replace("\n", '*'))
-prompts_json_str = json.dumps(prompts_list).replace("\"", "\"\"").replace(" ", "")
+prompts_json_str = json.dumps(prompts_list).replace(" ", "")
 
 run('echo out=' + prompts_json_str + ' >> $GITHUB_OUTPUT', shell=True)
 
