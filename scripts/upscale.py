@@ -35,7 +35,7 @@ makedirs(path.join(cfg_folder, "upscale"), exist_ok=True)
 
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 
-helper = importlib.import_module(f"img_upscale-helpers.{models[ai]['helper']}")
+helper = importlib.import_module(f"upscale-helpers.{models[ai]['helper']}")
 path = helper.run(models[ai], 'tmp.jpg', config["scale"])
 
 run(f'echo out={path} >> $GITHUB_OUTPUT', shell=True)
