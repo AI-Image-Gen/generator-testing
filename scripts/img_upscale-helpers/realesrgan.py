@@ -6,7 +6,7 @@ def run(model, image, scale):
     cfg_folder = getenv("CONFIG_FOLDER")
     runnum = getenv("runnum")
 
-    subprocess.run(f"pip install {' '.join(model['packages'])}", shell=True)
+    subprocess.run(f"pip install {' '.join(model['packages'])} --extra-index-url {','.join(model['extra_indexes'])}", shell=True)
 
     from tqdm import tqdm
 

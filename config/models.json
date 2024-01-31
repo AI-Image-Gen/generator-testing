@@ -4,7 +4,7 @@
          "dld_url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0.safetensors",
          "inference_count": 15,
          "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
-         "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
+         "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
       },
    
@@ -12,7 +12,7 @@
          "dld_url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors",
          "inference_count": 9,
          "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
-         "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
+         "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
       },
    
@@ -20,7 +20,7 @@
          "dld_url": "https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors",
          "inference_count": 24,
          "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
-         "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
+         "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
       },
    
@@ -28,7 +28,7 @@
          "dld_url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors",
          "inference_count": 22,
          "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
-         "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
+         "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
       }
    },
@@ -40,7 +40,8 @@
    "img_upscale": {
       "realesrgan-x4-plus": {
          "dld_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
-         "packages": ["tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0"],
+         "packages": ["tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0", "numpy~=1.26.3", "torch~=2.2.0",  "torchvision~=2.2.0"],
+         "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "realesrgan" 
       }
    },
