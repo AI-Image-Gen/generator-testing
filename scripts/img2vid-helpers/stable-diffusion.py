@@ -25,7 +25,7 @@ def run(model, image):
     image = load_image(image)
     image = image.resize((1024, 576))
 
-    frames = pipe(image, decode_chunk_size=8, num_inference_steps=model["inference_count"], generator=generator).frames[0]
+    frames = pipe(image, num_inference_steps=model["inference_count"]).frames[0]
     export_to_video(frames, savepath, fps=model["fps"])
     
     return savepath
