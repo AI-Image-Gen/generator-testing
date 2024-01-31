@@ -40,7 +40,7 @@
    "img_upscale": {
       "realesrgan-x4-plus": {
          "dld_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
-         "packages": ["tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0", "numpy~=1.26.3", "torch~=2.2.0",  "torchvision~=2.2.0"],
+         "packages": ["tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0", "numpy~=1.26.3", "torch~=2.2.0",  "torchvision~=0.17.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "realesrgan" 
       }
