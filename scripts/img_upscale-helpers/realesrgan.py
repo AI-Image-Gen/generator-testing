@@ -1,13 +1,13 @@
 from os import makedirs, path, getenv
-from subprocess import run
+import subprocess
 import urllib.request
 
 def run(model, image, scale):
     cfg_folder = getenv("CONFIG_FOLDER")
     runnum = getenv("runnum")
 
-    run(f"pip install {' '.join(model['packages'])}", shell=True)
-    
+    subprocess.run(f"pip install {' '.join(model['packages'])}", shell=True)
+
     from tqdm import tqdm
 
     print('\nUpscaling image by ' + str(scale) + 'x', flush=True)
@@ -50,7 +50,7 @@ def run(model, image, scale):
         output_file.write(response.read())
 
     savepath = path.join(path.abspath(cfg_folder), 'img_upscale', f'{runnum}.jpg')
-    run(f'python ./tmp/script.py -i {image} --model_path ./tmp/model.{ext} -o ./out/ --fp32 -s {str(scale)}', shell=True)
-    run(f'mv ./out/*.jpg {savepath}', shell=True)
+    subprocess.run(f'python ./tmp/script.py -i {image} --model_path ./tmp/model.{ext} -o ./out/ --fp32 -s {str(scale)}', shell=True)
+    subprocess.run(f'mv ./out/*.jpg {savepath}', shell=True)
     
     return savepath

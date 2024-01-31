@@ -1,11 +1,11 @@
 from os import makedirs, path, getenv
-from subprocess import run
+import subprocess
 
 def run(model, ctx, h, w):
     cfg_folder = getenv("CONFIG_FOLDER")
     runnum = getenv("runnum")
 
-    run(f"pip install {' '.join(model['packages'])} --extra-index-url {','.join(model['extra_indexes'])}", shell=True)
+    subprocess.run(f"pip install {' '.join(model['packages'])} --extra-index-url {','.join(model['extra_indexes'])}", shell=True)
 
     from tqdm import tqdm
     from sdkit.generate import generate_images
