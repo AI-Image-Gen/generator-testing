@@ -14,9 +14,9 @@ with open(path.join(cfg_folder, 'models.json'), 'r') as file:
     models = json.load(file)["img_upscale"] 
 
 if config["txt2img"]["active"]:
-    config = json.loads(json.dumps(config).replace("{txt2img.out}", f'./txt2img/{runnum}'))
+    config = json.loads(json.dumps(config).replace("{txt2img.out}", f'./txt2img/{runnum}.jpg'))
 if config["img2img"]["active"]:
-    config = json.loads(json.dumps(config).replace("{img2img.out}", f'./img2img/{runnum}'))
+    config = json.loads(json.dumps(config).replace("{img2img.out}", f'./img2img/{runnum}.jpg'))
 
 config = config["img_upscale"]
 
