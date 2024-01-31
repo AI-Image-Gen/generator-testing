@@ -7,6 +7,7 @@ from os import makedirs, path, getenv
 
 def run(model, ctx, h, w):
     cfg_folder = getenv("CONFIG_FOLDER")
+    runnum = getenv("runnum")
 
     print('\nGenerating image for question: ' + ctx, flush=True)
     print("| Using:", flush=True)
@@ -41,7 +42,7 @@ def run(model, ctx, h, w):
     image = generate_images(context, width=int(w), height=int(h), prompt=ctx, seed=42, num_inference_steps=model["inference_count"])
     images_nsfw_filtered = apply_filters(context, "nsfw_checker", image)
     
-    savepath = path.join(path.abspath(cfg_folder), 'txt2img', '1.jpg')
+    savepath = path.join(path.abspath(cfg_folder), 'txt2img', f'{runnum}.jpg')
 
     images_nsfw_filtered[0].save(savepath)
 

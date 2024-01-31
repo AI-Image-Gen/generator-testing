@@ -118,6 +118,7 @@ jobs:
           txt2txt: ${{ needs.txt2txt.outputs.out }}
           ai: ${{ matrix.ai }}
           num: ${{ matrix.mix0 }}
+          runnum: ${{ github.run_number }}
         run: python txt2img.py
       
       - name: Upload image
@@ -170,6 +171,7 @@ jobs:
         env:
           CONFIG_FOLDER: '../config'
           ai: ${{ matrix.ai }}
+          runnum: ${{ github.run_number }}
         run: python img2img.py
 
       - name: Upload image
@@ -231,6 +233,7 @@ jobs:
         env:
           CONFIG_FOLDER: '../config'
           ai: ${{ matrix.ai }}
+          runnum: ${{ github.run_number }}
         run: python img_upscale.py
 
       - name: Upload image
@@ -293,4 +296,5 @@ jobs:
         env:
           CONFIG_FOLDER: '../config'
           ai: ${{ matrix.ai }}
+          runnum: ${{ github.run_number }}
         run: python img2vid.py

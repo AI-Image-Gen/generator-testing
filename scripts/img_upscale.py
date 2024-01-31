@@ -5,6 +5,7 @@ from io import BytesIO
 
 cfg_folder = getenv("CONFIG_FOLDER")
 ai = getenv("ai")
+runnum = getenv("runnum")
 
 with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
     config = json.load(file)
@@ -13,9 +14,9 @@ with open(path.join(cfg_folder, 'models.json'), 'r') as file:
     models = json.load(file)["img_upscale"] 
 
 if config["txt2img"]["active"]:
-    config = json.loads(json.dumps(config).replace("{txt2img.out}", './txt2img'))
+    config = json.loads(json.dumps(config).replace("{txt2img.out}", f'./txt2img/{runnum}'))
 if config["img2img"]["active"]:
-    config = json.loads(json.dumps(config).replace("{img2img.out}", './img2img'))
+    config = json.loads(json.dumps(config).replace("{img2img.out}", f'./img2img/{runnum}'))
 
 config = config["img_upscale"]
 
