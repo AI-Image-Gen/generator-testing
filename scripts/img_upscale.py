@@ -2,7 +2,6 @@ from os import getenv, path, makedirs
 from subprocess import run
 import json, importlib, urllib.request
 from io import BytesIO
-from PIL import Image
 
 cfg_folder = getenv("CONFIG_FOLDER")
 num = int(getenv("num"))
@@ -23,6 +22,8 @@ if config["img2img"]["active"]:
 
 config = config["img_upscale"]
 
+run("pip install pillow~=10.2.0", shell=True)
+from PIL import Image
 try:
     image = Image.open(config["image"])
 except:
