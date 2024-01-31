@@ -3,10 +3,9 @@ from subprocess import run
 run('pip install -U pillow~=10.2.0', shell=True)
 
 from os import getenv, path
-import urllib.request
-import json, sys
 from PIL import Image
 from io import BytesIO
+import urllib.request, json, sys
 
 settings_url = getenv("SETTINGS")
 cfg_folder = getenv("CONFIG_FOLDER")
@@ -103,9 +102,9 @@ def is_valid_image(path):
             return False
 
 # Check var types
-ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["img_upscale"]["scale"]]
-strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2img"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["img_upscale"]["image"], def_cfg["img2vid"]["prompt"], def_cfg["img2vid"]["image"]]
-bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def_cfg["txt2txt"]["save_as_used"], def_cfg["txt2img"]["active"], def_cfg["img2img"]["active"], def_cfg["img_upscale"]["active"], def_cfg["img2vid"]["active"]]
+ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["upscale"]["scale"]]
+strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2img"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["upscale"]["input"], def_cfg["img2vid"]["prompt"], def_cfg["img2vid"]["image"]]
+bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def_cfg["txt2txt"]["save_as_used"], def_cfg["txt2img"]["active"], def_cfg["img2img"]["active"], def_cfg["upscale"]["active"], def_cfg["img2vid"]["active"]]
 for integer in ints: process_type(integer, int)
 for string in strs: process_type(string, str)
 for boolean in bools: process_type(boolean, bool)
@@ -117,10 +116,10 @@ for module in width_height_modules:
     module["width"] = process_integer_value(256, 1024, module["width"], 8)
     module["height"] = process_integer_value(256, 1024, module["height"], 8)
 def_cfg["global"]["out_amount"] = process_integer_value(1, 10, def_cfg["global"]["out_amount"])
-def_cfg["img_upscale"]["scale"] = process_integer_value(2, 4, def_cfg["img_upscale"]["scale"])
+def_cfg["upscale"]["scale"] = process_integer_value(2, 4, def_cfg["upscale"]["scale"])
 # Variable -> model type array
 def_cfg_string = json.dumps(def_cfg)
-model_types = ["txt2img", "img2img", "img_upscale", "img2vid"]
+model_types = ["txt2img", "img2img", "upscale", "img2vid"]
 for model_type in model_types:
     def_cfg_string = replace_models_in_string(model_type, def_cfg_string)
 def_cfg = json.loads(def_cfg_string)
@@ -142,12 +141,12 @@ width_height_modules = [settings_json["txt2img"], settings_json["img2img"]]
 for module in width_height_modules:
     module["width"] = process_integer_value(256, 1024, module["width"], 8)
     module["height"] = process_integer_value(256, 1024, module["height"], 8)
-settings_json["img_upscale"]["scale"] = process_integer_value(2, 4, settings_json["img_upscale"]["scale"])
+settings_json["upscale"]["scale"] = process_integer_value(2, 4, settings_json["upscale"]["scale"])
 settings_json["global"]["out_amount"] = process_integer_value(1, 10, settings_json["global"]["out_amount"])
 
 # Variable -> model type array
 settings_json_string = json.dumps(settings_json)
-model_types = ["txt2img", "img2img", "img_upscale", "img2vid"]
+model_types = ["txt2img", "img2img", "upscale", "img2vid"]
 for model_type in model_types:
     settings_json_string = replace_models_in_string(model_type, settings_json_string)
 settings_json = json.loads(settings_json_string)
@@ -165,7 +164,7 @@ for set_type in settings_types:
         sys.exit(1)
 
 # Stabilize booleans
-bools = [settings_json["global"]["clean_artifacts"], settings_json["txt2txt"]["active"], settings_json["txt2txt"]["save_as_used"], settings_json["txt2img"]["active"], settings_json["img2img"]["active"], settings_json["img_upscale"]["active"], settings_json["img2vid"]["active"]]        
+bools = [settings_json["global"]["clean_artifacts"], settings_json["txt2txt"]["active"], settings_json["txt2txt"]["save_as_used"], settings_json["txt2img"]["active"], settings_json["img2img"]["active"], settings_json["upscale"]["active"], settings_json["img2vid"]["active"]]        
 for boolean in bools:
     if boolean != True: 
         boolean = False
@@ -191,11 +190,11 @@ if settings_json["img2img"]["active"]:
         if not string.strip(): 
             print("ERROR: Not found prompt or image for img2img")
             sys.exit(1)
-strs = [settings_json["img_upscale"]["image"]]
-if settings_json["img_upscale"]["active"]:
+strs = [settings_json["upscale"]["input"]]
+if settings_json["upscale"]["active"]:
     for string in strs:
         if not string.strip(): 
-            print("ERROR: Not found image for img_upscale")
+            print("ERROR: Not found image for upscale")
             sys.exit(1)
 strs = [settings_json["img2vid"]["prompt"], settings_json["img2vid"]["image"]]
 if settings_json["img2vid"]["active"]:
@@ -224,15 +223,6 @@ elif not is_valid_image(settings_json["img2img"]["image"]) and (not settings_jso
     print("ERROR: Image url or path not valid for img2img")
     sys.exit(1)
 
-if not settings_json["img_upscale"]["active"]:
-    for key in settings_json["img_upscale"].keys():
-        settings_json["img_upscale"][key] = False
-    settings_json["img_upscale"]["matrix"] = {}
-    settings_json["img_upscale"]["matrix"]["models"] = [0]
-elif not is_valid_image(settings_json["img_upscale"]["image"]) and (not settings_json["txt2img"]["active"] or not settings_json["img_upscale"]["image"] == "{txt2img.out}") and (not settings_json["img2img"]["active"] or not settings_json["img_upscale"]["image"] == "{img2img.out}"):
-    print("ERROR: Image url or path not valid for img_upscale")
-    sys.exit(1)
-
 if not settings_json["img2vid"]["active"]:
     for key in settings_json["img2vid"].keys():
         settings_json["img2vid"][key] = False
@@ -240,6 +230,15 @@ if not settings_json["img2vid"]["active"]:
     settings_json["img2vid"]["matrix"]["models"] = [0]
 elif not is_valid_image(settings_json["img2vid"]["image"]) and (not settings_json["txt2img"]["active"] or not settings_json["img2vid"]["image"] == "{txt2img.out}") and (not settings_json["img2img"]["active"] or not settings_json["img2vid"]["image"] == "{img2img.out}"):
     print("ERROR: Image url or path not valid for img2vid (warning, output from upscaler also unsupported)")
+    sys.exit(1)
+
+if not settings_json["upscale"]["active"]:
+    for key in settings_json["upscale"].keys():
+        settings_json["upscale"][key] = False
+    settings_json["upscale"]["matrix"] = {}
+    settings_json["upscale"]["matrix"]["models"] = [0]
+elif not is_valid_image(settings_json["upscale"]["input"]) and (not settings_json["txt2img"]["active"] or not settings_json["upscale"]["input"] == "{txt2img.out}") and (not settings_json["img2img"]["active"] or not settings_json["upscale"]["input"] == "{img2img.out}"):
+    print("ERROR: Image url or path not valid for upscale")
     sys.exit(1)
 
 amount_array = [i for i in range(settings_json["global"]["out_amount"])]
@@ -259,15 +258,15 @@ if settings_json["img2img"]["active"]:
     run('echo img2img={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(quoted_list).replace(" ", "")), shell=True)
 else: run('echo img2img={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
 
-if settings_json["img_upscale"]["active"]:
-    quoted_list = [f'"{element}"' for element in settings_json["img_upscale"]["matrix"]["models"]]
-    run('echo imgUpscale={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(quoted_list).replace(" ", "")), shell=True)
-else: run('echo imgUpscale={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
-
 if settings_json["img2vid"]["active"]:
     quoted_list = [f'"{element}"' for element in settings_json["img2vid"]["matrix"]["models"]]
     run('echo img2vid={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(quoted_list).replace(" ", "")), shell=True)
 else: run('echo img2vid={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+
+if settings_json["upscale"]["active"]:
+    quoted_list = [f'"{element}"' for element in settings_json["upscale"]["matrix"]["models"]]
+    run('echo upscale={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(quoted_list).replace(" ", "")), shell=True)
+else: run('echo upscale={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
 
 json_file_path = f"{cfg_folder}/cfg.json"
 with open(json_file_path, 'w') as json_file:

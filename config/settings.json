@@ -28,20 +28,20 @@
             "models": "{img2img.models}"
         }
     },
-    "img_upscale": {
-        "active": true, 
-        "image": "{txt2img.out}",
-        "scale": 3,
-        "matrix": {
-            "models": "{img_upscale.models}"
-        }
-    },
     "img2vid": {
         "active": false, 
         "prompt": "",
         "image": "",
         "matrix": {
             "models": "{img2vid.models}"
+        }
+    },
+    "upscale": {
+        "active": true, 
+        "input": "{txt2img.out}",
+        "scale": 3,
+        "matrix": {
+            "models": "{img_upscale.models}"
         }
     }
 }

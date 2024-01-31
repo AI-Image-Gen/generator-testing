@@ -53,19 +53,25 @@
       }
    },
 
-   "img_upscale": {
+   "img2vid": {
 
-      "realesrgan-x4-plus": {
-         "dld_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
-         "packages": ["tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0", "numpy~=1.26.3", "torchvision~=0.16.0"],
+      "svd-xt": {
+         "dld_url": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt/resolve/main/svd_xt.safetensors",
+         "inference_count": 12,
+         "packages": ["GitPython~=3.1.41", "tqdm~=4.66.1", "numpy~=1.26.3", "torchvision~=0.17.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
-         "helper": "realesrgan" 
+         "helper": "stable-diffusion" 
       }
    },
 
-   "img2vid": {
+   "upscale": {
 
-
+      "realesrgan-x4-plus": {
+         "dld_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+         "packages": ["GitPython~=3.1.41", "tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0", "numpy~=1.26.3", "torchvision~=0.16.0"],
+         "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
+         "helper": "realesrgan" 
+      }
    },
 
    "txt2txt": {

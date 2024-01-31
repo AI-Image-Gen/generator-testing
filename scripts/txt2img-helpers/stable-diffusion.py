@@ -1,5 +1,5 @@
 from os import makedirs, path, getenv
-import subprocess
+import subprocess, urllib.request
 
 def run(model, ctx, h, w):
     cfg_folder = getenv("CONFIG_FOLDER")
@@ -11,7 +11,7 @@ def run(model, ctx, h, w):
     from sdkit.generate import generate_images
     from sdkit.models import load_model
     from sdkit.filter import apply_filters
-    import sdkit, urllib.request
+    import sdkit
 
     print('\nGenerating image for question: ' + ctx, flush=True)
     print("| Using:", flush=True)

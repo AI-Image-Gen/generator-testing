@@ -1,7 +1,6 @@
 from os import getenv, path, listdir, makedirs
-import json
 from subprocess import run
-import importlib
+import json, importlib
 
 cfg_folder = getenv("CONFIG_FOLDER")
 

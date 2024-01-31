@@ -18,7 +18,7 @@ jobs:
       txt2txt: ${{ steps.settings.outputs.txt2txt }}
       txt2img: ${{ steps.settings.outputs.txt2img }}
       img2img: ${{ steps.settings.outputs.img2img }}
-      imgUpscale: ${{ steps.settings.outputs.imgUpscale }}
+      upscale: ${{ steps.settings.outputs.upscale }}
       img2vid: ${{ steps.settings.outputs.img2vid }}
 
     steps:
@@ -182,72 +182,10 @@ jobs:
           name: img2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.ai }}
           path: ${{ steps.out.outputs.out }}
 
-  img_upscale:
-    runs-on: ubuntu-latest
-    needs: [config, img2img]
-    outputs:
-      out: ${{ steps.out.outputs.out }}
-    
-    if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.imgUpscale).active }}
-    strategy:
-      matrix:
-        ai: ${{ fromJson(needs.config.outputs.imgUpscale).ai }}
-        mix2: ${{ fromJson(needs.config.outputs.img2img).ai }}
-        mix1: ${{ fromJson(needs.config.outputs.txt2img).ai }}
-        mix0: ${{ fromJson(needs.config.outputs.amount) }}
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v4
-
-      - name: Setup python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.python }}
-      
-      - name: Set Swap Space
-        uses: pierotofy/set-swap-space@master
-        with:
-          swap-size-gb: 10
-          
-      - name: Download config
-        uses: actions/download-artifact@v4
-        with:
-          name: settings
-          path: config
-      
-      - name: Download images from txt2img
-        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
-        uses: actions/download-artifact@v4
-        with:
-          name: txt2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}
-          path: config/txt2img
-      - name: Download images from img2img
-        if: ${{ fromJson(needs.config.outputs.img2img).active }}
-        uses: actions/download-artifact@v4
-        with:
-          name: img2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.mix2 }}
-          path: config/img2img
-
-      - name: Run script
-        working-directory: scripts
-        id: out
-        env:
-          CONFIG_FOLDER: '../config'
-          ai: ${{ matrix.ai }}
-          runnum: ${{ github.run_number }}
-        run: python img_upscale.py
-
-      - name: Upload image
-        uses: actions/upload-artifact@v4
-        with:
-          name: img_upscale-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.mix2 }}-${{ matrix.ai }}
-          path: ${{ steps.out.outputs.out }}
-
 
   img2vid:
     runs-on: ubuntu-latest
-    needs: [config, txt2txt, img2img]
+    needs: [config, img2img]
     outputs:
       out: ${{ steps.out.outputs.out }}
 
@@ -298,7 +236,67 @@ jobs:
         env:
           CONFIG_FOLDER: '../config'
           ai: ${{ matrix.ai }}
-          txt2txt: ${{ needs.txt2txt.outputs.out }}
-          num: ${{ matrix.mix0 }}
           runnum: ${{ github.run_number }}
         run: python img2vid.py
+
+  upscale:
+    runs-on: ubuntu-latest
+    needs: [config, img2vid]
+    outputs:
+      out: ${{ steps.out.outputs.out }}
+    
+    if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.upscale).active }}
+    strategy:
+      matrix:
+        ai: ${{ fromJson(needs.config.outputs.upscale).ai }}
+        mix2: ${{ fromJson(needs.config.outputs.img2img).ai }}
+        mix1: ${{ fromJson(needs.config.outputs.txt2img).ai }}
+        mix0: ${{ fromJson(needs.config.outputs.amount) }}
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.python }}
+      
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
+          
+      - name: Download config
+        uses: actions/download-artifact@v4
+        with:
+          name: settings
+          path: config
+      
+      - name: Download images from txt2img
+        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
+        uses: actions/download-artifact@v4
+        with:
+          name: txt2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}
+          path: config/txt2img
+      - name: Download images from img2img
+        if: ${{ fromJson(needs.config.outputs.img2img).active }}
+        uses: actions/download-artifact@v4
+        with:
+          name: img2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.mix2 }}
+          path: config/img2img
+
+      - name: Run script
+        working-directory: scripts
+        id: out
+        env:
+          CONFIG_FOLDER: '../config'
+          ai: ${{ matrix.ai }}
+          runnum: ${{ github.run_number }}
+        run: python upscale.py
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: upscale-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.mix2 }}-${{ matrix.ai }}
+          path: ${{ steps.out.outputs.out }}

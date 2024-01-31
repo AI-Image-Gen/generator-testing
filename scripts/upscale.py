@@ -1,7 +1,7 @@
 from os import getenv, path, makedirs
 from subprocess import run
-import json, importlib, urllib.request
 from io import BytesIO
+import json, importlib, urllib.request
 
 cfg_folder = getenv("CONFIG_FOLDER")
 ai = getenv("ai")
@@ -11,14 +11,14 @@ with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
     config = json.load(file)
 
 with open(path.join(cfg_folder, 'models.json'), 'r') as file:
-    models = json.load(file)["img_upscale"] 
+    models = json.load(file)["upscale"] 
 
 if config["txt2img"]["active"]:
     config = json.loads(json.dumps(config).replace("{txt2img.out}", path.join(cfg_folder, 'txt2img', f'{runnum}.jpg')))
 if config["img2img"]["active"]:
     config = json.loads(json.dumps(config).replace("{img2img.out}", path.join(cfg_folder, 'img2img', f'{runnum}.jpg')))
 
-config = config["img_upscale"]
+config = config["upscale"]
 
 run("pip install pillow~=10.2.0", shell=True)
 from PIL import Image
@@ -31,7 +31,7 @@ except:
 
 image.save('tmp.jpg')
     
-makedirs(path.join(cfg_folder, "img_upscale"), exist_ok=True)
+makedirs(path.join(cfg_folder, "upscale"), exist_ok=True)
 
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 
