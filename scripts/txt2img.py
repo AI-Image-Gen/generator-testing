@@ -19,7 +19,6 @@ config = config["txt2img"]
 
 ctx = config["prompt"]
 makedirs(path.join(cfg_folder, "txt2img"), exist_ok=True)
-run(f"pip install {' '.join(models[ai]['packages'])} --extra-index-url {','.join(models[ai]['extra_indexes'])}", shell=True)
 
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 

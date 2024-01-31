@@ -1,4 +1,3 @@
-from tqdm import tqdm
 from os import makedirs, path, getenv
 from subprocess import run
 import urllib.request
@@ -7,8 +6,9 @@ def run(model, image, scale):
     cfg_folder = getenv("CONFIG_FOLDER")
     runnum = getenv("runnum")
 
-    run('git clone https://github.com/xinntao/Real-ESRGAN.git', shell=True)
-    run('pip install -r Real-ESRGAN/requirements.txt', shell=True)
+    run(f"pip install {' '.join(model['packages'])}", shell=True)
+    
+    from tqdm import tqdm
 
     print('\nUpscaling image by ' + str(scale) + 'x', flush=True)
     print("| Using:", flush=True)

@@ -32,7 +32,6 @@ except:
 image.save('tmp.jpg')
     
 makedirs(path.join(cfg_folder, "img_upscale"), exist_ok=True)
-run(f"pip install {' '.join(models[ai]['packages'])} --extra-index-url {','.join(models[ai]['extra_indexes'])}", shell=True)
 
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 
