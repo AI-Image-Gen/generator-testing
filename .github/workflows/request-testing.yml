@@ -47,6 +47,7 @@ jobs:
 
   txt2txt:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     needs: config
     outputs:
       out: ${{ steps.out.outputs.out }}
@@ -77,6 +78,7 @@ jobs:
 
   txt2img:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     needs: [config, txt2txt]     
 
     if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.txt2img).active }}
@@ -118,6 +120,7 @@ jobs:
 
   img2img:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     needs: [config, txt2img]
 
     if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.img2img).active }}
@@ -167,6 +170,7 @@ jobs:
 
   img_upscale:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     needs: [config, img2img]
     outputs:
       out: ${{ steps.out.outputs.out }}
@@ -227,6 +231,7 @@ jobs:
 
   img2vid:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     needs: [config, img2img]
     outputs:
       out: ${{ steps.out.outputs.out }}
