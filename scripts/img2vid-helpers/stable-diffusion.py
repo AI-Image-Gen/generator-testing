@@ -15,7 +15,7 @@ def run(model, image):
     print("| Using:", flush=True)
     print("Model from: " + model["dld_url"], flush=True)
 
-    makedirs("./tmp/x", exist_ok=True)
+    makedirs("./checkpoints/x", exist_ok=True)
     ext=model["dld_url"].split(".")[-1]
     with urllib.request.urlopen(model["dld_url"]) as response, open('./checkpoints/'+ ai+"."+ext, 'wb') as output_file:
         print('Downloading [' + model["dld_url"] + "]...", flush=True)
