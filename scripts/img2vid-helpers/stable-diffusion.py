@@ -17,9 +17,7 @@ def run(model, image):
 
     savepath = path.join(path.abspath(cfg_folder), 'img2vid', f"{runnum}.mp4")
 
-    pipe = StableVideoDiffusionPipeline.from_pretrained(
-        model["model"], torch_dtype=torch.float16, variant="fp16"
-    )
+    pipe = StableVideoDiffusionPipeline.from_pretrained(model["model"])
 
     # Load the conditioning image
     image = load_image(image)
