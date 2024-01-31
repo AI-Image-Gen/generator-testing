@@ -42,21 +42,18 @@ def replace_models_in_string(mtype, string):
     models_names = list(def_models[mtype].keys())
     models_names_str = ', '.join(f'"{name}"' for name in models_names)
     return string.replace('"{type.models}"'.replace("type", mtype), f"[{models_names_str}]")
-def search_json(data, target_string, exclude_key=None):
-    if exclude_key is None:
-        exclude_key = set()
+def search_json(data, target_string):
     if isinstance(data, dict):
-        for key, value in data.items():
-            if key != exclude_key:
-                if isinstance(value, (dict, list)):
-                    if search_json(value, target_string, exclude_key):
-                        return True
-                elif isinstance(value, str) and target_string in value:
+        for value in data.values():
+            if isinstance(value, (dict, list)):
+                if search_json(value, target_string):
                     return True
+            elif isinstance(value, str) and target_string in value:
+                return True
     elif isinstance(data, list):
         for item in data:
             if isinstance(item, (dict, list)):
-                if search_json(item, target_string, exclude_key):
+                if search_json(item, target_string):
                     return True
             elif isinstance(item, str) and target_string in item:
                 return True
@@ -128,7 +125,7 @@ for model_type in model_types:
 # Check if variables used are proper
 settings_types = model_types + ["txt2txt"]
 for set_type in settings_types:
-    if def_cfg[set_type]["active"] and search_json(def_cfg, "{type.".replace("type", set_type), set_type):
+    if not def_cfg[set_type]["active"] and search_json(def_cfg, "{type.".replace("type", set_type)):
         print(f"ERROR IN DEFAULT: Used {set_type} variable without turning on module")
         sys.exit(1)
 
@@ -158,7 +155,7 @@ for model_type in model_types:
 # Check if variables used are proper
 settings_types = model_types + ["txt2txt"]
 for set_type in settings_types:
-    if settings_json[set_type]["active"] and search_json(settings_json, "{type.".replace("type", set_type)):
+    if not settings_json[set_type]["active"] and search_json(settings_json, "{type.".replace("type", set_type)):
         print(f"ERROR IN CUSTOM: Used {set_type} variable without turning on module")
         sys.exit(1)
 
