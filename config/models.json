@@ -40,8 +40,8 @@
    "img_upscale": {
       "realesrgan-x4-plus": {
          "dld_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
-         "packages": ["sdkit~=2.0.15", "tqdm~=4.66.1", "xformers~=0.0.23"],
-         "extra_indexes": ["https://download.pytorch.org/whl/cu121"],
+         "packages": ["tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0"],
+         "extra_indexes": [],
          "helper": "realesrgan" 
       }
    },

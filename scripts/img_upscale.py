@@ -28,6 +28,8 @@ except:
     response = urllib.request.urlopen(path)
     data = response.read()
     image = Image.open(BytesIO(data))
+
+image.save('tmp.jpg')
     
 makedirs(path.join(cfg_folder, "img_upscale"), exist_ok=True)
 run(f"pip install {' '.join(models[ai]['packages'])} --extra-index-url {','.join(models[ai]['extra_indexes'])}", shell=True)
@@ -35,7 +37,7 @@ run(f"pip install {' '.join(models[ai]['packages'])} --extra-index-url {','.join
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 
 helper = importlib.import_module(f"img_upscale-helpers.{models[ai]['helper']}")
-path = helper.run(models[ai], image, config["scale"])
+path = helper.run(models[ai], 'tmp.jpg', config["scale"])
 
 run(f'echo out={path} >> $GITHUB_OUTPUT', shell=True)
 print(f'Generated image and saved to {path}')
