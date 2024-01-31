@@ -41,6 +41,6 @@ def run(model, image):
     subprocess.run(f'mv {path.join(cfg_folder, "repo", "*")} .', shell=True)
     
     helper = importlib.import_module("scripts.sampling.simple_video_sample")
-    helper.sample(image, version="svd_xt", device="cpu", output_folder=savepath)
+    helper.sample(image, version="svd_xt", device="cpu", output_folder=savepath, num_steps=model["inference_count"], num_frames=model["frames_count"])
 
     return savepath
