@@ -47,7 +47,6 @@ jobs:
 
   txt2txt:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     needs: config
     outputs:
       out: ${{ steps.out.outputs.out }}
@@ -61,6 +60,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
+
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
 
       - name: Download config
         uses: actions/download-artifact@v4
@@ -78,7 +82,6 @@ jobs:
 
   txt2img:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     needs: [config, txt2txt]     
 
     if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.txt2img).active }}
@@ -95,6 +98,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
+
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
 
       - name: Download config
         uses: actions/download-artifact@v4
@@ -120,7 +128,6 @@ jobs:
 
   img2img:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     needs: [config, txt2img]
 
     if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.img2img).active }}
@@ -138,6 +145,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
+
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
 
       - name: Download config
         uses: actions/download-artifact@v4
@@ -170,7 +182,6 @@ jobs:
 
   img_upscale:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     needs: [config, img2img]
     outputs:
       out: ${{ steps.out.outputs.out }}
@@ -191,7 +202,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
-
+      
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
+          
       - name: Download config
         uses: actions/download-artifact@v4
         with:
@@ -231,7 +247,6 @@ jobs:
 
   img2vid:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     needs: [config, img2img]
     outputs:
       out: ${{ steps.out.outputs.out }}
@@ -252,7 +267,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
-
+          
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 10
+          
       - name: Download config
         uses: actions/download-artifact@v4
         with:
