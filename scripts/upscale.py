@@ -23,9 +23,9 @@ config = config["upscale"]
 run("pip install pillow~=10.2.0", shell=True)
 from PIL import Image
 try:
-    image = Image.open(config["image"])
+    image = Image.open(config["input"])
 except:
-    response = urllib.request.urlopen(path)
+    response = urllib.request.urlopen(config["input"])
     data = response.read()
     image = Image.open(BytesIO(data))
 

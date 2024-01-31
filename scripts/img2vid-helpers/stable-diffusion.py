@@ -1,4 +1,4 @@
-from os import makedirs, getenv, path
+from os import makedirs, getenv, path, getcwd, chdir
 import subprocess, urllib.request, importlib
 
 def run(model, image):
@@ -33,12 +33,14 @@ def run(model, image):
         progress_bar.close()
         output_file.write(response.read())
 
-    repo_url = 'https://github.com/Stability-AI/generative-models.git'
-    Repo.clone_from(repo_url, '.')
-
+    work_dir = getcwd()
     savepath = path.join(path.abspath(cfg_folder), 'img2vid')
 
+    repo_url = 'https://github.com/Stability-AI/generative-models.git'
+    Repo.clone_from(repo_url, './repo')
+    chdir('./repo')
     helper = importlib.import_module(f"scripts.sampling.simple_video_sample")
     helper.sample(image, version="svd_xt", device="cpu", output_folder=savepath)
-    
+
+    chdir(work_dir)
     return savepath

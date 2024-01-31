@@ -26,7 +26,7 @@ from PIL import Image
 try:
     image = Image.open(config["image"])
 except:
-    response = urllib.request.urlopen(path)
+    response = urllib.request.urlopen(config["image"])
     data = response.read()
     image = Image.open(BytesIO(data))
 
