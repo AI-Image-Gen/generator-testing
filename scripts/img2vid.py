@@ -29,7 +29,7 @@ except:
     data = response.read()
     image = Image.open(BytesIO(data))
 
-image = image.resize(1024, 576)
+image = image.resize((1024, 576))
 image.save('tmp.jpg')
     
 makedirs(path.join(cfg_folder, "img2vid"), exist_ok=True)

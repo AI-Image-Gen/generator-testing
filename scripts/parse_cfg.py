@@ -103,7 +103,7 @@ def is_valid_image(path):
 
 # Check var types
 ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["upscale"]["scale"]]
-strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2img"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["upscale"]["input"], def_cfg["img2vid"]["prompt"], def_cfg["img2vid"]["image"]]
+strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2img"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["upscale"]["input"], def_cfg["img2vid"]["image"]]
 bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def_cfg["txt2txt"]["save_as_used"], def_cfg["txt2img"]["active"], def_cfg["img2img"]["active"], def_cfg["upscale"]["active"], def_cfg["img2vid"]["active"]]
 for integer in ints: process_type(integer, int)
 for string in strs: process_type(string, str)
@@ -196,7 +196,7 @@ if settings_json["upscale"]["active"]:
         if not string.strip(): 
             print("ERROR: Not found image for upscale")
             sys.exit(1)
-strs = [settings_json["img2vid"]["prompt"], settings_json["img2vid"]["image"]]
+strs = [settings_json["img2vid"]["image"]]
 if settings_json["img2vid"]["active"]:
     for string in strs:
         if not string.strip(): 

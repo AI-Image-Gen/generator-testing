@@ -30,7 +30,6 @@
     },
     "img2vid": {
         "active": false, 
-        "prompt": "",
         "image": "",
         "matrix": {
             "models": "{img2vid.models}"
