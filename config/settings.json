@@ -11,7 +11,7 @@
     },
     "txt2img": {
         "active": false, 
-        "prompt": "{txt2txt.out}",
+        "prompt": "{!txt2txt.out}",
         "height": 768, 
         "width": 768,
         "matrix": {
