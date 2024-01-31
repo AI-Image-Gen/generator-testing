@@ -1,7 +1,7 @@
 from os import makedirs, path, getenv
 import subprocess
 
-def run(model, ctx, h, w):
+def run(model, image, ctx, h, w):
     cfg_folder = getenv("CONFIG_FOLDER")
     runnum = getenv("runnum")
 
@@ -13,7 +13,7 @@ def run(model, ctx, h, w):
     from sdkit.filter import apply_filters
     import sdkit, urllib.request
 
-    print('\nGenerating image for question: ' + ctx, flush=True)
+    print('\Enhancing image with question: ' + ctx, flush=True)
     print("| Using:", flush=True)
     print("Model from: " + model["dld_url"], flush=True)
     print("Dimensions: " + str(h) + "px x " + str(w) + "px", flush=True)
@@ -43,7 +43,7 @@ def run(model, ctx, h, w):
     load_model(context, 'stable-diffusion')
     load_model(context, "nsfw_checker")
 
-    image = generate_images(context, width=int(w), height=int(h), prompt=ctx, num_inference_steps=model["inference_count"])
+    image = generate_images(context, init_image=image, width=int(w), height=int(h), prompt=ctx, num_inference_steps=model["inference_count"])
     images_nsfw_filtered = apply_filters(context, "nsfw_checker", image)
     
     savepath = path.join(path.abspath(cfg_folder), 'txt2img', f'{runnum}.jpg')
