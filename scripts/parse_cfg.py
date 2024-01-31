@@ -1,4 +1,3 @@
-
 from subprocess import run
 run('pip install -U pillow~=10.2.0', shell=True)
 
@@ -129,7 +128,7 @@ for model_type in model_types:
 # Check if variables used are proper
 settings_types = model_types + ["txt2txt"]
 for set_type in settings_types:
-    if not def_cfg[set_type]["active"] and search_json(def_cfg, "{type.".replace("type", set_type), set_type):
+    if def_cfg[set_type]["active"] and search_json(def_cfg, "{type.".replace("type", set_type), set_type):
         print(f"ERROR IN DEFAULT: Used {set_type} variable without turning on module")
         sys.exit(1)
 
@@ -159,7 +158,7 @@ for model_type in model_types:
 # Check if variables used are proper
 settings_types = model_types + ["txt2txt"]
 for set_type in settings_types:
-    if not settings_json[set_type]["active"] and search_json(settings_json, "{type.".replace("type", set_type)):
+    if settings_json[set_type]["active"] and search_json(settings_json, "{type.".replace("type", set_type)):
         print(f"ERROR IN CUSTOM: Used {set_type} variable without turning on module")
         sys.exit(1)
 
