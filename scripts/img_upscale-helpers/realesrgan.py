@@ -7,7 +7,7 @@ from os import makedirs, path, getenv
 def run(model, image, scale):
     cfg_folder = getenv("CONFIG_FOLDER")
 
-    print('\nUpscaling image by ' + scale + 'x', flush=True)
+    print('\nUpscaling image by ' + str(scale) + 'x', flush=True)
     print("| Using:", flush=True)
     print("Model from: " + model["dld_url"], flush=True)
 
