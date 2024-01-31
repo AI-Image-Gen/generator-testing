@@ -4,9 +4,6 @@ import json, importlib, urllib.request
 from io import BytesIO
 
 cfg_folder = getenv("CONFIG_FOLDER")
-num = int(getenv("num"))
-mix1 = int(getenv("mix1"))
-mix2 = int(getenv("mix2"))
 ai = getenv("ai")
 
 with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:

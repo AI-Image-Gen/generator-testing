@@ -170,8 +170,6 @@ jobs:
         env:
           CONFIG_FOLDER: '../config'
           ai: ${{ matrix.ai }}
-          num: ${{ matrix.mix0 }}
-          mix1: ${{ matrix.mix1 }}
         run: python img2img.py
 
       - name: Upload image
@@ -233,9 +231,6 @@ jobs:
         env:
           CONFIG_FOLDER: '../config'
           ai: ${{ matrix.ai }}
-          num: ${{ matrix.mix0 }}
-          mix1: ${{ matrix.mix1 }}
-          mix2: ${{ matrix.mix2 }}
         run: python img_upscale.py
 
       - name: Upload image
@@ -297,7 +292,5 @@ jobs:
         id: out
         env:
           CONFIG_FOLDER: '../config'
-          num: ${{ matrix.mix0 }}
-          mix1: ${{ matrix.mix1 }}
-          mix2: ${{ matrix.mix2 }}
+          ai: ${{ matrix.ai }}
         run: python img2vid.py
