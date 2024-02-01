@@ -30,10 +30,12 @@ if config["global"]["clean_artifacts"]:
                 shutil.move(old_path, new_path)
                 print(f'Moved: {old_path} -> {new_path}')
 
+    dirs_to_del = ['prompt', 'settings']
+    for todel in dirs_to_del:
+        todel_dir = os.path.join(config_dir, 'tmp', todel)
+        if os.path.exists(todel_dir):
+            shutil.rmtree(os.path.join(config_dir, 'tmp', todel))
 
-    # Call the function to organize and rename files and folders
-    shutil.rmtree(os.path.join(config_dir, 'tmp', 'settings'))
-    shutil.rmtree(os.path.join(config_dir, 'tmp', 'prompt'))
     organize_and_rename(os.path.join(config_dir, 'tmp'))
 
     path = os.path.join(os.path.abspath(config_dir), 'tmp', 'txt2img')
