@@ -85,7 +85,7 @@
          "model": "google/flan-t5-base",
          "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, in english language, FORMATTED TO BE BETWEEN \" SYMBOLS. Prompt needs to be THE ONLY THING in your whole response. Subject: {prompt} {used_prompts_template}",
          "used_prompts_template": "You can't use these prompts: {used_prompts}",
-         "packages": ["transformers~=4.37.2"],
+         "packages": ["transformers~=4.37.2", "sentencepiece~=0.1.99"],
          "helper": "t5-transformers" 
       },
 
