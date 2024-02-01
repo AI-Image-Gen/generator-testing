@@ -9,7 +9,7 @@ def run(model, ctx):
     inputs = tokenizer(ctx, return_tensors="pt")
 
     output = model(**inputs)
-    response = tokenizer.decode(output["output_ids"][0], skip_special_tokens=True)
+    response = tokenizer.decode(output)
 
     inside_quotes = False
     result = []
