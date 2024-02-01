@@ -34,7 +34,7 @@ def run(model, image, scale):
         output_file.write(response.read())
 
     with urllib.request.urlopen(model["script"]) as response, open('./tmp/script.py', 'wb') as output_file:
-        print('Downloading [' + model["dld_url"] + "]...", flush=True)
+        print('Downloading [' + model["script"] + "]...", flush=True)
         # Get the total file size in bytes
         file_size = int(response.getheader('Content-Length', 0))
         # Initialize the tqdm progress bar
