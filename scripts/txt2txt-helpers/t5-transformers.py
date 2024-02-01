@@ -9,7 +9,7 @@ def run(model, ctx):
 
     input_ids = tokenizer(ctx, return_tensors="pt").input_ids
 
-    outputs = model.generate(input_ids, max_new_tokens=1024)
+    outputs = model.generate(input_ids, max_new_tokens=4096)
     response = tokenizer.decode(outputs[0])
 
     pattern = re.compile(r'<pad>(.*?)</s>')
@@ -22,4 +22,4 @@ def run(model, ctx):
     print('\n\nResponse: ' + response, flush=True)
     print("\n\nFormatted to: " + result, flush=True)
 
-    return response
+    return result

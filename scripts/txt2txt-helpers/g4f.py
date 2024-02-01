@@ -21,7 +21,10 @@ def run(model, ctx):
 
     result = ''.join(result)
     
+    if not result.strip():
+        result = response
+        
     print('\n\nResponse: ' + response, flush=True)
     print("\n\nFormatted to: " + result, flush=True)
 
-    return response
+    return result
