@@ -85,16 +85,18 @@ def check_models(array, mtype, default=False):
     return True
 def is_valid_image(path):
     try:
-        with Image.open(path) as img:
+        with Image.open(path):
             return True
     except:
         try: 
             response = urllib.request.urlopen(path)
             data = response.read()
-            with Image.open(BytesIO(data)) as img:
+            print(data)
+            with Image.open(BytesIO(data)):
                 return True
         
-        except:
+        except Exception as e:
+            print(f"Error: {e}")
             return False
 
 # Check var types
