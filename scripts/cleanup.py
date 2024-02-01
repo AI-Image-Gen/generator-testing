@@ -32,6 +32,7 @@ if config["global"]["clean_artifacts"]:
 
 
     # Call the function to organize and rename files and folders
+    shutil.rmtree(os.path.join(config_dir, 'settings'))
     organize_and_rename(os.path.join(config_dir, 'tmp'))
 
     path = os.path.join(os.path.abspath(config_dir), 'tmp', 'txt2img')
