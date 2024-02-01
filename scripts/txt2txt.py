@@ -16,7 +16,11 @@ with open(path.join(cfg_folder, 'models.json'), 'r') as file:
 
 makedirs(path.join(cfg_folder, "prompts"), exist_ok=True)
 
-run(f"pip install {' '.join(models[ai_model]['packages'])}", shell=True)
+if models[ai_model]['extra_indexes']:
+    run(f"pip install {' '.join(models[ai_model]['packages'])} --extra-index-url {','.join(models[ai_model]['extra_indexes'])}", shell=True)
+else:
+    run(f"pip install {' '.join(models[ai_model]['packages'])}", shell=True)
+
 for num in range(int(data["global"]["out_amount"])):
     # Restore variables on every literation
     with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
