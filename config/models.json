@@ -3,7 +3,7 @@
 
       "sd-xl-turbo-v1.0": {
          "model": "stabilityai/sdxl-turbo",
-         "inference_count": 7,
+         "inference_count": 4,
          "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
@@ -20,7 +20,7 @@
    
       "kadinsky-2.2": {
          "model": "kandinsky-community/kandinsky-2-2-decoder",
-         "inference_count": 15,
+         "inference_count": 8,
          "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
@@ -29,7 +29,7 @@
       "dreamshaper-8": {
          "model": "Lykon/dreamshaper-8",
          "adapter": "latent-consistency/lcm-lora-sdv1-5",
-         "inference_count": 6,
+         "inference_count": 12,
          "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0", "peft~=0.8.1"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion-lora" 
@@ -72,7 +72,8 @@
 
       "realesrgan-x4-plus": {
          "dld_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
-         "packages": ["GitPython~=3.1.41", "tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0", "numpy~=1.26.3", "torchvision~=0.16.0"],
+         "script": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN/master/inference_realesrgan.py",
+         "packages": ["tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0", "numpy~=1.26.3", "torchvision~=0.16.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "realesrgan" 
       }
