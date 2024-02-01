@@ -3,8 +3,7 @@ from subprocess import run
 import json, importlib
 
 cfg_folder = getenv("CONFIG_FOLDER")
-ai_models = ["gpt-3.5-turbo", "gpt-4"]
-ai_model = ai_models[1]
+ai_model = 'flan-t5'
 
 with open(path.join(cfg_folder, 'usedPrompts.json'), 'r') as file:
     usedPrompts = json.load(file)
@@ -32,7 +31,6 @@ for num in range(int(data["global"]["out_amount"])):
             prompt = file.read()
             all_justusedprompts.append(prompt)
 
-    
     models_str = json.dumps(models)
     # Add old prompts
     used_prompts_str = '\\\\n'.join(p for p in usedPrompts) + '\\\\n' + '\\\\n'.join(p for p in all_justusedprompts)

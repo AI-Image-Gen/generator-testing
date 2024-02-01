@@ -1,6 +1,6 @@
-def run(model, ctx):
-    import g4f
-    
+import g4f
+
+def run(model, ctx):    
     print('\nGenerating online output for question: ' + ctx, flush=True)
 
     g4f.debug.logging = True

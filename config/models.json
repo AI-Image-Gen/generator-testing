@@ -80,6 +80,15 @@
    },
 
    "txt2txt": {
+
+      "flan-t5": {
+         "model": "google/flan-t5-base",
+         "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, in english language, FORMATTED TO BE BETWEEN \" SYMBOLS. Prompt needs to be THE ONLY THING in your whole response. Subject: {prompt} {used_prompts_template}",
+         "used_prompts_template": "You can't use these prompts: {used_prompts}",
+         "packages": ["transformers~=4.37.2"],
+         "helper": "t5-transformers" 
+      },
+
       "gpt-4": {
          "model": "gpt-4",
          "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, FORMATTED TO BE BETWEEN \" SYMBOLS. Prompt needs to be THE ONLY THING in your whole response. Subject: {prompt} {used_prompts_template}",
