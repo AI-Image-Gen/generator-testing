@@ -12,6 +12,21 @@ def run(model, ctx):
     outputs = model.generate(**inputs, max_new_tokens=4096)
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
+    inside_quotes = False
+    result = []
+    for char in response:
+        if char == '"':
+            inside_quotes = not inside_quotes
+            if not inside_quotes:
+                break
+        elif inside_quotes:
+            result.append(char)
+    result = ''.join(result)
+
+    if not result.strip():
+        result = response
+
     print('\n\nResponse: ' + response, flush=True)
+    print("\n\nFormatted to: " + result, flush=True)
 
     return response
