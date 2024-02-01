@@ -3,7 +3,8 @@ from subprocess import run
 import json, importlib
 
 cfg_folder = getenv("CONFIG_FOLDER")
-ai_model = 'gpt-3.5-turbo'
+ai_models = ["gpt-3.5-turbo", "gpt-4"]
+ai_model = ai_models[1]
 
 with open(path.join(cfg_folder, 'usedPrompts.json'), 'r') as file:
     usedPrompts = json.load(file)
