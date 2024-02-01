@@ -45,7 +45,7 @@ for num in range(int(data["global"]["out_amount"])):
     models = json.loads(models_str)
 
     # Add current prompt
-    prompt_str = data["txt2txt"]["prompt"].replace('\n', ' ').replace(':', '- ')
+    prompt_str = data["txt2txt"]["prompt"].replace('\n', ' ')
     models_str = models_str.replace('{prompt}', prompt_str)
     models = json.loads(models_str)
 
@@ -85,6 +85,6 @@ with open(prompt_path, 'w') as file:
         json.dump(prompts_list, file, indent=2)
 
 run('echo out=' + prompts_json_str + ' >> $GITHUB_OUTPUT', shell=True)
-print('Generated prompt.txt file and set out to ' + prompts_json_str)
+print('\n\nGenerated prompt.txt file and set out to ' + prompts_json_str)
 
 run('echo file=' + prompt_path + ' >> $GITHUB_OUTPUT', shell=True)
