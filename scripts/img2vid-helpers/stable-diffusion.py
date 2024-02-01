@@ -7,7 +7,6 @@ def run(model, image):
 
     subprocess.run(f"pip install {' '.join(model['packages'])} --extra-index-url {','.join(model['extra_indexes'])}", shell=True)
     
-    import torch
     from diffusers import StableVideoDiffusionPipeline
     from diffusers.utils import load_image, export_to_video
 

@@ -14,14 +14,18 @@ def run(model, pass_img, ctx, w, h):
 
     savepath = path.join(path.abspath(cfg_folder), 'txt2img', f'{runnum}.jpg')
 
-    from diffusers import AutoPipelineForImage2Image
+    from diffusers import AutoPipelineForImage2Image, LCMScheduler
     from diffusers.utils import load_image
 
     init_img = load_image(pass_img)
     init_img = init_img.resize((w, h))
     pipe = AutoPipelineForImage2Image.from_pretrained(model["model"])
+    pipe.scheduler = LCMScheduler.from_config(pipe.scheduler.config)
+    # load and fuse lcm lora
+    pipe.load_lora_weights(model["adapter"])
+    pipe.fuse_lora()
 
-    image = pipe(prompt=ctx, image=init_img, num_inference_steps=model["inference_count"], height=h, width=w).images[0]
+    image = pipe(prompt=ctx, image=init_img, num_inference_steps=model["inference_count"], height=h, width=w, guidance_scale=0).images[0]
     image.save(savepath)
 
     return savepath

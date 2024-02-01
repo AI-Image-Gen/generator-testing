@@ -37,7 +37,7 @@ makedirs(path.join(cfg_folder, "img2img"), exist_ok=True)
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 
 helper = importlib.import_module(f"img2img-helpers.{models[ai]['helper']}")
-path = helper.run(models[ai], 'tmp.jpg', config["prompt"], config["height"], config["width"])
+path = helper.run(models[ai], 'tmp.jpg', config["prompt"], config["width"], config["height"])
 
 run(f'echo out={path} >> $GITHUB_OUTPUT', shell=True)
 print(f'Generated image and saved to {path}')

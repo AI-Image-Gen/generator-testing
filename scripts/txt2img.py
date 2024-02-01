@@ -23,7 +23,7 @@ makedirs(path.join(cfg_folder, "txt2img"), exist_ok=True)
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 
 helper = importlib.import_module(f"txt2img-helpers.{models[ai]['helper']}")
-path = helper.run(models[ai], ctx, config["height"], config["width"])
+path = helper.run(models[ai], ctx, config["width"], config["height"])
 
 run(f'echo out={path} >> $GITHUB_OUTPUT', shell=True)
 print(f'Generated image and saved to {path}')
