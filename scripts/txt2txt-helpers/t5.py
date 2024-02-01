@@ -1,6 +1,7 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
 def run(model, ctx):    
+    ctx = ctx.replace(":", " -")
     print('\nGenerating output for question: ' + ctx, flush=True)
 
     tokenizer = T5Tokenizer.from_pretrained(model["model"])
@@ -12,6 +13,5 @@ def run(model, ctx):
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     print('\n\nResponse: ' + response, flush=True)
-    print("\n\nFormatted to: " + result, flush=True)
 
-    return result
+    return response
