@@ -91,7 +91,7 @@ prompts_json_str = json.dumps(prompts_list).replace(" ", "")
 prompts_list = []
 for num in range(int(data["global"]["out_amount"])):
     prompts_list.append(str(prompts_arr[num]).replace("\n", ' '))
-prompt_path = path.join(cfg_folder, 'prompts.txt')
+prompt_path = path.join(path.abspath(cfg_folder), 'prompts.txt')
 with open(prompt_path, 'w') as file:
         json.dump(prompts_list, file, indent=2)
 
