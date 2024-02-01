@@ -19,9 +19,9 @@
         }
     },
     "img2img": {
-        "active": true, 
+        "active": false, 
         "prompt": "nice rocket",
-        "image": "https://history-computer.com/wp-content/uploads/2022/08/most-powerful-rockets-ever-built-header-scaled.jpg",
+        "image": "",
         "height": 576, 
         "width": 1024, 
         "matrix": {
@@ -30,7 +30,7 @@
     },
     "img2vid": {
         "active": true, 
-        "image": "{img2img.out}",
+        "image": "https://history-computer.com/wp-content/uploads/2022/08/most-powerful-rockets-ever-built-header-scaled.jpg",
         "matrix": {
             "models": "{img2vid.models}"
         }
