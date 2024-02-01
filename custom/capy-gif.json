@@ -1,7 +1,7 @@
 {
     "global": {
         "clean_artifacts": true,
-        "out_amount": 1
+        "out_amount": 10
     },
 
     "txt2txt": {
