@@ -1,4 +1,3 @@
-
 def run(model, ctx):
     import g4f
     

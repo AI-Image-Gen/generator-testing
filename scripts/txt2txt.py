@@ -3,6 +3,7 @@ from subprocess import run
 import json, importlib
 
 cfg_folder = getenv("CONFIG_FOLDER")
+ai_model = 'gpt-3.5-turbo'
 
 with open(path.join(cfg_folder, 'usedPrompts.json'), 'r') as file:
     usedPrompts = json.load(file)
@@ -15,7 +16,7 @@ with open(path.join(cfg_folder, 'models.json'), 'r') as file:
 
 makedirs(path.join(cfg_folder, "prompts"), exist_ok=True)
 
-run(f"pip install {' '.join(models['gpt-4']['packages'])}", shell=True)
+run(f"pip install {' '.join(models[ai_model]['packages'])}", shell=True)
 for num in range(int(data["global"]["out_amount"])):
     # Restore variables on every literation
     with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
@@ -37,7 +38,7 @@ for num in range(int(data["global"]["out_amount"])):
     models_str = models_str.replace('{used_prompts}', used_prompts_str)
     models = json.loads(models_str)
 
-    models_str = models_str.replace('{used_prompts_template}', models["gpt-4"]["used_prompts_template"])
+    models_str = models_str.replace('{used_prompts_template}', models[ai_model]["used_prompts_template"])
     models = json.loads(models_str)
 
     # Add current prompt
@@ -45,12 +46,12 @@ for num in range(int(data["global"]["out_amount"])):
     models_str = models_str.replace('{prompt}', prompt_str)
     models = json.loads(models_str)
 
-    ctx = models["gpt-4"]["prompt_template"]
+    ctx = models[ai_model]["prompt_template"]
 
-    print('\nUsing helper: ' + models['gpt-4']['helper'], flush=True)
+    print('\nUsing helper: ' + models[ai_model]['helper'], flush=True)
 
-    helper = importlib.import_module(f"txt2txt-helpers.{models['gpt-4']['helper']}")
-    response = helper.run(models["gpt-4"], ctx)
+    helper = importlib.import_module(f"txt2txt-helpers.{models[ai_model]['helper']}")
+    response = helper.run(models[ai_model], ctx)
 
     inside_quotes = False
     result = []
