@@ -104,8 +104,6 @@ bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def
 for integer in ints: process_type(integer, int)
 for string in strs: process_type(string, str)
 for boolean in bools: process_type(boolean, bool)
-if not def_cfg["txt2txt"]["active"]:
-    def_cfg["global"]["out_amount"] = 1
 # Integers values optimization
 width_height_modules = [def_cfg["txt2img"], def_cfg["img2img"]]
 for module in width_height_modules:
@@ -164,8 +162,6 @@ bools = [settings_json["global"]["clean_artifacts"], settings_json["txt2txt"]["a
 for boolean in bools:
     if boolean != True: 
         boolean = False
-if not settings_json["txt2txt"]["active"]:
-    settings_json["global"]["out_amount"] = 1
 
 # Stabilize strings
 strs = [settings_json["txt2txt"]["prompt"]]
