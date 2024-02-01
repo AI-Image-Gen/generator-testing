@@ -89,7 +89,9 @@ def is_valid_image(path):
             return True
     except:
         try: 
-            response = urllib.request.urlopen(path)
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+            req = urllib.request.Request(path, headers=headers)
+            response = urllib.request.urlopen(req)
             data = response.read()
             print(data)
             with Image.open(BytesIO(data)):
