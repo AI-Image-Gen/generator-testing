@@ -4,7 +4,7 @@ def run(model, ctx):
     print('\nGenerating output for question: ' + ctx, flush=True)
 
     tokenizer = T5Tokenizer.from_pretrained(model["model"])
-    model = T5ForConditionalGeneration.from_pretrained(model["model"])
+    model = T5ForConditionalGeneration.from_pretrained(model["model"], max_new_tokens=1024)
 
     input_ids = tokenizer(ctx, return_tensors="pt").input_ids
 
