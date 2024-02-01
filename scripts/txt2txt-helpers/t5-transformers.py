@@ -1,4 +1,5 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration
+import re
 
 def run(model, ctx):    
     print('\nGenerating output for question: ' + ctx, flush=True)
@@ -10,5 +11,15 @@ def run(model, ctx):
 
     outputs = model.generate(input_ids, max_new_tokens=1024)
     response = tokenizer.decode(outputs[0])
+
+    pattern = re.compile(r'<pad>(.*?)</s>')
+    matches = pattern.findall(response)
+    if matches:
+        result = matches[0]
+    else:
+        result = response
+
+    print('\n\nResponse: ' + response, flush=True)
+    print("\n\nFormatted to: " + result, flush=True)
 
     return response

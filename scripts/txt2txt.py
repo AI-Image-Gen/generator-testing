@@ -54,22 +54,7 @@ for num in range(int(data["global"]["out_amount"])):
     print('\nUsing helper: ' + models[ai_model]['helper'], flush=True)
 
     helper = importlib.import_module(f"txt2txt-helpers.{models[ai_model]['helper']}")
-    response = helper.run(models[ai_model], ctx)
-
-    inside_quotes = False
-    result = []
-    for char in response:
-        if char == '"':
-            inside_quotes = not inside_quotes
-            if not inside_quotes:
-                break
-        elif inside_quotes:
-            result.append(char)
-
-    result = ''.join(result)
-
-    print('\n\nResponse: ' + response)
-    print("\n\nFormatted to: " + result)
+    result = helper.run(models[ai_model], ctx)
 
     with open(path.join(cfg_folder, 'prompts', f'prompt-{num}.txt'), 'w') as file:
         file.write(result)

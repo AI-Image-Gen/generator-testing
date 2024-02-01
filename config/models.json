@@ -83,7 +83,7 @@
 
       "flan-t5": {
          "model": "google/flan-t5-large",
-         "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, in english language, FORMATTED TO BE BETWEEN \" SYMBOLS. Prompt beetwen \" needs to be THE ONLY THING in your whole response. Subject: {prompt} {used_prompts_template}",
+         "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, in english language. Prompt needs to be THE ONLY THING in your whole response. Subject: {prompt} {used_prompts_template}",
          "used_prompts_template": "You can't use these prompts, find something not related to: {used_prompts}",
          "packages": ["transformers~=4.37.2", "sentencepiece~=0.1.99", "torch~=2.2.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
