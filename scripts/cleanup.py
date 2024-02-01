@@ -1,5 +1,5 @@
 from subprocess import run
-import os, shutil
+import os, shutil, json
 
 config_dir = os.getenv('CONFIG_FOLDER')
 
@@ -28,16 +28,42 @@ def organize_and_rename(root_folder):
 
 
 # Call the function to organize and rename files and folders
-organize_and_rename(config_dir)
+organize_and_rename(os.path.join(config_dir, 'tmp'))
 
-path = os.path.join(os.path.abspath(config_dir), 'txt2img')
+path = os.path.join(os.path.abspath(config_dir), 'tmp', 'txt2img')
 run(f'echo txt2img={path} >> $GITHUB_OUTPUT', shell=True)
 
-path = os.path.join(os.path.abspath(config_dir), 'img2img')
+path = os.path.join(os.path.abspath(config_dir), 'tmp', 'img2img')
 run(f'echo img2img={path} >> $GITHUB_OUTPUT', shell=True)
 
-path = os.path.join(os.path.abspath(config_dir), 'img2vid')
+path = os.path.join(os.path.abspath(config_dir), 'tmp', 'img2vid')
 run(f'echo img2vid={path} >> $GITHUB_OUTPUT', shell=True)
 
-path = os.path.join(os.path.abspath(config_dir), 'upscale')
+path = os.path.join(os.path.abspath(config_dir), 'tmp', 'upscale')
 run(f'echo upscale={path} >> $GITHUB_OUTPUT', shell=True)
+
+with open(path.join(config_dir, 'tmp', 'settings', 'cfg.json'), 'r') as file:
+    config = json.load(file)
+    
+if config["txt2txt"]["save_as_used"] and config["txt2txt"]["active"]:
+    print('Saving as used...')
+
+    txt2txt = json.loads(os.getenv("txt2txt").replace('*', ' '))
+
+    with open(os.path.join(config_dir, 'usedPrompts.json'), 'r') as file:
+        data = json.load(file)
+    for prompt in txt2txt:
+        data.append(prompt)
+    while len(data) > 10:
+        data.pop(0)
+    with open(path.join(config_dir, 'usedPrompts.json'), 'w') as file:
+        json.dump(data, file, indent=2)
+
+command = """
+git config --global user.name ai &&
+git config --global user.email github-actions@github.com &&
+git add . &&
+git commit -m 'Add used prompts'
+"""
+
+run(command, shell=True, check=True, cwd='../')

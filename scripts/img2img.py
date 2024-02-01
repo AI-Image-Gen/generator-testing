@@ -5,7 +5,7 @@ import json, importlib, urllib.request
 
 cfg_folder = getenv("CONFIG_FOLDER")
 ai = getenv("ai")
-num = getenv("num")
+num = int(getenv("num"))
 runnum = getenv("runnum")
 
 with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
