@@ -108,7 +108,7 @@ jobs:
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 10
+          swap-size-gb: 15
 
       - name: Download config
         uses: actions/download-artifact@v4
@@ -156,7 +156,7 @@ jobs:
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 10
+          swap-size-gb: 15
 
       - name: Download config
         uses: actions/download-artifact@v4
@@ -221,7 +221,7 @@ jobs:
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 25
+          swap-size-gb: 40
           
       - name: Download config
         uses: actions/download-artifact@v4
@@ -283,7 +283,7 @@ jobs:
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 10
+          swap-size-gb: 15
           
       - name: Download config
         uses: actions/download-artifact@v4
