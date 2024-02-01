@@ -6,7 +6,7 @@
 
     "txt2txt": {
         "active": true, 
-        "prompt": "rocket launch",
+        "prompt": "robotic city",
         "save_as_used": true
     },
     "txt2img": {
