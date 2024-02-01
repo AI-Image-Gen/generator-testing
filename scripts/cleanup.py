@@ -1,7 +1,7 @@
 from subprocess import run
 import os, shutil, json
 
-config_dir = os.getenv('CONFIG_FOLDER')
+config_dir = os.path.abspath(os.getenv('CONFIG_FOLDER'))
 
 with open(os.path.join(config_dir, 'tmp', 'settings', 'cfg.json'), 'r') as file:
     config = json.load(file)
