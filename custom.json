@@ -5,17 +5,17 @@
     },
 
     "txt2txt": {
-        "active": false, 
-        "prompt": "Make it fresh and creative",
+        "active": true, 
+        "prompt": "rocket launch",
         "save_as_used": true
     },
     "txt2img": {
-        "active": false, 
-        "prompt": "{!txt2txt.out}",
-        "height": 768, 
-        "width": 768,
+        "active": true, 
+        "prompt": "{txt2txt.out}",
+        "height": 576, 
+        "width": 1024,
         "matrix": {
-            "models": ["dreamshaper-8"]
+            "models": "{txt2img.models}"
         }
     },
     "img2img": {
@@ -29,15 +29,15 @@
         }
     },
     "img2vid": {
-        "active": false, 
-        "image": "{!img2img.out}",
+        "active": true, 
+        "image": "{txt2img.out}",
         "matrix": {
             "models": "{img2vid.models}"
         }
     },
     "upscale": {
-        "active": true, 
-        "input": "https://t4.ftcdn.net/jpg/05/56/16/81/360_F_556168144_qEINHd6qUsQH4b6wDvgOS0WtuShVwJVm.jpg",
+        "active": false, 
+        "input": "",
         "scale": 2,
         "matrix": {
             "models": "{upscale.models}"
