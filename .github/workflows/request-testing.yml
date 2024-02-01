@@ -345,27 +345,43 @@ jobs:
           txt2txt: ${{ needs.txt2txt.outputs.out }}
         run: python cleanup.py
 
+      - name: Push used prompt
+        if: ${{ steps.out.outputs.push }}
+        uses: ad-m/github-push-action@master
+        with:
+          force: true
+
       - name: Upload txt2img
-        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
+        if: ${{ fromJson(needs.config.outputs.txt2img).active && steps.out.outputs.cleanup }}
         uses: actions/upload-artifact@v4
         with:
           name: images_txt2img
           path: ${{ steps.out.outputs.txt2img }}
       - name: Upload img2img
-        if: ${{ fromJson(needs.config.outputs.img2img).active }}
+        if: ${{ fromJson(needs.config.outputs.img2img).active && steps.out.outputs.cleanup }}
         uses: actions/upload-artifact@v4
         with:
           name: images_img2img
           path: ${{ steps.out.outputs.img2img }}
       - name: Upload img2vid
-        if: ${{ fromJson(needs.config.outputs.img2vid).active }}
+        if: ${{ fromJson(needs.config.outputs.img2vid).active && steps.out.outputs.cleanup }}
         uses: actions/upload-artifact@v4
         with:
           name: videos_img2vid
           path: ${{ steps.out.outputs.img2vid }}
       - name: Upload upscale
-        if: ${{ fromJson(needs.config.outputs.upscale).active }}
+        if: ${{ fromJson(needs.config.outputs.upscale).active && steps.out.outputs.cleanup }}
         uses: actions/upload-artifact@v4
         with:
           name: upscaled
           path: ${{ steps.out.outputs.upscale }}
+
+      - name: Cleanup artifacts
+        if: ${{ steps.out.outputs.cleanup }}
+        uses: geekyeggo/delete-artifact@v4  
+        with:
+          name: |
+            txt2img-*
+            img2img-*
+            img2vid-*
+            upscale-*
