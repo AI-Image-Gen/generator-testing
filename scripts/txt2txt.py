@@ -3,7 +3,7 @@ from subprocess import run
 import json, importlib
 
 cfg_folder = getenv("CONFIG_FOLDER")
-ai_model = 'flan-t5'
+ai_model = 'mixtralLM'
 
 with open(path.join(cfg_folder, 'usedPrompts.json'), 'r') as file:
     usedPrompts = json.load(file)
