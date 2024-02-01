@@ -210,6 +210,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
+      - name: Setup ffmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
