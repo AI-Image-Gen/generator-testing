@@ -59,6 +59,10 @@ for num in range(int(data["global"]["out_amount"])):
     with open(path.join(cfg_folder, 'prompts', f'prompt-{num}.txt'), 'w') as file:
         file.write(result)
 
+    # Restore prompts file to add new used prompts
+    with open(path.join(cfg_folder, 'models.json'), 'r') as file:
+        models = json.load(file)["txt2txt"]
+
 # Get all prompts
 prompts_arr = []
 justusedprompts = listdir(path.join(cfg_folder, 'prompts'))
