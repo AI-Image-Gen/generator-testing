@@ -8,7 +8,7 @@ def run(model, ctx):
 
     inputs = tokenizer(ctx, return_tensors="pt")
 
-    outputs = model.generate(**inputs, max_new_tokens=4096)
+    outputs = model.generate(**inputs, max_new_tokens=2048)
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     inside_quotes = False

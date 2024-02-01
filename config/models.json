@@ -81,11 +81,11 @@
 
    "txt2txt": {
 
-      "airoboros": {
-         "model": "jondurbin/airoboros-l2-13b-gpt4-m2.0",
+      "ms": {
+         "model": "microsoft/phi-2",
          "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, FORMATTED TO BE BETWEEN \" SYMBOLS. Prompt beetwen \" needs to be THE ONLY THING in your whole response. Subject: {prompt} {used_prompts_template}",
          "used_prompts_template": "You can't use these prompts: {used_prompts}",
-         "packages": ["transformers~=4.37.2", "torch~=2.2.0", "sentencepiece~=0.1.99", "protobuf~=4.25.2"],
+         "packages": ["transformers~=4.37.2", "torch~=2.2.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "casuallm" 
       },
@@ -97,7 +97,7 @@
          "packages": ["g4f~=0.2.0.7"],
          "helper": "g4f" 
       },
-      
+
       "gpt-3.5-turbo": {
          "model": "gpt-3.5-turbo",
          "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, FORMATTED TO BE BETWEEN \" SYMBOLS. Prompt beetwen \" needs to be THE ONLY THING in your whole response. Subject: {prompt} {used_prompts_template}",
