@@ -87,7 +87,7 @@
          "used_prompts_template": "You can't use these prompts: {used_prompts}",
          "packages": ["transformers~=4.37.2", "sentencepiece~=0.1.99", "torch~=2.2.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
-         "helper": "t5-transformers" 
+         "helper": "t5" 
       },
 
       "gpt-4": {
