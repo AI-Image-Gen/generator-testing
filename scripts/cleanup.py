@@ -13,8 +13,8 @@ if config["global"]["clean_artifacts"]:
                 old_path = os.path.join(root, file)
                 
                 # Extract the common prefix (e.g., img2img or img2vid)
-                common_prefix = root.split('-')[0].strip()
-
+                common_prefix = root.rsplit('/', 1)[-1].split('-')[0].strip()
+                
                 # Extract the suffix (e.g., sth-1, sth-2) from the folder name
                 folder_suffix = root.replace(common_prefix + '-', '').strip()
 
