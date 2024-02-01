@@ -1,7 +1,6 @@
 from os import getenv, path, makedirs
 from subprocess import run
-from io import BytesIO
-import json, importlib, urllib.request
+import json, importlib
 
 cfg_folder = getenv("CONFIG_FOLDER")
 ai = getenv("ai")
@@ -25,7 +24,7 @@ makedirs(path.join(cfg_folder, "img2vid"), exist_ok=True)
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 
 helper = importlib.import_module(f"img2vid-helpers.{models[ai]['helper']}")
-path = helper.run(models[ai], config["image"])
+path = helper.run(models[ai], config["image"], config["gif_output"], config["gif_speed"]/100)
 
 run(f'echo out={path} >> $GITHUB_OUTPUT', shell=True)
 print(f'Generated video and saved to {path}')

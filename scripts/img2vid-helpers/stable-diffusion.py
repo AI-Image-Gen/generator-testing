@@ -1,7 +1,7 @@
 from os import getenv, path
 import subprocess
 
-def run(model, image):
+def run(model, image, gif, gif_speed):
     cfg_folder = getenv("CONFIG_FOLDER")
     runnum = getenv("runnum")
 
@@ -9,6 +9,7 @@ def run(model, image):
     
     from diffusers import StableVideoDiffusionPipeline
     from diffusers.utils import load_image, export_to_video
+    from moviepy.editor import VideoFileClip
 
     print('\nGenerating video', flush=True)
     print("| Using:", flush=True)
@@ -24,5 +25,10 @@ def run(model, image):
 
     frames = pipe(image, num_inference_steps=model["inference_count"]).frames[0]
     export_to_video(frames, savepath, fps=model["fps"])
-    
+
+    if gif:
+        videoClip = VideoFileClip(savepath)
+        savepath = path.join(path.abspath(cfg_folder), 'img2vid', f"{runnum}.gif")
+        videoClip.speedx(gif_speed).write_gif(savepath)
+
     return savepath

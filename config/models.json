@@ -62,7 +62,7 @@
          "model": "stabilityai/stable-video-diffusion-img2vid",
          "fps": 10,
          "inference_count": 6,
-         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "opencv-python-headless~=4.9.0.80"],
+         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "opencv-python-headless~=4.9.0.80", "moviepy~=1.0.3"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
       }
