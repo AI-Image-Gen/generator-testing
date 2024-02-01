@@ -37,7 +37,7 @@ for num in range(int(data["global"]["out_amount"])):
 
     models_str = json.dumps(models)
     # Add old prompts
-    used_prompts_str = '\\\\n'.join(p for p in usedPrompts) + '\\\\n' + '\\\\n'.join(p for p in all_justusedprompts)
+    used_prompts_str = ', '.join(p for p in usedPrompts) + ', ' + ', '.join(p for p in all_justusedprompts)
     models_str = models_str.replace('{used_prompts}', used_prompts_str)
     models = json.loads(models_str)
 
@@ -45,7 +45,7 @@ for num in range(int(data["global"]["out_amount"])):
     models = json.loads(models_str)
 
     # Add current prompt
-    prompt_str = data["txt2txt"]["prompt"]
+    prompt_str = data["txt2txt"]["prompt"].replace('\n', ' ').replace(':', '- ')
     models_str = models_str.replace('{prompt}', prompt_str)
     models = json.loads(models_str)
 
