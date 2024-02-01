@@ -4,7 +4,7 @@
       "sd-xl-turbo-v1.0": {
          "model": "stabilityai/sdxl-turbo",
          "inference_count": 4,
-         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0"],
+         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
       },
@@ -13,7 +13,7 @@
          "model": "stabilityai/stable-diffusion-xl-base-1.0",
          "adapter": "latent-consistency/lcm-lora-sdxl",
          "inference_count": 6,
-         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0", "peft~=0.8.1"],
+         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0", "peft~=0.8.1"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion-lora" 
       },
@@ -21,7 +21,7 @@
       "kadinsky-2.2": {
          "model": "kandinsky-community/kandinsky-2-2-decoder",
          "inference_count": 8,
-         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0"],
+         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
       },
@@ -30,7 +30,7 @@
          "model": "Lykon/dreamshaper-8",
          "adapter": "latent-consistency/lcm-lora-sdv1-5",
          "inference_count": 12,
-         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0", "peft~=0.8.1"],
+         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0", "peft~=0.8.1"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion-lora" 
       }
@@ -41,7 +41,7 @@
       "kadinsky-2.2": {
          "model": "kandinsky-community/kandinsky-2-2-decoder",
          "inference_count": 8,
-         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0"],
+         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
       },
@@ -50,7 +50,7 @@
          "model": "Lykon/dreamshaper-8",
          "adapter": "latent-consistency/lcm-lora-sdv1-5",
          "inference_count": 12,
-         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0", "peft~=0.8.1"],
+         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0", "peft~=0.8.1"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion-lora" 
       }
@@ -62,7 +62,7 @@
          "model": "stabilityai/stable-video-diffusion-img2vid",
          "fps": 5,
          "inference_count": 4,
-         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2"],
+         "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
       }
