@@ -58,7 +58,7 @@
 
    "img2vid": {
 
-      "svd_xt": {
+      "svd": {
          "model": "stabilityai/stable-video-diffusion-img2vid",
          "fps": 5,
          "inference_count": 4,
