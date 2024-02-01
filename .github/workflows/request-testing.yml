@@ -332,6 +332,7 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
           ref: 'main'
+          path: 'repo'
 
       - name: Setup python
         uses: actions/setup-python@v5
