@@ -53,24 +53,22 @@ jobs:
 
     if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.txt2txt).active }}
     steps:
+
       - name: Clone repository
         uses: actions/checkout@v4
-
       - name: Remove components for disk space
         uses: jlumbroso/free-disk-space@main
         with:
           tool-cache: true
           swap-storage: false
-
       - name: Setup python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
-
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 15
+          swap-size-gb: 10
 
       - name: Download config
         uses: actions/download-artifact@v4
@@ -105,16 +103,19 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-      
+      - name: Remove components for disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+          swap-storage: false
       - name: Setup python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
-
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 15
+          swap-size-gb: 10
 
       - name: Download config
         uses: actions/download-artifact@v4
@@ -153,16 +154,19 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-
+      - name: Remove components for disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+          swap-storage: false
       - name: Setup python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
-
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 15
+          swap-size-gb: 10
 
       - name: Download config
         uses: actions/download-artifact@v4
@@ -212,22 +216,19 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-
       - name: Remove components for disk space
         uses: jlumbroso/free-disk-space@main
         with:
           tool-cache: true
           swap-storage: false
-
       - name: Setup python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
-          
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 40
+          swap-size-gb: 25
           
       - name: Download config
         uses: actions/download-artifact@v4
@@ -280,16 +281,19 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-
+      - name: Remove components for disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+          swap-storage: false
       - name: Setup python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.python }}
-      
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
-          swap-size-gb: 15
+          swap-size-gb: 10
           
       - name: Download config
         uses: actions/download-artifact@v4
