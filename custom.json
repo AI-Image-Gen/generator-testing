@@ -36,8 +36,8 @@
         }
     },
     "upscale": {
-        "active": true, 
-        "input": "{txt2img.out}",
+        "active": false, 
+        "input": "{!txt2img.out}",
         "scale": 3,
         "matrix": {
             "models": "{upscale.models}"
