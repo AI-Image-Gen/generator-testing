@@ -1,0 +1,46 @@
+{
+    "global": {
+        "clean_artifacts": true,
+        "out_amount": 2
+    },
+
+    "txt2txt": {
+        "active": false, 
+        "prompt": "Make it fresh and creative",
+        "save_as_used": true
+    },
+    "txt2img": {
+        "active": false, 
+        "prompt": "{!txt2txt.out}",
+        "height": 512, 
+        "width": 512,
+        "matrix": {
+            "models": "{txt2img.models}"
+        }
+    },
+    "img2img": {
+        "active": true, 
+        "prompt": "nice rocket",
+        "image": "https://history-computer.com/wp-content/uploads/2022/08/most-powerful-rockets-ever-built-header-scaled.jpg",
+        "height": 576, 
+        "width": 1024, 
+        "matrix": {
+            "models": "{img2img.models}"
+        }
+    },
+    "img2vid": {
+        "active": true, 
+        "image": "{img2img.out}",
+        "matrix": {
+            "models": "{img2vid.models}"
+        }
+    },
+    "upscale": {
+        "active": false, 
+        "input": "",
+        "scale": 3,
+        "matrix": {
+            "models": "{upscale.models}"
+        }
+    }
+}
