@@ -29,6 +29,6 @@ def run(model, image, gif, gif_speed):
     if gif:
         videoClip = VideoFileClip(savepath)
         savepath = path.join(path.abspath(cfg_folder), 'img2vid', f"{runnum}.gif")
-        videoClip.speedx(gif_speed).write_gif(savepath)
+        videoClip.speedx(gif_speed).write_gif(savepath, program='ffmpeg', loop=0)
 
     return savepath
