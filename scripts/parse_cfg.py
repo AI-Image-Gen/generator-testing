@@ -75,8 +75,8 @@ def process_type(variable, datatype):
             sys.exit(1)
 def check_models(array, mtype, default=False):
     models_names = list(def_models[mtype].keys())
-    for model in models_names:
-        if not search_json(array, model):
+    for model in array:
+        if not search_json(models_names, model):
             if default:
                 print(f"ERROR IN DEFAULT: Some or all models in {mtype} were not found.")
                 sys.exit(1)

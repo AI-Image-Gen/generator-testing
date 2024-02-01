@@ -15,7 +15,7 @@
         "height": 768, 
         "width": 768,
         "matrix": {
-            "models": ["dreamshaper-8"]
+            "models": "{txt2img.models}"
         }
     },
     "img2img": {
