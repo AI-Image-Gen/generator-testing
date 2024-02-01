@@ -11,7 +11,7 @@ def run(model, ctx):
     outputs = model.generate(**inputs, max_new_tokens=2048, do_sample=True)
     response = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-    result = response.split("Output: ")[1].strip()
+    result = response.split("Output: ")[1].strip().replace('\n', ' ')
 
     print('\n\nResponse: ' + response, flush=True)
     print("\n\nFormatted to: " + result, flush=True)
