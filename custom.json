@@ -12,16 +12,16 @@
     "txt2img": {
         "active": true, 
         "prompt": "{txt2txt.out}",
-        "height": 576, 
-        "width": 1024,
+        "height": 768, 
+        "width": 768,
         "matrix": {
             "models": "{txt2img.models}"
         }
     },
     "img2img": {
-        "active": true, 
-        "prompt": "{txt2txt.out}",
-        "image": "{txt2img.out}",
+        "active": false, 
+        "prompt": "{!txt2txt.out}",
+        "image": "{!txt2img.out}",
         "height": 576, 
         "width": 1024, 
         "matrix": {
@@ -29,15 +29,15 @@
         }
     },
     "img2vid": {
-        "active": true, 
-        "image": "{img2img.out}",
+        "active": false, 
+        "image": "{!img2img.out}",
         "matrix": {
             "models": "{img2vid.models}"
         }
     },
     "upscale": {
-        "active": false, 
-        "input": "",
+        "active": true, 
+        "input": "{txt2img.out}",
         "scale": 3,
         "matrix": {
             "models": "{upscale.models}"
