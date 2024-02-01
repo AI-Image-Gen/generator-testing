@@ -312,3 +312,55 @@ jobs:
         with:
           name: upscale-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.mix2 }}-${{ matrix.ai }}
           path: ${{ steps.out.outputs.out }}
+
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: [config, upscale]
+    if: ${{ always() && !failure() && !cancelled() }}
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.python }}
+      
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: config/
+
+      - name: Run script
+        working-directory: scripts
+        id: out
+        env:
+          CONFIG_FOLDER: '../config'
+        run: python cleanup.py
+
+      - name: Upload txt2img
+        if: ${{ fromJson(needs.config.outputs.txt2img).active }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: images_txt2img
+          path: ${{ steps.out.outputs.txt2img }}
+      - name: Upload img2img
+        if: ${{ fromJson(needs.config.outputs.img2img).active }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: images_img2img
+          path: ${{ steps.out.outputs.img2img }}
+      - name: Upload img2vid
+        if: ${{ fromJson(needs.config.outputs.img2vid).active }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: videos_img2vid
+          path: ${{ steps.out.outputs.img2vid }}
+      - name: Upload upscale
+        if: ${{ fromJson(needs.config.outputs.upscale).active }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: upscaled
+          path: ${{ steps.out.outputs.upscale }}

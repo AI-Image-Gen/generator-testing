@@ -5,7 +5,7 @@
     },
 
     "txt2txt": {
-        "active": false, 
+        "active": true, 
         "prompt": "Make it fresh and creative",
         "save_as_used": true
     },
