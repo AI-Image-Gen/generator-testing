@@ -83,7 +83,7 @@
 
       "microsoft": {
          "model": "microsoft/phi-2",
-         "prompt_template": "Instruct: Give me EXACTLY AND ONLY 1 PROMPT for AI image generator. Subject is {prompt} {used_prompts_template}. Output: Generate ",
+         "prompt_template": "Instruct: Give me prompt for AI image generator, make the image description detailed Subject is {prompt} {used_prompts_template}. Output: Create image ",
          "used_prompts_template": "You can't use these prompts - {used_prompts}",
          "packages": ["transformers~=4.37.2", "torch~=2.2.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],

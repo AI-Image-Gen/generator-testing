@@ -1,6 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-def run(model, ctx):    
+def run(model, ctx):  
+    ctx = ctx.replace(":", "- ")  
     print('\nGenerating output for question: ' + ctx, flush=True)
 
     tokenizer = AutoTokenizer.from_pretrained(model["model"])
