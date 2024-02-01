@@ -93,12 +93,10 @@ def is_valid_image(path):
             req = urllib.request.Request(path, headers=headers)
             response = urllib.request.urlopen(req)
             data = response.read()
-            print(data)
             with Image.open(BytesIO(data)):
                 return True
         
         except Exception as e:
-            print(path)
             print(f"Error: {e}")
             return False
 
