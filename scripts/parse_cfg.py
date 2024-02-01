@@ -96,6 +96,7 @@ def is_valid_image(path):
                 return True
         
         except Exception as e:
+            print(path)
             print(f"Error: {e}")
             return False
 
