@@ -1,7 +1,7 @@
 from subprocess import run
 import os, shutil, json
 
-config_dir = os.path.abspath(os.getenv('CONFIG_FOLDER'))
+config_dir = os.getenv('CONFIG_FOLDER')
 
 with open(os.path.join(config_dir, 'tmp', 'settings', 'cfg.json'), 'r') as file:
     config = json.load(file)
@@ -20,7 +20,7 @@ if config["global"]["clean_artifacts"]:
 
                 # Construct the new filename
                 new_name = os.path.splitext(file)[0] + '_' + folder_suffix + os.path.splitext(file)[1]
-                new_folder_path = os.path.join(root_folder, common_prefix)
+                new_folder_path = os.path.abspath(os.path.join(root_folder, common_prefix))
                 new_path = os.path.join(new_folder_path, new_name)
                 if not os.path.exists(new_folder_path):
                     os.makedirs(new_folder_path)
