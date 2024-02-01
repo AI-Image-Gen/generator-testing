@@ -32,7 +32,7 @@
         "active": true, 
         "image": "{txt2img.out}",
         "gif_output": true,
-        "gif_speed": 50,
+        "gif_speed": 100,
         "matrix": {
             "models": "{img2vid.models}"
         }
