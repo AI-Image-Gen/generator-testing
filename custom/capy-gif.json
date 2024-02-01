@@ -6,7 +6,7 @@
 
     "txt2txt": {
         "active": true, 
-        "prompt": "robotic city",
+        "prompt": "capybara",
         "save_as_used": true
     },
     "txt2img": {
@@ -18,16 +18,6 @@
             "models": "{txt2img.models}"
         }
     },
-    "img2img": {
-        "active": false, 
-        "prompt": "{!txt2txt.out}",
-        "image": "{!txt2img.out}",
-        "height": 576, 
-        "width": 1024, 
-        "matrix": {
-            "models": "{img2img.models}"
-        }
-    },
     "img2vid": {
         "active": true, 
         "image": "{txt2img.out}",
@@ -35,14 +25,6 @@
         "gif_speed": 50,
         "matrix": {
             "models": "{img2vid.models}"
-        }
-    },
-    "upscale": {
-        "active": false, 
-        "input": "",
-        "scale": 2,
-        "matrix": {
-            "models": "{upscale.models}"
         }
     }
 }
