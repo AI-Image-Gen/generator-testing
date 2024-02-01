@@ -79,6 +79,12 @@ jobs:
           CONFIG_FOLDER: '../config'
         run: python txt2txt.py
 
+      - name: Upload prompt
+        uses: actions/upload-artifact@v4
+        with:
+          name: prompt
+          path: ${{ steps.out.outputs.file }}
+
 
   txt2img:
     runs-on: ubuntu-latest

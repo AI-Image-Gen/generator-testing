@@ -87,5 +87,15 @@ for num in range(int(data["global"]["out_amount"])):
 prompts_list = [f'"{element}"' for element in prompts_list]
 prompts_json_str = json.dumps(prompts_list).replace(" ", "")
 
+# Generate out file
+prompts_list = []
+for num in range(int(data["global"]["out_amount"])):
+    prompts_list.append(str(prompts_arr[num]).replace("\n", ' '))
+prompt_path = path.join(cfg_folder, 'prompts.txt')
+with open(prompt_path, 'w') as file:
+        json.dump(prompts_list, file, indent=2)
+
 run('echo out=' + prompts_json_str + ' >> $GITHUB_OUTPUT', shell=True)
-print('Generated all prompt.txt files and set out to ' + prompts_json_str)
+print('Generated prompt.txt file and set out to ' + prompts_json_str)
+
+run('echo file=' + prompt_path + ' >> $GITHUB_OUTPUT', shell=True)
