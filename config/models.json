@@ -59,9 +59,9 @@
    "img2vid": {
 
       "svd_xt": {
-         "model": "stabilityai/stable-video-diffusion-img2vid-xt",
-         "fps": 10,
-         "inference_count": 10,
+         "model": "stabilityai/stable-video-diffusion-img2vid",
+         "fps": 5,
+         "inference_count": 4,
          "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
