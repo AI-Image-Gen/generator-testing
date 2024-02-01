@@ -8,7 +8,6 @@ def run(model, image, scale):
     subprocess.run(f"pip install {' '.join(model['packages'])} --extra-index-url {','.join(model['extra_indexes'])}", shell=True)
 
     from tqdm import tqdm
-    from git import Repo
     
     print('\nUpscaling image by ' + str(scale) + 'x', flush=True)
     print("| Using:", flush=True)
