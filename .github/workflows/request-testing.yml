@@ -30,7 +30,7 @@ jobs:
       with:
         python-version: ${{ env.python }}
 
-    - name: Check flow settings file
+    - name: Check flow config file
       working-directory: scripts
       id: settings
       env:
@@ -61,7 +61,7 @@ jobs:
         with:
           python-version: ${{ env.python }}
 
-      - name: Set Swap Space
+      - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 10
@@ -99,7 +99,7 @@ jobs:
         with:
           python-version: ${{ env.python }}
 
-      - name: Set Swap Space
+      - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 10
@@ -147,7 +147,7 @@ jobs:
         with:
           python-version: ${{ env.python }}
 
-      - name: Set Swap Space
+      - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 10
@@ -201,7 +201,7 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
 
-      - name: Free Disk Space (Ubuntu)
+      - name: Remove components for disk space
         uses: jlumbroso/free-disk-space@main
         with:
           tool-cache: true
@@ -212,7 +212,7 @@ jobs:
         with:
           python-version: ${{ env.python }}
           
-      - name: Set Swap Space
+      - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 25
@@ -274,7 +274,7 @@ jobs:
         with:
           python-version: ${{ env.python }}
       
-      - name: Set Swap Space
+      - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
           swap-size-gb: 10
