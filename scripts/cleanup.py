@@ -30,7 +30,7 @@ if config["global"]["clean_artifacts"]:
                 shutil.move(old_path, new_path)
                 print(f'Moved: {old_path} -> {new_path}')
 
-    dirs_to_del = ['prompt', 'settings']
+    dirs_to_del = ['prompts', 'settings']
     for todel in dirs_to_del:
         todel_dir = os.path.join(config_dir, 'tmp', todel)
         if os.path.exists(todel_dir):

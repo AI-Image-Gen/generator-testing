@@ -78,10 +78,10 @@ jobs:
           CONFIG_FOLDER: '../config'
         run: python txt2txt.py
 
-      - name: Upload prompt
+      - name: Upload prompts
         uses: actions/upload-artifact@v4
         with:
-          name: prompt
+          name: prompts
           path: ${{ steps.out.outputs.file }}
 
 
@@ -341,7 +341,7 @@ jobs:
           txt2txt: ${{ needs.txt2txt.outputs.out }}
         run: python cleanup.py
 
-      - name: Push used prompt
+      - name: Push used prompts
         if: ${{ steps.out.outputs.push == 'true' }}
         uses: ad-m/github-push-action@master
         with:
