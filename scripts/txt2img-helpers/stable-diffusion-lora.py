@@ -10,7 +10,7 @@ def run(model, ctx, w, h):
     print('\nGenerating image for question: ' + ctx, flush=True)
     print("| Using:", flush=True)
     print("Model: " + model["model"], flush=True)
-    print("With faster generation with: " + model["latent-consistency"], flush=True)
+    print("With faster generation using: " + model["adapter"], flush=True)
     print("Dimensions: " + str(w) + "px x " + str(h) + "px", flush=True)
 
     savepath = path.join(path.abspath(cfg_folder), 'txt2img', f'{runnum}.jpg')

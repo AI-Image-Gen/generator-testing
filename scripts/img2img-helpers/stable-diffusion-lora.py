@@ -10,6 +10,7 @@ def run(model, pass_img, ctx, w, h):
     print('\nEnhancing image with prompt: ' + ctx, flush=True)
     print("| Using:", flush=True)
     print("Model: " + model["model"], flush=True)
+    print("With faster generation using: " + model["adapter"], flush=True)
     print("Dimensions: " + str(w) + "px x " + str(h) + "px", flush=True)
 
     savepath = path.join(path.abspath(cfg_folder), 'txt2img', f'{runnum}.jpg')
