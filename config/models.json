@@ -82,7 +82,7 @@
    "txt2txt": {
 
       "airoboros": {
-         "model": "jondurbin/airoboros-33b-gpt4-m2.0",
+         "model": "jondurbin/airoboros-l2-13b-gpt4-m2.0",
          "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, FORMATTED TO BE BETWEEN \" SYMBOLS. Prompt beetwen \" needs to be THE ONLY THING in your whole response. Subject: {prompt} {used_prompts_template}",
          "used_prompts_template": "You can't use these prompts: {used_prompts}",
          "packages": ["transformers~=4.37.2", "torch~=2.2.0"],
