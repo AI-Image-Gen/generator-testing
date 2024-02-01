@@ -31,6 +31,8 @@
     "img2vid": {
         "active": true, 
         "image": "{txt2img.out}",
+        "gif_output": true,
+        "gif_speed": 50,
         "matrix": {
             "models": "{img2vid.models}"
         }
