@@ -59,7 +59,7 @@ jobs:
       - name: Remove components for disk space
         uses: jlumbroso/free-disk-space@main
         with:
-          tool-cache: false
+          tool-cache: true
           swap-storage: false
       - name: Setup python
         uses: actions/setup-python@v5
