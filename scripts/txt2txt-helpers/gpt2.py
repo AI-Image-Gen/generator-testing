@@ -1,10 +1,10 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import GPT2Tokenizer, GPT2Model
 
 def run(model, ctx):    
     print('\nGenerating output for question: ' + ctx, flush=True)
 
-    tokenizer = AutoTokenizer.from_pretrained(model["model"])
-    model = AutoModelForCausalLM.from_pretrained(model["model"])
+    tokenizer = GPT2Tokenizer.from_pretrained(model["model"])
+    model = GPT2Model.from_pretrained(model["model"])
 
     inputs = tokenizer(ctx, return_tensors="pt")
 
