@@ -13,7 +13,7 @@ def run(model, pass_img, ctx, w, h):
     print("With faster generation using: " + model["adapter"], flush=True)
     print("Dimensions: " + str(w) + "px x " + str(h) + "px", flush=True)
 
-    savepath = path.join(path.abspath(cfg_folder), 'txt2img', f'{runnum}.jpg')
+    savepath = path.join(path.abspath(cfg_folder), 'img2img', f'{runnum}.jpg')
 
     from diffusers import AutoPipelineForImage2Image, LCMScheduler
     from diffusers.utils import load_image
