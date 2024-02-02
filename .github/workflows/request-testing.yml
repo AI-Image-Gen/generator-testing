@@ -374,7 +374,7 @@ jobs:
           name: upscaled
           path: ${{ steps.out.outputs.upscale }}
 
-      - name: Cleanup artifacts
+      - name: Cleanup artifacts (1/4)
         if: ${{ steps.out.outputs.cleanup == 'true' }}
         uses: geekyeggo/delete-artifact@v4  
         with:
@@ -383,3 +383,30 @@ jobs:
             img2img-*
             img2vid-*
             upscale-*
+      - name: Cleanup artifacts (2/4)
+        if: ${{ steps.out.outputs.cleanup == 'true' }}
+        uses: geekyeggo/delete-artifact@v4  
+        with:
+          name: |
+            txt2img-*
+            img2img-*
+            img2vid-*
+            upscale-*
+      - name: Cleanup artifacts (3/4)
+        if: ${{ steps.out.outputs.cleanup == 'true' }}
+        uses: geekyeggo/delete-artifact@v4  
+        with:
+          name: |
+            txt2img-*
+            img2img-*
+            img2vid-*
+            upscale
+      - name: Cleanup artifacts (4/4)
+        if: ${{ steps.out.outputs.cleanup == 'true' }}
+        uses: geekyeggo/delete-artifact@v4  
+        with:
+          name: |
+            txt2img-*
+            img2img-*
+            img2vid-*
+            upscale
