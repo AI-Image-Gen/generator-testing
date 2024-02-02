@@ -211,7 +211,7 @@ jobs:
         with:
           python-version: ${{ env.python }}
       - name: Setup ffmpeg
-        uses: FedericoCarboni/setup-ffmpeg@v3
+        run: sudo apt install ffmpeg
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
