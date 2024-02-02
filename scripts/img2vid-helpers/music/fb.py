@@ -20,7 +20,7 @@ def run(model, ctx):
     savepath = path.join(path.abspath(cfg_folder), 'img2vid', 'out.wav')
 
     pipe = pipeline("text-to-audio", model)
-    response = pipe(ctx, max_new_tokens=50)
+    response = pipe(ctx, forward_params={"max_new_tokens": 50})
 
     scipy.io.wavfile.write(savepath, rate=response["sampling_rate"], data=response["audio"])
 
