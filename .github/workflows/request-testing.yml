@@ -211,7 +211,7 @@ jobs:
         with:
           python-version: ${{ env.python }}
       - name: Setup ffmpeg
-        run: sudo apt install ffmpeg
+        run: sudo apt update && sudo apt install ffmpeg -y
       - name: Set swap (more RAM)
         uses: pierotofy/set-swap-space@master
         with:
