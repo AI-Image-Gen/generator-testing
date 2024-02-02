@@ -56,7 +56,7 @@ else:
     run(f'echo cleanup=false >> $GITHUB_OUTPUT', shell=True)
 
 
-if config["txt2txt"]["save_as_used"] and config["txt2txt"]["active"]:
+if config["txt2txt"]["active"]:
     print('Saving txt2txt prompts as used...')
 
     txt2txt = json.loads(os.getenv("txt2txt").replace('*', ' '))

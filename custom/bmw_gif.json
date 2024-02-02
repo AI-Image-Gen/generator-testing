@@ -7,7 +7,7 @@
     "txt2txt": {
         "active": true, 
         "prompt": "bmw e36 from 2029",
-        "save_as_used": true
+        "use_contexts": false
     },
     "txt2img": {
         "active": true, 
