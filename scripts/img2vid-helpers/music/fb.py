@@ -1,6 +1,6 @@
-from transformers import pipeline
+from audiocraft.models import MusicGen
+from audiocraft.data.audio import audio_write
 from os import getenv, path
-import scipy
 
 def get_valid_prompt(text: str) -> str:
   dot_split = text.split('.')[0]
@@ -18,10 +18,12 @@ def run(model, ctx):
     print('Generating music...' ,flush=True)
     
     savepath = path.join(path.abspath(cfg_folder), 'img2vid', 'out.wav')
+    model = MusicGen.get_pretrained(model)
+    
+    model.set_generation_params(duration=2)
 
-    pipe = pipeline("text-to-audio", model)
-    response = pipe(ctx, forward_params={"max_new_tokens": 50})
-
-    scipy.io.wavfile.write(savepath, rate=response["sampling_rate"], data=response["audio"])
+    wav = model.generate(ctx)            
+    for i, one_wav in enumerate(wav):
+      audio_write(savepath, one_wav.cpu(), model.sample_rate, strategy="loudness")
 
     return savepath
