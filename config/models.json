@@ -70,7 +70,7 @@
             "helper": "vit" 
          },
          "music": {
-            "model": "facebook/musicgen-stereo-large",
+            "model": "facebook/musicgen-stereo-medium",
             "helper": "fb" 
          }
       }
