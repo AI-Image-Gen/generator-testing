@@ -6,7 +6,7 @@
 
     "txt2txt": {
         "active": true, 
-        "prompt": "capybara",
+        "prompt": "bmw e36 from 2029",
         "save_as_used": true
     },
     "txt2img": {
