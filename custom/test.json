@@ -1,0 +1,53 @@
+{
+    "global": {
+        "clean_artifacts": true,
+        "out_amount": 3
+    },
+
+    "txt2txt": {
+        "active": false, 
+        "prompt": ""
+    },
+    "txt2img": {
+        "active": false, 
+        "prompt": "",
+        "height": 0, 
+        "width": 0,
+        "matrix": {
+            "models": []
+        }
+    },
+    "img2img": {
+        "active": false, 
+        "prompt": "",
+        "image": "",
+        "height": 0, 
+        "width": 0, 
+        "matrix": {
+            "models": []
+        }
+    },
+    "img2vid": {
+        "active": true, 
+        "image": "https://storage.googleapis.com/pod_public/1300/167600.jpg",
+        "video": {
+            "enable": true,
+            "music": true
+        },
+        "gif": {
+            "enable": true,
+            "speed": 150
+        },
+        "matrix": {
+            "models": "{img2vid.models}"
+        }
+    },
+    "upscale": {
+        "active": false, 
+        "input": "",
+        "scale": 0,
+        "matrix": {
+            "models": []
+        }
+    }
+}
