@@ -5,13 +5,13 @@
     },
 
     "txt2txt": {
-        "active": true, 
-        "prompt": "bmw e36 from 2029",
+        "active": false, 
+        "prompt": "",
         "use_contexts": false
     },
     "txt2img": {
         "active": true, 
-        "prompt": "{txt2txt.out}",
+        "prompt": "bmw e36 from 2029",
         "height": 576, 
         "width": 1024,
         "matrix": {
