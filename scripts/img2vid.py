@@ -21,19 +21,22 @@ config = config["img2vid"]
     
 makedirs(path.join(cfg_folder, "img2vid"), exist_ok=True)
 
-print('\nUsing helper: ' + models[ai]['helper'], flush=True)
+if models[ai]['extra_indexes']:
+    run(f"pip install {' '.join(models[ai]['packages'])} --extra-index-url {','.join(models[ai]['extra_indexes'])}", shell=True)
+else:
+    run(f"pip install {' '.join(models[ai]['packages'])}", shell=True)
 
-if config["video"]["music"] and config["video"]["enable"]:
-    helper = importlib.import_module(f"img2vid-helpers.img2txt.{models[ai]['img2txt']['helper']}")
-    prompt = helper.run(models[ai]['img2txt']['model'], config["image"])
-    helper = importlib.import_module(f"img2vid-helpers.music.{models[ai]['music']['helper']}")
-    musicfile_path = helper.run(models[ai]['music']["model"], prompt)
+print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 
 helper = importlib.import_module(f"img2vid-helpers.{models[ai]['helper']}")
 path = helper.run(models[ai], config["image"], config["gif"], config["video"])
 
 if config["video"]["music"] and config["video"]["enable"]:
     from moviepy.editor import VideoFileClip, AudioFileClip
+    helper = importlib.import_module(f"img2vid-helpers.img2txt.{models[ai]['img2txt']['helper']}")
+    prompt = helper.run(models[ai]['img2txt']['model'], config["image"])
+    helper = importlib.import_module(f"img2vid-helpers.music.{models[ai]['music']['helper']}")
+    musicfile_path = helper.run(models[ai]['music']["model"], prompt)
     video_clip = VideoFileClip(path.join(path,f"{runnum}.mp4"))
     audio_clip = AudioFileClip(musicfile_path)
     video_clip = video_clip.set_audio(audio_clip)

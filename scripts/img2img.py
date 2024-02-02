@@ -23,6 +23,11 @@ config = config["img2img"]
     
 makedirs(path.join(cfg_folder, "img2img"), exist_ok=True)
 
+if models[ai]['extra_indexes']:
+    run(f"pip install {' '.join(models[ai]['packages'])} --extra-index-url {','.join(models[ai]['extra_indexes'])}", shell=True)
+else:
+    run(f"pip install {' '.join(models[ai]['packages'])}", shell=True)
+
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 
 helper = importlib.import_module(f"img2img-helpers.{models[ai]['helper']}")

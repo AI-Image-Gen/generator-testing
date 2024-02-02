@@ -1,11 +1,9 @@
 from os import path, getenv
-import subprocess
+from diffusers import LCMScheduler, AutoPipelineForText2Image
 
 def run(model, ctx, w, h):
     cfg_folder = getenv("CONFIG_FOLDER")
     runnum = getenv("runnum")
-
-    subprocess.run(f"pip install {' '.join(model['packages'])} --extra-index-url {','.join(model['extra_indexes'])}", shell=True)
 
     print('\nGenerating image for question: ' + ctx, flush=True)
     print("| Using:", flush=True)
@@ -14,8 +12,6 @@ def run(model, ctx, w, h):
     print("Dimensions: " + str(w) + "px x " + str(h) + "px", flush=True)
 
     savepath = path.join(path.abspath(cfg_folder), 'txt2img', f'{runnum}.jpg')
-
-    from diffusers import LCMScheduler, AutoPipelineForText2Image
 
     pipe = AutoPipelineForText2Image.from_pretrained(model["model"])
     pipe.scheduler = LCMScheduler.from_config(pipe.scheduler.config)

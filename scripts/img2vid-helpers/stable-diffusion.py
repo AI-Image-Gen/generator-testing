@@ -1,16 +1,12 @@
 from os import getenv, path, remove
-import subprocess
+from diffusers import StableVideoDiffusionPipeline
+from diffusers.utils import load_image, export_to_video
+from moviepy.editor import VideoFileClip
 
 def run(model, image, gif, video):
     cfg_folder = getenv("CONFIG_FOLDER")
     runnum = getenv("runnum")
-
-    subprocess.run(f"pip install {' '.join(model['packages'])} --extra-index-url {','.join(model['extra_indexes'])}", shell=True)
     
-    from diffusers import StableVideoDiffusionPipeline
-    from diffusers.utils import load_image, export_to_video
-    from moviepy.editor import VideoFileClip
-
     print('\nGenerating video', flush=True)
     print("| Using:", flush=True)
     print("Model: " + model["model"], flush=True)
