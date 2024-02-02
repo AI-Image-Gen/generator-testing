@@ -7,7 +7,7 @@
     "txt2txt": {
         "active": true, 
         "prompt": "Make it fresh and creative",
-        "save_as_used": true
+        "use_contexts": true
     },
     "txt2img": {
         "active": true, 
