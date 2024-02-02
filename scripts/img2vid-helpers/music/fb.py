@@ -22,8 +22,7 @@ def run(model, ctx):
     
     model.set_generation_params(duration=2)
 
-    wav = model.generate(ctx)            
-    for i, one_wav in enumerate(wav):
-      audio_write(savepath, one_wav.cpu(), model.sample_rate, strategy="loudness")
+    wav = model.generate([ctx])[0]       
+    audio_write(savepath, wav.cpu(), model.sample_rate, strategy="loudness")
 
     return savepath
