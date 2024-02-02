@@ -14,7 +14,7 @@ def get_valid_prompt(text: str) -> str:
 def run(model, ctx, num):
     cfg_folder = os.getenv('CONFIG_FOLDER')
 
-    pipe = pipeline('text-generation', model=model["model"], tokenizer=model["tokenizer"])
+    pipe = pipeline('text-generation', model=model["model"])
 
     with open(os.path.join(cfg_folder, "ideas.txt"), "r") as f:
         line = f.readlines()
@@ -27,7 +27,7 @@ def run(model, ctx, num):
             ctx: str = re.sub(r"[,:\-–.!;?_]", '', ctx)
             print(ctx)
     
-        response = pipe(ctx, max_length=(len(ctx) + random.randint(60, 80)), do_sample=True, num_return_sequences=num)
+        response = pipe(ctx, max_length=(len(ctx) + random.randint(25, 50)), do_sample=True, num_return_sequences=num)
         response_list = []
         print('\n\nResponse: ' + str(response), flush=True)
         for x in response:
