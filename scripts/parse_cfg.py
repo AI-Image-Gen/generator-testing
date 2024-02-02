@@ -173,8 +173,7 @@ strs = [settings_json["txt2txt"]["prompt"]]
 if settings_json["txt2txt"]["active"]:
     for string in strs:
         if not string.strip(): 
-            print("ERROR: Not found prompt for txt2txt")
-            sys.exit(1)
+            print("INFO: Not found prompt for txt2txt, using random idea")
 strs = [settings_json["txt2img"]["prompt"]]
 if settings_json["txt2img"]["active"]:
     for string in strs:
