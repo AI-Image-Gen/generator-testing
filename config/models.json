@@ -3,7 +3,7 @@
 
       "xl-t": {
          "model": "stabilityai/sdxl-turbo",
-         "inference_count": 4,
+         "inference_count": 6,
          "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion" 
@@ -12,7 +12,7 @@
       "xl": {
          "model": "stabilityai/stable-diffusion-xl-base-1.0",
          "adapter": "latent-consistency/lcm-lora-sdxl",
-         "inference_count": 6,
+         "inference_count": 9,
          "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0", "peft~=0.8.1"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion-lora" 
@@ -29,7 +29,7 @@
       "dsh": {
          "model": "Lykon/dreamshaper-8",
          "adapter": "latent-consistency/lcm-lora-sdv1-5",
-         "inference_count": 12,
+         "inference_count": 15,
          "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "invisible-watermark~=0.2.0", "omegaconf~=2.3.0", "peft~=0.8.1"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "stable-diffusion-lora" 
@@ -64,16 +64,17 @@
          "inference_count": 6,
          "packages": ["torchvision~=0.17.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "opencv-python-headless~=4.9.0.80", "moviepy~=1.0.3", "scipy~=1.12.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
-         "helper": "stable-diffusion" 
-      },
-      "img2txt": {
-         "model": "nlpconnect/vit-gpt2-image-captioning",
-         "helper": "vit" 
-      },
-      "music": {
-         "model": "facebook/musicgen-small",
-         "helper": "fb" 
+         "helper": "stable-diffusion",
+         "img2txt": {
+            "model": "nlpconnect/vit-gpt2-image-captioning",
+            "helper": "vit" 
+         },
+         "music": {
+            "model": "facebook/musicgen-small",
+            "helper": "fb" 
+         }
       }
+      
    },
 
    "upscale": {
