@@ -3,7 +3,7 @@ from subprocess import run
 import json, importlib
 
 cfg_folder = getenv("CONFIG_FOLDER")
-ai_model = 'sd-pg'
+ai_model = 'gpt2-sd'
 
 with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
     data = json.load(file)

@@ -81,13 +81,12 @@
 
    "txt2txt": {
 
-      "sd-pg": {
-         "model": "Gustavosta/MagicPrompt-Stable-Diffusion",
-         "tokenizer": "gpt2",
+      "gpt2-sd": {
+         "model": "Ar4ikov/gpt2-650k-stable-diffusion-prompt-generator",
          "prompt_template": "{prompt}",
          "packages": ["transformers~=4.37.2", "torch~=2.2.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
-         "helper": "transformers" 
+         "helper": "gpt2-sd" 
       }
    }
 }
