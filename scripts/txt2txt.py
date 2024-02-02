@@ -25,7 +25,8 @@ num = int(data["global"]["out_amount"])
 
 models_str = json.dumps(models)
 # Add old prompts
-used_prompts_str = ', '.join(p for p in usedPrompts)
+# used_prompts_str = ', '.join(p for p in usedPrompts)
+used_prompts_str = '...'
 models_str = models_str.replace('{used_prompts}', used_prompts_str)
 models = json.loads(models_str)
 
