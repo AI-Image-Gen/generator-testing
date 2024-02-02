@@ -37,7 +37,7 @@ def run(model, ctx, num):
             
     for number in range(num):
         
-        result = response_list[num]
+        result = response_list[number]
 
         with open(os.path.join(cfg_folder, 'prompts', f'prompt-{number}.txt'), 'w') as file:
             file.write(result)
