@@ -29,7 +29,7 @@ else:
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
     
 helper = importlib.import_module(f"img2vid-helpers.{models[ai]['helper']}")
-path = helper.run(models[ai], config["image"], config["gif"], config["video"])
+vid_path = helper.run(models[ai], config["image"], config["gif"], config["video"])
 
 if config["video"]["music"] and config["video"]["enable"]:
     from moviepy.editor import VideoFileClip, AudioFileClip
@@ -39,11 +39,11 @@ if config["video"]["music"] and config["video"]["enable"]:
     helper = importlib.import_module(f"img2vid-helpers.music.{models[ai]['music']['helper']}")
     musicfile_path = helper.run(models[ai]['music']["model"], prompt)
 
-    video_clip = VideoFileClip(path.join(path,f"{runnum}.mp4"))
+    video_clip = VideoFileClip(path.join(vid_path,f"{runnum}.mp4"))
     audio_clip = AudioFileClip(musicfile_path)
     video_clip = video_clip.set_audio(audio_clip)
-    remove(path.join(path,f"{runnum}.mp4"))
-    video_clip.write_videofile(path.join(path,f"{runnum}.mp4"))
+    remove(path.join(vid_path,f"{runnum}.mp4"))
+    video_clip.write_videofile(path.join(vid_path,f"{runnum}.mp4"))
 
-run(f'echo out={path} >> $GITHUB_OUTPUT', shell=True)
-print(f'Generated video and saved to {path}')
+run(f'echo out={vid_path} >> $GITHUB_OUTPUT', shell=True)
+print(f'Generated video and saved to {vid_path}')
