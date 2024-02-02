@@ -365,7 +365,7 @@ jobs:
         if: ${{ fromJson(needs.config.outputs.img2vid).active && steps.out.outputs.cleanup == 'true' }}
         uses: actions/upload-artifact@v4
         with:
-          name: videos_img2vid
+          name: gifs_videos_img2vid
           path: ${{ steps.out.outputs.img2vid }}
       - name: Upload upscale
         if: ${{ fromJson(needs.config.outputs.upscale).active && steps.out.outputs.cleanup == 'true' }}
