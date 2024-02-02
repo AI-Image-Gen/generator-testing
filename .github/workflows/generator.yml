@@ -345,12 +345,6 @@ jobs:
           txt2txt: ${{ needs.txt2txt.outputs.out }}
         run: python cleanup.py
 
-      - name: Push used prompts
-        if: ${{ steps.out.outputs.push == 'true' }}
-        uses: ad-m/github-push-action@master
-        with:
-          force: true
-
       - name: Upload txt2img
         if: ${{ fromJson(needs.config.outputs.txt2img).active && steps.out.outputs.cleanup == 'true' }}
         uses: actions/upload-artifact@v4

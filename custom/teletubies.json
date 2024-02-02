@@ -5,13 +5,12 @@
     },
 
     "txt2txt": {
-        "active": false, 
-        "prompt": "",
-        "use_contexts": false
+        "active": true, 
+        "prompt": "4 teletubies, in background sun with human face"
     },
     "txt2img": {
         "active": true, 
-        "prompt": "4 teletubies, in background sun with human face",
+        "prompt": "{txt2txt.out}",
         "height": 576, 
         "width": 1024,
         "matrix": {

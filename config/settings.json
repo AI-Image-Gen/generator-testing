@@ -6,8 +6,7 @@
 
     "txt2txt": {
         "active": true, 
-        "prompt": "Make it fresh and creative",
-        "use_contexts": true
+        "prompt": ""
     },
     "txt2img": {
         "active": true, 

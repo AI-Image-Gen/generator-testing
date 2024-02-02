@@ -25,16 +25,6 @@ num = int(data["global"]["out_amount"])
 
 models_str = json.dumps(models)
 
-# Add old prompts
-used_prompts_str = '...'
-if(data["txt2txt"]["use_contexts"]):
-    used_prompts_str = ', '.join(p for p in usedPrompts)
-models_str = models_str.replace('{used_prompts}', used_prompts_str)
-models = json.loads(models_str)
-
-models_str = models_str.replace('{used_prompts_template}', models[ai_model]["used_prompts_template"])
-models = json.loads(models_str)
-
 # Add current prompt
 prompt_str = data["txt2txt"]["prompt"].replace('\n', ' ')
 models_str = models_str.replace('{prompt}', prompt_str)

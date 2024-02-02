@@ -54,31 +54,3 @@ if config["global"]["clean_artifacts"]:
 
 else:
     run(f'echo cleanup=false >> $GITHUB_OUTPUT', shell=True)
-
-
-if config["txt2txt"]["active"]:
-    print('Saving txt2txt prompts as used...')
-
-    txt2txt = json.loads(os.getenv("txt2txt").replace('*', ' '))
-
-    with open(os.path.join(config_dir, 'usedPrompts.json'), 'r') as file:
-        data = json.load(file)
-    for prompt in txt2txt:
-        data.append(prompt)
-    while len(data) > 6:
-        data.pop(0)
-    with open(os.path.join(config_dir, 'usedPrompts.json'), 'w') as file:
-        json.dump(data, file, indent=2)
-
-    command = """
-    git config --global user.name ai &&
-    git config --global user.email github-actions@github.com &&
-    git add . &&
-    git commit -m 'Add used prompts'
-    """
-
-    run(command, shell=True, check=True, cwd='../')
-    run('echo push=true >> $GITHUB_OUTPUT', shell=True)
-
-else: 
-    run('echo push=false >> $GITHUB_OUTPUT', shell=True)

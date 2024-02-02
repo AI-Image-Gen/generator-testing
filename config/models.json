@@ -75,35 +75,18 @@
          "script": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN/master/inference_realesrgan.py",
          "packages": ["tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0", "numpy~=1.26.3", "torchvision~=0.16.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
-         "helper": "realesrgan" 
+         "helper": "realesrgan"
       }
    },
 
    "txt2txt": {
 
-      "microsoft": {
-         "model": "microsoft/phi-2",
-         "prompt_template": "Instruct: Give me prompt for AI image generator, make the image description detailed. {used_prompts_template}. Image subject is: ------- {prompt} -------. BE CREATIVE, IT NEEDS TO BE UNREAL IMAGE, MIX THINGS WITHOUT SENSE, MAKE SURE NOT TO USE IDEAS FROM PREVIOUS OUTPUTS, IT NEEDS TO BE SOMETHING VERY NEW.\nOutput:",
-         "used_prompts_template": "DO NOT USE THESE SUBJECTS: ---------- {used_prompts} ----------",
+      "sd-pg": {
+         "model": "Gustavosta/MagicPrompt-Stable-Diffusion",
+         "tokenizer": "gpt2",
          "packages": ["transformers~=4.37.2", "torch~=2.2.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
-         "helper": "microsoft" 
-      },
-
-      "gpt-4": {
-         "model": "gpt-4",
-         "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, FORMATTED TO BE BETWEEN \" SYMBOLS. Prompt beetwen \" needs to be THE ONLY THING in your whole response. Subject: {prompt} {used_prompts_template}",
-         "used_prompts_template": "You can't use these prompts: {used_prompts}",
-         "packages": ["g4f~=0.2.0.7"],
-         "helper": "g4f" 
-      },
-
-      "gpt-3.5-turbo": {
-         "model": "gpt-3.5-turbo",
-         "prompt_template": "Give me EXACTLY AND ONLY 1 PROMPT for AI image generator, FORMATTED TO BE BETWEEN \" SYMBOLS. Prompt beetwen \" needs to be THE ONLY THING in your whole response. Subject: {prompt} {used_prompts_template}",
-         "used_prompts_template": "You can't use these prompts: {used_prompts}",
-         "packages": ["g4f~=0.2.0.7", "undetected_chromedriver~=3.5.4", "platformdirs~=4.2.0"],
-         "helper": "g4f" 
+         "helper": "transformers" 
       }
    }
 }
