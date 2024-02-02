@@ -17,7 +17,7 @@ def run(model, ctx):
 
     print('Generating music...' ,flush=True)
     
-    savepath = path.join(path.abspath(cfg_folder), 'img2vid', 'out.wav')
+    savepath = path.join(path.abspath(cfg_folder), 'img2vid', 'out')
     model = MusicGen.get_pretrained(model)
     
     model.set_generation_params(duration=2)
@@ -25,4 +25,5 @@ def run(model, ctx):
     wav = model.generate([ctx])[0]       
     audio_write(savepath, wav.cpu(), model.sample_rate, strategy="loudness")
 
+    savepath = savepath+'.wav'
     return savepath

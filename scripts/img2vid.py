@@ -43,6 +43,7 @@ if config["video"]["music"] and config["video"]["enable"]:
     audio_clip = AudioFileClip(musicfile_path)
     video_clip = video_clip.set_audio(audio_clip)
     remove(path.join(vid_path,f"{runnum}.mp4"))
+    remove(musicfile_path)
     video_clip.write_videofile(path.join(vid_path,f"{runnum}.mp4"))
 
 run(f'echo out={vid_path} >> $GITHUB_OUTPUT', shell=True)
