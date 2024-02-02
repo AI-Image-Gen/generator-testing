@@ -20,7 +20,7 @@ def run(model, ctx, num):
             ctx: str = re.sub(r"[,:\-–.!;?_]", '', ctx)
             print(ctx)
     
-        response = pipe(ctx, max_length=random.randint(60, 90), do_sample=True, num_return_sequences=num)
+        response = pipe(ctx, max_length=random.randint(160, 200), do_sample=True, num_return_sequences=num)
         response_list = []
         print('\n\nResponse: ' + str(response), flush=True)
         for x in response:
