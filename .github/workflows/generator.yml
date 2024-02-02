@@ -1,4 +1,4 @@
-name: Generator from request
+name: Generator
 
 env:
   python: 3.11
