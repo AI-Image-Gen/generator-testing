@@ -65,7 +65,7 @@ if config["txt2txt"]["save_as_used"] and config["txt2txt"]["active"]:
         data = json.load(file)
     for prompt in txt2txt:
         data.append(prompt)
-    while len(data) > 10:
+    while len(data) > 4:
         data.pop(0)
     with open(os.path.join(config_dir, 'usedPrompts.json'), 'w') as file:
         json.dump(data, file, indent=2)
