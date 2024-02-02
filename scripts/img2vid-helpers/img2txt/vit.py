@@ -14,7 +14,7 @@ def run(model, image):
     print('Generating prompt for music generator...' ,flush=True)
     
     pipe = pipeline("image-to-text", model=model)
-    response = pipe(image, do_sample=True)[0]
+    response = pipe(image)[0]
     print('\n\nResponse: ' + str(response), flush=True)
 
     resp = get_valid_prompt(response['generated_text'])
