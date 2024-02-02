@@ -31,6 +31,7 @@ if config["global"]["clean_artifacts"]:
                 print(f'Moved: {old_path} -> {new_path}')
 
     dirs_to_del = ['prompts', 'settings']
+    
     for todel in dirs_to_del:
         todel_dir = os.path.join(config_dir, 'tmp', todel)
         if os.path.exists(todel_dir):
@@ -40,6 +41,9 @@ if config["global"]["clean_artifacts"]:
 
     path = os.path.join(os.path.abspath(config_dir), 'tmp', 'txt2img')
     run(f'echo txt2img={path} >> $GITHUB_OUTPUT', shell=True)
+
+    path = os.path.join(os.path.abspath(config_dir), 'tmp', 'txt2vid')
+    run(f'echo txt2vid={path} >> $GITHUB_OUTPUT', shell=True)
 
     path = os.path.join(os.path.abspath(config_dir), 'tmp', 'img2img')
     run(f'echo img2img={path} >> $GITHUB_OUTPUT', shell=True)

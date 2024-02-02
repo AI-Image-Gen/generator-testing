@@ -101,9 +101,9 @@ def is_valid_image(path):
             return False
 
 # Check var types
-ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["img2vid"]["gif"]["speed"], def_cfg["upscale"]["scale"]]
-strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2img"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["upscale"]["input"], def_cfg["img2vid"]["image"]]
-bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def_cfg["txt2img"]["active"], def_cfg["img2img"]["active"], def_cfg["upscale"]["active"], def_cfg["img2vid"]["active"], def_cfg["img2vid"]["gif"]["enable"], def_cfg["img2vid"]["video"]["enable"], def_cfg["img2vid"]["video"]["music"]]
+ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["txt2vid"]["gif"]["speed"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["img2vid"]["gif"]["speed"], def_cfg["upscale"]["scale"]]
+strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2img"]["prompt"], def_cfg["txt2vid"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["upscale"]["input"], def_cfg["img2vid"]["image"]]
+bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def_cfg["txt2img"]["active"], def_cfg["txt2vid"]["active"], def_cfg["txt2vid"]["gif"]["enable"], def_cfg["txt2vid"]["video"]["enable"], def_cfg["txt2vid"]["video"]["music"], def_cfg["img2img"]["active"], def_cfg["upscale"]["active"], def_cfg["img2vid"]["active"], def_cfg["img2vid"]["gif"]["enable"], def_cfg["img2vid"]["video"]["enable"], def_cfg["img2vid"]["video"]["music"]]
 for integer in ints: process_type(integer, int)
 for string in strs: process_type(string, str)
 for boolean in bools: process_type(boolean, bool)
@@ -115,9 +115,10 @@ for module in width_height_modules:
 def_cfg["global"]["out_amount"] = process_integer_value(1, 10, def_cfg["global"]["out_amount"])
 def_cfg["upscale"]["scale"] = process_integer_value(2, 4, def_cfg["upscale"]["scale"])
 def_cfg["img2vid"]["gif"]["speed"] = process_integer_value(1, 1000, def_cfg["img2vid"]["gif"]["speed"])
+def_cfg["txt2vid"]["gif"]["speed"] = process_integer_value(1, 1000, def_cfg["img2vid"]["gif"]["speed"])
 # Variable -> model type array
 def_cfg_string = json.dumps(def_cfg)
-model_types = ["txt2img", "img2img", "upscale", "img2vid"]
+model_types = ["txt2img", "img2img", "upscale", "img2vid", "txt2vid"]
 for model_type in model_types:
     def_cfg_string = replace_models_in_string(model_type, def_cfg_string)
 def_cfg = json.loads(def_cfg_string)
@@ -142,10 +143,10 @@ for module in width_height_modules:
 settings_json["upscale"]["scale"] = process_integer_value(2, 4, settings_json["upscale"]["scale"])
 settings_json["global"]["out_amount"] = process_integer_value(1, 10, settings_json["global"]["out_amount"])
 settings_json["img2vid"]["gif"]["speed"] = process_integer_value(1, 1000, settings_json["img2vid"]["gif"]["speed"])
-
+settings_json["txt2vid"]["gif"]["speed"] = process_integer_value(1, 1000, settings_json["img2vid"]["gif"]["speed"])
 # Variable -> model type array
 settings_json_string = json.dumps(settings_json)
-model_types = ["txt2img", "img2img", "upscale", "img2vid"]
+model_types = ["txt2img", "img2img", "upscale", "img2vid", "txt2vid"]
 for model_type in model_types:
     settings_json_string = replace_models_in_string(model_type, settings_json_string)
 settings_json = json.loads(settings_json_string)
@@ -163,7 +164,7 @@ for set_type in settings_types:
         sys.exit(1)
 
 # Stabilize booleans
-bools = [settings_json["global"]["clean_artifacts"], settings_json["txt2txt"]["active"], settings_json["txt2img"]["active"], settings_json["img2img"]["active"], settings_json["upscale"]["active"], settings_json["img2vid"]["active"], settings_json["img2vid"]["gif"]["enable"], settings_json["img2vid"]["video"]["enable"], settings_json["img2vid"]["video"]["music"]]        
+bools = [settings_json["global"]["clean_artifacts"], settings_json["txt2txt"]["active"], settings_json["txt2vid"]["active"], settings_json["txt2vid"]["gif"]["enable"], settings_json["txt2vid"]["video"]["enable"], settings_json["txt2vid"]["video"]["music"], settings_json["txt2img"]["active"], settings_json["img2img"]["active"], settings_json["upscale"]["active"], settings_json["img2vid"]["active"], settings_json["img2vid"]["gif"]["enable"], settings_json["img2vid"]["video"]["enable"], settings_json["img2vid"]["video"]["music"]]        
 for boolean in bools:
     if boolean != True: 
         boolean = False
@@ -179,6 +180,12 @@ if settings_json["txt2img"]["active"]:
     for string in strs:
         if not string.strip(): 
             print("ERROR: Not found prompt for txt2img")
+            sys.exit(1)
+strs = [settings_json["txt2vid"]["prompt"]]
+if settings_json["txt2vid"]["active"]:
+    for string in strs:
+        if not string.strip(): 
+            print("ERROR: Not found prompt for txt2vid")
             sys.exit(1)
 strs = [settings_json["img2img"]["prompt"], settings_json["img2img"]["image"]]
 if settings_json["img2img"]["active"]:
@@ -209,6 +216,12 @@ if not settings_json["txt2img"]["active"]:
         settings_json["txt2img"][key] = False
     settings_json["txt2img"]["matrix"] = {}
     settings_json["txt2img"]["matrix"]["models"] = [0]
+
+if not settings_json["txt2vid"]["active"]:
+    for key in settings_json["txt2vid"].keys():
+        settings_json["txt2vid"][key] = False
+    settings_json["txt2vid"]["matrix"] = {}
+    settings_json["txt2vid"]["matrix"]["models"] = [0]
 
 if not settings_json["img2img"]["active"]:
     for key in settings_json["img2img"].keys():
@@ -248,6 +261,11 @@ if settings_json["txt2img"]["active"]:
     quoted_list = [f'"{element}"' for element in settings_json["txt2img"]["matrix"]["models"]]
     run('echo txt2img={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(quoted_list).replace(" ", "")), shell=True)
 else: run('echo txt2img={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
+
+if settings_json["txt2vid"]["active"]:
+    quoted_list = [f'"{element}"' for element in settings_json["txt2vid"]["matrix"]["models"]]
+    run('echo txt2vid={"active":true,"ai":REPLACE} >> $GITHUB_OUTPUT'.replace('REPLACE', json.dumps(quoted_list).replace(" ", "")), shell=True)
+else: run('echo txt2vid={"active":false,"ai":[0]} >> $GITHUB_OUTPUT', shell=True)
 
 if settings_json["img2img"]["active"]:
     quoted_list = [f'"{element}"' for element in settings_json["img2img"]["matrix"]["models"]]

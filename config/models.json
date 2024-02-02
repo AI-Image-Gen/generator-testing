@@ -36,6 +36,24 @@
       }
    },
 
+   "txt2vid": {
+
+      "zs2": {
+         "model": "cerspense/zeroscope_v2_576w",
+         "fps": 7,
+         "inference_count": 4,
+         "frames": 14,
+         "packages": ["torchvision~=0.16.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "opencv-python-headless~=4.9.0.80", "moviepy~=1.0.3", "audiocraft~=1.2.0", "pillow~=10.2.0"],
+         "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
+         "helper": "zeroscope",
+         "upscaler": "cerspense/zeroscope_v2_XL",
+         "music": {
+            "model": "facebook/musicgen-stereo-medium",
+            "helper": "fb" 
+         }
+      }
+   },
+
    "img2img": {
 
       "kdn": {
@@ -74,7 +92,6 @@
             "helper": "fb" 
          }
       }
-      
    },
 
    "upscale": {

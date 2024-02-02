@@ -19,9 +19,10 @@ jobs:
       amount: ${{ steps.settings.outputs.amount }}
       txt2txt: ${{ steps.settings.outputs.txt2txt }}
       txt2img: ${{ steps.settings.outputs.txt2img }}
+      txt2vid: ${{ steps.settings.outputs.txt2vid }}
       img2img: ${{ steps.settings.outputs.img2img }}
-      upscale: ${{ steps.settings.outputs.upscale }}
       img2vid: ${{ steps.settings.outputs.img2vid }}
+      upscale: ${{ steps.settings.outputs.upscale }}
 
     steps:
     - name: Clone repository
@@ -132,6 +133,60 @@ jobs:
           name: txt2img-${{ matrix.mix0 }}-${{ matrix.ai }}
           path: ${{ steps.out.outputs.out }}
 
+  txt2vid:
+    runs-on: ubuntu-latest
+    needs: [config, txt2txt]
+    outputs:
+      out: ${{ steps.out.outputs.out }}
+
+    if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.txt2vid).active }}
+    strategy:
+      matrix:
+        ai: ${{ fromJson(needs.config.outputs.img2vid).ai }}
+        mix0: ${{ fromJson(needs.config.outputs.amount) }}
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Remove components for disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+            tool-cache: true
+            swap-storage: false
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.python }}
+      - name: Setup ffmpeg
+        run: sudo apt update && sudo apt install ffmpeg -y
+      - name: Set swap (more RAM)
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 25
+          
+      - name: Download config
+        uses: actions/download-artifact@v4
+        with:
+          name: settings
+          path: config
+
+      - name: Run script
+        working-directory: scripts
+        id: out
+        env:
+          CONFIG_FOLDER: '../config'
+          txt2txt: ${{ needs.txt2txt.outputs.out }}
+          ai: ${{ matrix.ai }}
+          num: ${{ matrix.mix0 }}
+          runnum: ${{ github.run_number }}
+        run: python txt2vid.py
+
+      - name: Upload video
+        uses: actions/upload-artifact@v4
+        with:
+          name: txt2vid-${{ matrix.mix0 }}-${{ matrix.ai }}
+          path: ${{ steps.out.outputs.out }}
+
   img2img:
     runs-on: ubuntu-latest
     needs: [config, txt2txt, txt2img]
@@ -184,7 +239,6 @@ jobs:
         with:
           name: img2img-${{ matrix.mix0 }}-${{ matrix.mix1 }}-${{ matrix.ai }}
           path: ${{ steps.out.outputs.out }}
-
 
   img2vid:
     runs-on: ubuntu-latest
@@ -351,6 +405,12 @@ jobs:
         with:
           name: images_txt2img
           path: ${{ steps.out.outputs.txt2img }}
+      - name: Upload txt2vid
+        if: ${{ fromJson(needs.config.outputs.txt2vid).active && steps.out.outputs.cleanup == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: gifs_videos_txt2vid
+          path: ${{ steps.out.outputs.txt2vid }}
       - name: Upload img2img
         if: ${{ fromJson(needs.config.outputs.img2img).active && steps.out.outputs.cleanup == 'true' }}
         uses: actions/upload-artifact@v4

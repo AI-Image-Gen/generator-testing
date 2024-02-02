@@ -3,6 +3,7 @@ from subprocess import run
 import json, importlib
 
 cfg_folder = getenv("CONFIG_FOLDER")
+num = int(getenv("num"))
 ai = getenv("ai")
 runnum = getenv("runnum")
 
@@ -10,16 +11,15 @@ with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
     config = json.load(file)
 
 with open(path.join(cfg_folder, 'models.json'), 'r') as file:
-    models = json.load(file)["img2vid"] 
+    models = json.load(file)["txt2vid"] 
 
-if config["txt2img"]["active"]:
-    config = json.loads(json.dumps(config).replace("{txt2img.out}", path.join(cfg_folder, 'txt2img', f'{runnum}.jpg')))
-if config["img2img"]["active"]:
-    config = json.loads(json.dumps(config).replace("{img2img.out}", path.join(cfg_folder, 'img2img', f'{runnum}.jpg')))
+if config["txt2txt"]["active"]:
+    txt2txt = json.loads(getenv("txt2txt").replace('*', ' '))
+    config = json.loads(json.dumps(config).replace("{txt2txt.out}", txt2txt[num]))
+config = config["txt2vid"]
 
-config = config["img2vid"]
-    
-makedirs(path.join(cfg_folder, "img2vid"), exist_ok=True)
+ctx = config["prompt"]
+makedirs(path.join(cfg_folder, "txt2vid"), exist_ok=True)
 
 if models[ai]['extra_indexes']:
     run(f"pip install {' '.join(models[ai]['packages'])} --extra-index-url {','.join(models[ai]['extra_indexes'])}", shell=True)
@@ -27,17 +27,15 @@ else:
     run(f"pip install {' '.join(models[ai]['packages'])}", shell=True)
 
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
-    
-helper = importlib.import_module(f"img2vid-helpers.{models[ai]['helper']}")
-vid_path = helper.run(models[ai], config["image"], config["gif"], config["video"])
+
+helper = importlib.import_module(f"txt2vid-helpers.{models[ai]['helper']}")
+vid_path = helper.run(models[ai], config["prompt"], config["gif"], config["video"])
 
 if config["video"]["music"] and config["video"]["enable"]:
     from moviepy.editor import VideoFileClip, AudioFileClip
     
-    helper = importlib.import_module(f"vid-helpers.img2txt.{models[ai]['img2txt']['helper']}")
-    prompt = helper.run(models[ai]['img2txt']['model'], config["image"])
     helper = importlib.import_module(f"vid-helpers.music.{models[ai]['music']['helper']}")
-    musicfile_path = helper.run(models[ai]['music']["model"], prompt)
+    musicfile_path = helper.run(models[ai]['music']["model"], config["prompt"])
 
     video_clip = VideoFileClip(path.join(vid_path,f"{runnum}.mp4"))
     audio_clip = AudioFileClip(musicfile_path)
