@@ -6,7 +6,7 @@
 
     "txt2txt": {
         "active": true, 
-        "prompt": "teletubies, in background sun with human face",
+        "prompt": "4 teletubies, in background sun with human face",
         "use_contexts": false
     },
     "txt2img": {
