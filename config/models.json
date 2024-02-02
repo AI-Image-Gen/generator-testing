@@ -84,6 +84,7 @@
       "sd-pg": {
          "model": "Gustavosta/MagicPrompt-Stable-Diffusion",
          "tokenizer": "gpt2",
+         "prompt_template": "{prompt}",
          "packages": ["transformers~=4.37.2", "torch~=2.2.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "transformers" 
