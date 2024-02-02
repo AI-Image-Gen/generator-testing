@@ -1,4 +1,4 @@
-from os import getenv, path, makedirs
+from os import getenv, path, makedirs, remove
 from subprocess import run
 import json, importlib
 
@@ -24,7 +24,21 @@ makedirs(path.join(cfg_folder, "img2vid"), exist_ok=True)
 print('\nUsing helper: ' + models[ai]['helper'], flush=True)
 
 helper = importlib.import_module(f"img2vid-helpers.{models[ai]['helper']}")
-path = helper.run(models[ai], config["image"], config["gif_output"], config["gif_speed"]/100)
+path = helper.run(models[ai], config["image"], config["gif"], config["video"])
+
+if config["video"]["music"] and config["video"]["enable"]:
+    helper = importlib.import_module(f"img2vid-helpers.img2txt.{models['img2txt']['helper']}")
+    prompt = helper.run(models['img2txt']['model'], config["image"])
+
+    helper = importlib.import_module(f"img2vid-helpers.music.{models['music']['helper']}")
+    musicfile_path = helper.run(models['music']["model"], prompt)
+
+    from moviepy.editor import VideoFileClip, AudioFileClip, clips_array
+    video_clip = VideoFileClip(path.join(path,f"{runnum}.mp4"))
+    audio_clip = AudioFileClip(musicfile_path)
+    video_clip = video_clip.set_audio(audio_clip)
+    remove(path.join(path,f"{runnum}.mp4"))
+    video_clip.write_videofile(path.join(path,f"{runnum}.mp4"))
 
 run(f'echo out={path} >> $GITHUB_OUTPUT', shell=True)
 print(f'Generated video and saved to {path}')

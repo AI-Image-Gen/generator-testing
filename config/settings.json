@@ -30,8 +30,14 @@
     "img2vid": {
         "active": false, 
         "image": "",
-        "gif_output": true,
-        "gif_speed": 100,
+        "video": {
+            "enable": false,
+            "music": false
+        },
+        "gif": {
+            "enable": false,
+            "speed": 0
+        },
         "matrix": {
             "models": "{img2vid.models}"
         }

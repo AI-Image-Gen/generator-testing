@@ -1,7 +1,7 @@
-from os import getenv, path
+from os import getenv, path, remove
 import subprocess
 
-def run(model, image, gif, gif_speed):
+def run(model, image, gif, video):
     cfg_folder = getenv("CONFIG_FOLDER")
     runnum = getenv("runnum")
 
@@ -15,7 +15,7 @@ def run(model, image, gif, gif_speed):
     print("| Using:", flush=True)
     print("Model: " + model["model"], flush=True)
 
-    savepath = path.join(path.abspath(cfg_folder), 'img2vid', f"{runnum}.mp4")
+    savepath = path.join(path.abspath(cfg_folder), 'img2vid')
 
     pipe = StableVideoDiffusionPipeline.from_pretrained(model["model"])
 
@@ -24,11 +24,13 @@ def run(model, image, gif, gif_speed):
     image = image.resize((1024, 576))
 
     frames = pipe(image, num_inference_steps=model["inference_count"]).frames[0]
-    export_to_video(frames, savepath, fps=model["fps"])
+    export_to_video(frames, path.join(savepath,f"{runnum}.mp4"), fps=model["fps"])
 
-    if gif:
-        videoClip = VideoFileClip(savepath)
-        savepath = path.join(path.abspath(cfg_folder), 'img2vid', f"{runnum}.gif")
-        videoClip.speedx(gif_speed).write_gif(savepath, program='ffmpeg', loop=0)
+    if gif["enable"]:
+        videoClip = VideoFileClip(path.join(savepath,f"{runnum}.mp4"))
+        videoClip.speedx(gif["speed"]).write_gif(path.join(savepath,f"{runnum}.gif"), program='ffmpeg', loop=0)
 
+    if not video["enable"]: 
+        remove(path.join(savepath,f"{runnum}.mp4"))
+    
     return savepath

@@ -101,9 +101,9 @@ def is_valid_image(path):
             return False
 
 # Check var types
-ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["upscale"]["scale"]]
+ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["img2vid"]["gif"]["speed"], def_cfg["upscale"]["scale"]]
 strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2img"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["upscale"]["input"], def_cfg["img2vid"]["image"]]
-bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def_cfg["txt2img"]["active"], def_cfg["img2img"]["active"], def_cfg["upscale"]["active"], def_cfg["img2vid"]["active"], def_cfg["img2vid"]["gif_output"]]
+bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def_cfg["txt2img"]["active"], def_cfg["img2img"]["active"], def_cfg["upscale"]["active"], def_cfg["img2vid"]["active"], def_cfg["img2vid"]["gif"]["enable"], def_cfg["img2vid"]["video"]["enable"], def_cfg["img2vid"]["video"]["music"]]
 for integer in ints: process_type(integer, int)
 for string in strs: process_type(string, str)
 for boolean in bools: process_type(boolean, bool)
@@ -114,7 +114,7 @@ for module in width_height_modules:
     module["height"] = process_integer_value(256, 1024, module["height"], 8)
 def_cfg["global"]["out_amount"] = process_integer_value(1, 10, def_cfg["global"]["out_amount"])
 def_cfg["upscale"]["scale"] = process_integer_value(2, 4, def_cfg["upscale"]["scale"])
-def_cfg["img2vid"]["gif_speed"] = process_integer_value(1, 1000, def_cfg["img2vid"]["gif_speed"])
+def_cfg["img2vid"]["gif"]["speed"] = process_integer_value(1, 1000, def_cfg["img2vid"]["gif"]["speed"])
 # Variable -> model type array
 def_cfg_string = json.dumps(def_cfg)
 model_types = ["txt2img", "img2img", "upscale", "img2vid"]
@@ -141,7 +141,7 @@ for module in width_height_modules:
     module["height"] = process_integer_value(256, 1024, module["height"], 8)
 settings_json["upscale"]["scale"] = process_integer_value(2, 4, settings_json["upscale"]["scale"])
 settings_json["global"]["out_amount"] = process_integer_value(1, 10, settings_json["global"]["out_amount"])
-settings_json["img2vid"]["gif_speed"] = process_integer_value(1, 1000, settings_json["img2vid"]["gif_speed"])
+settings_json["img2vid"]["gif"]["speed"] = process_integer_value(1, 1000, settings_json["img2vid"]["gif"]["speed"])
 
 # Variable -> model type array
 settings_json_string = json.dumps(settings_json)
@@ -163,7 +163,7 @@ for set_type in settings_types:
         sys.exit(1)
 
 # Stabilize booleans
-bools = [settings_json["global"]["clean_artifacts"], settings_json["txt2txt"]["active"], settings_json["txt2img"]["active"], settings_json["img2img"]["active"], settings_json["upscale"]["active"], settings_json["img2vid"]["active"], settings_json["img2vid"]["gif_output"]]        
+bools = [settings_json["global"]["clean_artifacts"], settings_json["txt2txt"]["active"], settings_json["txt2img"]["active"], settings_json["img2img"]["active"], settings_json["upscale"]["active"], settings_json["img2vid"]["active"], settings_json["img2vid"]["gif"]["enable"], settings_json["img2vid"]["video"]["enable"], settings_json["img2vid"]["video"]["music"]]        
 for boolean in bools:
     if boolean != True: 
         boolean = False

@@ -11,43 +11,43 @@
     "txt2img": {
         "active": true, 
         "prompt": "{txt2txt.out}",
-        "height": 768, 
-        "width": 768,
+        "height": 576, 
+        "width": 1024,
         "matrix": {
             "models": "{txt2img.models}"
         }
     },
     "img2img": {
-        "active": true, 
-        "prompt": "{txt2txt.out}",
-        "image": "{txt2img.out}",
-        "height": 768, 
-        "width": 768, 
-        "matrix": {
-            "models": "{img2img.models}"
-        }
-    },
-    "img2vid": {
         "active": false, 
+        "prompt": "",
         "image": "",
-        "video": {
-            "enable": false,
-            "music": false
-        },
-        "gif": {
-            "enable": false,
-            "speed": 0
-        },
+        "height": 0, 
+        "width": 0, 
         "matrix": {
             "models": []
         }
     },
-    "upscale": {
+    "img2vid": {
         "active": true, 
-        "input": "{img2img.out}",
-        "scale": 2,
+        "image": "{txt2img.out}",
+        "video": {
+            "enable": true,
+            "music": true
+        },
+        "gif": {
+            "enable": true,
+            "speed": 100
+        },
         "matrix": {
-            "models": "{upscale.models}"
+            "models": "{img2vid.models}"
+        }
+    },
+    "upscale": {
+        "active": false, 
+        "input": "",
+        "scale": 0,
+        "matrix": {
+            "models": []
         }
     }
 }
