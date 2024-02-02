@@ -10,7 +10,7 @@ def run(model, ctx, num):
 
     inputs = tokenizer(ctx, return_tensors="pt")
 
-    outputs = model.generate(**inputs, max_new_tokens=2048, do_sample=True)
+    outputs = model.generate(**inputs, max_new_tokens=2048, do_sample=True, num_return_sequences=num)
     
     for number in range(num):
         response = tokenizer.decode(outputs[number], skip_special_tokens=True)
@@ -21,7 +21,7 @@ def run(model, ctx, num):
         with open(path.join(cfg_folder, 'prompts', f'prompt-{number}.txt'), 'w') as file:
             file.write(result)
             
-    print('\n\nResponse: ' + response, flush=True)
-    print("\n\nFormatted to: " + result, flush=True)
+        print('\n\nResponse: ' + response, flush=True)
+        print("\n\nFormatted to: " + result, flush=True)
 
-    return result
+    return os.path.join(cfg_folder, 'prompts')
