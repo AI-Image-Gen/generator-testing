@@ -83,6 +83,7 @@
 
       "gpt2-sd": {
          "model": "Ar4ikov/gpt2-650k-stable-diffusion-prompt-generator",
+         "tokenizer": "gpt2",
          "prompt_template": "{prompt}",
          "packages": ["transformers~=4.37.2", "torch~=2.2.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
