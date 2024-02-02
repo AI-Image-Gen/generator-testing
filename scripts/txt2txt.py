@@ -5,9 +5,6 @@ import json, importlib
 cfg_folder = getenv("CONFIG_FOLDER")
 ai_model = 'microsoft'
 
-with open(path.join(cfg_folder, 'usedPrompts.json'), 'r') as file:
-    usedPrompts = json.load(file)
-
 with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
     data = json.load(file)
 
