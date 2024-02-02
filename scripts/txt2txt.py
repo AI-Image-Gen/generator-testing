@@ -21,7 +21,7 @@ if models[ai_model]['extra_indexes']:
 else:
     run(f"pip install {' '.join(models[ai_model]['packages'])}", shell=True)
 
-num = range(int(data["global"]["out_amount"]))
+num = int(data["global"]["out_amount"])
 
 models_str = json.dumps(models)
 # Add old prompts
@@ -46,25 +46,25 @@ result = helper.run(models[ai_model], ctx, num)
 
 # Get all prompts
 prompts_arr = []
-justusedprompts = listdir(path.join(cfg_folder, 'prompts'))
+justusedprompts = listdir(result)
 prompts = [file for file in justusedprompts if file.endswith(".txt")]
 for txt_file in prompts:
-    file_path = path.join(cfg_folder, 'prompts', txt_file)  # Construct the full file path
+    file_path = path.join(result, txt_file)  # Construct the full file path
     with open(file_path, 'r') as file:
         prompt = file.read()
         prompts_arr.append(prompt)
 
 # Construct nice output
 prompts_list = []
-for num in range(int(data["global"]["out_amount"])):
-    prompts_list.append(str(prompts_arr[num]).replace(" ", '*').replace("\n", '*'))
+for number in range(num):
+    prompts_list.append(str(prompts_arr[number]).replace(" ", '*').replace("\n", '*'))
 prompts_list = [f'"{element}"' for element in prompts_list]
 prompts_json_str = json.dumps(prompts_list).replace(" ", "")
 
 # Generate out file
 prompts_list = []
-for num in range(int(data["global"]["out_amount"])):
-    prompts_list.append(str(prompts_arr[num]).replace("\n", ' '))
+for number in range(num):
+    prompts_list.append(str(prompts_arr[number]).replace("\n", ' '))
 prompt_path = path.join(path.abspath(cfg_folder), 'prompts.txt')
 with open(prompt_path, 'w') as file:
         json.dump(prompts_list, file, indent=2)
