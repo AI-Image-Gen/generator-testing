@@ -436,6 +436,7 @@ jobs:
         with:
           name: |
             txt2img-*
+            txt2vid-*
             img2img-*
             img2vid-*
             upscale-*
@@ -445,6 +446,7 @@ jobs:
         with:
           name: |
             txt2img-*
+            txt2vid-*
             img2img-*
             img2vid-*
             upscale-*
@@ -454,6 +456,7 @@ jobs:
         with:
           name: |
             txt2img-*
+            txt2vid-*
             img2img-*
             img2vid-*
             upscale
@@ -463,6 +466,7 @@ jobs:
         with:
           name: |
             txt2img-*
+            txt2vid-*
             img2img-*
             img2vid-*
             upscale
