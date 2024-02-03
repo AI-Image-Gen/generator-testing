@@ -309,7 +309,7 @@ jobs:
 
   upscale:
     runs-on: ubuntu-latest
-    needs: [config, img2vid]
+    needs: [config, img2img]
     outputs:
       out: ${{ steps.out.outputs.out }}
     
@@ -370,7 +370,7 @@ jobs:
 
   cleanup:
     runs-on: ubuntu-latest
-    needs: [config, txt2txt, txt2vid, upscale]
+    needs: [config, txt2txt, txt2vid, img2vid, upscale]
     if: ${{ always() && !failure() && !cancelled() }}
 
     steps:
