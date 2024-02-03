@@ -1,5 +1,6 @@
 from os import getenv, path, makedirs, remove
 from subprocess import run
+from math import ceil
 import json, importlib
 
 cfg_folder = getenv("CONFIG_FOLDER")
@@ -33,9 +34,10 @@ vid_path = helper.run(models[ai], config["prompt"], config["gif"], config["video
 
 if config["video"]["music"] and config["video"]["enable"]:
     from moviepy.editor import VideoFileClip, AudioFileClip
-    
+
+    music_duration = ceil(models[ai]['frames']/models[ai]['fps'])
     helper = importlib.import_module(f"vid-helpers.music.{models[ai]['music']['helper']}")
-    musicfile_path = helper.run(models[ai]['music']["model"], config["prompt"])
+    musicfile_path = helper.run(models[ai]['music']["model"], config["prompt"], music_duration)
 
     video_clip = VideoFileClip(path.join(vid_path,f"{runnum}.mp4"))
     audio_clip = AudioFileClip(musicfile_path)
