@@ -24,7 +24,7 @@ def run(model, ctx, gif, video):
     pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
 
     video = [Image.fromarray(f).resize((1024, 576)) for f in frames]
-    frames = pipe(ctx, video=video, strength=0.6).frames
+    frames = pipe(ctx, video=video, num_inference_steps=model["inference_count"], strength=0.6).frames
     
     export_to_video(frames, path.join(savepath,f"{runnum}.mp4"), fps=model["fps"])
 
