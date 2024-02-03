@@ -142,7 +142,7 @@ jobs:
     if: ${{ always() && !failure() && !cancelled() && fromJson(needs.config.outputs.txt2vid).active }}
     strategy:
       matrix:
-        ai: ${{ fromJson(needs.config.outputs.img2vid).ai }}
+        ai: ${{ fromJson(needs.config.outputs.txt2vid).ai }}
         mix0: ${{ fromJson(needs.config.outputs.amount) }}
 
     steps:
