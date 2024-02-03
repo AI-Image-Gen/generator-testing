@@ -8,7 +8,7 @@ def run(model, ctx, gif, video):
     cfg_folder = getenv("CONFIG_FOLDER")
     runnum = getenv("runnum")
     
-    print('\nGenerating video', flush=True)
+    print('\nGenerating video from prompt: ' + ctx, flush=True)
     print("| Using:", flush=True)
     print("Model: " + model["model"], flush=True)
 
@@ -30,7 +30,7 @@ def run(model, ctx, gif, video):
 
     if gif["enable"]:
         videoClip = VideoFileClip(path.join(savepath,f"{runnum}.mp4"))
-        videoClip.speedx(gif["speed"]/100).write_gif(path.join(savepath,f"{runnum}.gif"), program='ffmpeg', loop=0)
+        videoClip.speedx(gif["speed"]/100).write_gif(path.join(savepath,f"{runnum}.gif"), program='ffmpeg', loop=0, opt='nq', colors=64)
 
     if not video["enable"]: 
         remove(path.join(savepath,f"{runnum}.mp4"))
