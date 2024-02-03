@@ -115,7 +115,7 @@ for module in width_height_modules:
 def_cfg["global"]["out_amount"] = process_integer_value(1, 10, def_cfg["global"]["out_amount"])
 def_cfg["upscale"]["scale"] = process_integer_value(2, 4, def_cfg["upscale"]["scale"])
 def_cfg["img2vid"]["gif"]["speed"] = process_integer_value(1, 1000, def_cfg["img2vid"]["gif"]["speed"])
-def_cfg["txt2vid"]["gif"]["speed"] = process_integer_value(1, 1000, def_cfg["img2vid"]["gif"]["speed"])
+def_cfg["txt2vid"]["gif"]["speed"] = process_integer_value(1, 1000, def_cfg["txt2vid"]["gif"]["speed"])
 # Variable -> model type array
 def_cfg_string = json.dumps(def_cfg)
 model_types = ["txt2img", "img2img", "upscale", "img2vid", "txt2vid"]
@@ -143,7 +143,7 @@ for module in width_height_modules:
 settings_json["upscale"]["scale"] = process_integer_value(2, 4, settings_json["upscale"]["scale"])
 settings_json["global"]["out_amount"] = process_integer_value(1, 10, settings_json["global"]["out_amount"])
 settings_json["img2vid"]["gif"]["speed"] = process_integer_value(1, 1000, settings_json["img2vid"]["gif"]["speed"])
-settings_json["txt2vid"]["gif"]["speed"] = process_integer_value(1, 1000, settings_json["img2vid"]["gif"]["speed"])
+settings_json["txt2vid"]["gif"]["speed"] = process_integer_value(1, 1000, settings_json["txt2vid"]["gif"]["speed"])
 # Variable -> model type array
 settings_json_string = json.dumps(settings_json)
 model_types = ["txt2img", "img2img", "upscale", "img2vid", "txt2vid"]
