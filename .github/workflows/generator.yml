@@ -8,8 +8,8 @@ on:
     inputs:
       custom_settings:
         description: Url for custom settings json file
-  schedule:
-  - cron: '0 */4 * * *'  # Repeat every 2h
+#  schedule:
+#  - cron: '0 */4 * * *'  # Repeat every 2h
 
 jobs:
 
