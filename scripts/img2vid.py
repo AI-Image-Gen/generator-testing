@@ -1,4 +1,5 @@
 from os import getenv, path, makedirs, remove
+from math import ceil
 from subprocess import run
 import json, importlib
 
@@ -36,8 +37,9 @@ if config["video"]["music"] and config["video"]["enable"]:
     
     helper = importlib.import_module(f"vid-helpers.img2txt.{models[ai]['img2txt']['helper']}")
     prompt = helper.run(models[ai]['img2txt']['model'], config["image"])
+    music_duration = ceil(models[ai]['frames']/models[ai]['fps'])
     helper = importlib.import_module(f"vid-helpers.music.{models[ai]['music']['helper']}")
-    musicfile_path = helper.run(models[ai]['music']["model"], prompt)
+    musicfile_path = helper.run(models[ai]['music']["model"], prompt, music_duration)
 
     video_clip = VideoFileClip(path.join(vid_path,f"{runnum}.mp4"))
     audio_clip = AudioFileClip(musicfile_path)
