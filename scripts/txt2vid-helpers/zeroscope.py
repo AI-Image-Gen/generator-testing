@@ -17,14 +17,14 @@ def run(model, ctx, gif, video):
     pipe = DiffusionPipeline.from_pretrained(model["model"])
     pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
 
-    frames = pipe(ctx, num_inference_steps=model["inference_count"], num_frames=model["frames"], height=320, width=576).frames
+    frames = pipe(ctx, num_inference_steps=model["inference_count"]/2, num_frames=model["frames"], height=320, width=576).frames
     
     # upscale
     pipe = DiffusionPipeline.from_pretrained(model["upscaler"])
     pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
 
     video = [Image.fromarray(f).resize((1024, 576)) for f in frames]
-    frames = pipe(ctx, video=video, num_inference_steps=model["inference_count"], strength=0.6).frames
+    frames = pipe(ctx, video=video, num_inference_steps=model["inference_count"]/2, strength=0.6).frames
     
     export_to_video(frames, path.join(savepath,f"{runnum}.mp4"), fps=model["fps"])
 
