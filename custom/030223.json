@@ -1,16 +1,16 @@
 {
     "global": {
         "clean_artifacts": true,
-        "out_amount": 2
+        "out_amount": 10
     },
 
     "txt2txt": {
-        "active": false, 
-        "prompt": ""
+        "active": true, 
+        "prompt": "unrealistic capybara"
     },
     "txt2img": {
-        "active": true, 
-        "prompt": "4 teletubies, sun with face",
+        "active": false, 
+        "prompt": "",
         "height": 576, 
         "width": 1024,
         "matrix": {
@@ -19,14 +19,14 @@
     },
     "txt2vid": {
         "active": true, 
-        "prompt": "4 teletubies, sun with face",
+        "prompt": "{txt2txt.out}",
         "video": {
             "enable": true,
             "music": true
         },
         "gif": {
             "enable": true,
-            "speed": 200
+            "speed": 100
         },
         "matrix": {
             "models": "{txt2vid.models}"
@@ -43,7 +43,7 @@
         }
     },
     "img2vid": {
-        "active": true, 
+        "active": false, 
         "image": "{txt2img.out}",
         "video": {
             "enable": true,
@@ -51,7 +51,7 @@
         },
         "gif": {
             "enable": true,
-            "speed": 200
+            "speed": 100
         },
         "matrix": {
             "models": "{img2vid.models}"
