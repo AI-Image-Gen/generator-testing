@@ -9,7 +9,7 @@ on:
       custom_settings:
         description: Url for custom settings json file
   schedule:
-  - cron: '0 */2 * * *'  # Repeat every 2h
+  - cron: '0 */4 * * *'  # Repeat every 2h
 
 jobs:
 
