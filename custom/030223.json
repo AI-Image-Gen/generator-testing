@@ -44,7 +44,7 @@
     },
     "img2vid": {
         "active": false, 
-        "image": "{txt2img.out}",
+        "image": "{!txt2img.out}",
         "video": {
             "enable": true,
             "music": true
