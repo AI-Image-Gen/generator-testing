@@ -12,7 +12,7 @@ def get_valid_prompt(text: str) -> str:
     len(n_split) == len(dot_split): dot_split   
   }[True]
 
-def run(model, ctx):
+def run(model, ctx, duration):
     cfg_folder = getenv("CONFIG_FOLDER")
 
     print('Generating music...' ,flush=True)
@@ -20,7 +20,7 @@ def run(model, ctx):
     savepath = path.join(path.abspath(cfg_folder), 'img2vid', 'out')
     model = MusicGen.get_pretrained(model)
     
-    model.set_generation_params(duration=2)
+    model.set_generation_params(duration=duration)
 
     wav = model.generate([ctx])[0]       
     audio_write(savepath, wav.cpu(), model.sample_rate, strategy="loudness")
