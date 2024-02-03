@@ -36,7 +36,7 @@
         "active": true, 
         "prompt": "{txt2txt.out}",
         "image": "{txt2img.out}",
-        "height": 568, 
+        "height": 576, 
         "width": 1024, 
         "matrix": {
             "models": "{img2img.models}"
