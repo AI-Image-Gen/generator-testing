@@ -27,6 +27,21 @@
             "models": "{img2img.models}"
         }
     },
+    "txt2vid": {
+        "active": false, 
+        "prompt": "",
+        "video": {
+            "enable": false,
+            "music": false
+        },
+        "gif": {
+            "enable": false,
+            "speed": 0
+        },
+        "matrix": {
+            "models": []
+        }
+    },
     "img2vid": {
         "active": false, 
         "image": "",

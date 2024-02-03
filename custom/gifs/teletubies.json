@@ -9,12 +9,27 @@
         "prompt": "4 teletubies, in background sun with human face"
     },
     "txt2img": {
+        "active": false, 
+        "prompt": "",
+        "height": 0, 
+        "width": 0,
+        "matrix": {
+            "models": []
+        }
+    },
+    "txt2vid": {
         "active": true, 
         "prompt": "{txt2txt.out}",
-        "height": 576, 
-        "width": 1024,
+        "video": {
+            "enable": false,
+            "music": false
+        },
+        "gif": {
+            "enable": true,
+            "speed": 100
+        },
         "matrix": {
-            "models": "{txt2img.models}"
+            "models": "{txt2vid.models}"
         }
     },
     "img2img": {
@@ -28,18 +43,18 @@
         }
     },
     "img2vid": {
-        "active": true, 
-        "image": "{txt2img.out}",
+        "active": false, 
+        "image": "",
         "video": {
             "enable": false,
             "music": false
         },
         "gif": {
-            "enable": true,
-            "speed": 100
+            "enable": false,
+            "speed": 0
         },
         "matrix": {
-            "models": "{img2vid.models}"
+            "models": []
         }
     },
     "upscale": {
