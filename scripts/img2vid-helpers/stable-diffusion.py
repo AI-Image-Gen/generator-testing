@@ -24,7 +24,7 @@ def run(model, image, gif, video):
 
     if gif["enable"]:
         videoClip = VideoFileClip(path.join(savepath,f"{runnum}.mp4"))
-        videoClip.speedx(gif["speed"]/100).write_gif(path.join(savepath,f"{runnum}.gif"), program='ffmpeg', loop=0, opt='nq', colors=64)
+        videoClip.speedx(gif["speed"]/100).write_gif(path.join(savepath,f"{runnum}.gif"), program='ffmpeg', loop=0)
 
     if not video["enable"]: 
         remove(path.join(savepath,f"{runnum}.mp4"))
