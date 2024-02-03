@@ -18,40 +18,40 @@
         }
     },
     "txt2vid": {
-        "active": false, 
-        "prompt": "",
+        "active": true, 
+        "prompt": "{txt2txt.out}",
         "video": {
-            "enable": false,
-            "music": false
+            "enable": true,
+            "music": true
         },
         "gif": {
-            "enable": false,
-            "speed": 0
+            "enable": true,
+            "speed": 100
         },
         "matrix": {
             "models": "{txt2vid.models}"
         }
     },
     "img2img": {
-        "active": false, 
-        "prompt": "",
-        "image": "",
-        "height": 768, 
-        "width": 768, 
+        "active": true, 
+        "prompt": "{txt2txt.out}",
+        "image": "{txt2img.out}",
+        "height": 568, 
+        "width": 1024, 
         "matrix": {
             "models": "{img2img.models}"
         }
     },
     "img2vid": {
-        "active": false, 
-        "image": "",
+        "active": true, 
+        "image": "{img2img.out}",
         "video": {
-            "enable": false,
-            "music": false
+            "enable": true,
+            "music": true
         },
         "gif": {
-            "enable": false,
-            "speed": 0
+            "enable": true,
+            "speed": 100
         },
         "matrix": {
             "models": "{img2vid.models}"
