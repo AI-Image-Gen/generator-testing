@@ -119,7 +119,7 @@ def_cfg["img2vid"]["gif"]["speed"] = process_integer_value(1, 1000, def_cfg["img
 def_cfg["txt2vid"]["gif"]["speed"] = process_integer_value(1, 1000, def_cfg["txt2vid"]["gif"]["speed"])
 # Variable -> model type array
 def_cfg_string = json.dumps(def_cfg)
-model_types = ["txt2img", "img2img", "upscale", "img2vid", "txt2vid"]
+model_types = ["txt2img", "img2img", "img2vid", "txt2vid"]
 for model_type in model_types:
     def_cfg_string = replace_models_in_string(model_type, def_cfg_string)
 def_cfg = json.loads(def_cfg_string)
@@ -148,7 +148,7 @@ settings_json["img2vid"]["gif"]["speed"] = process_integer_value(1, 1000, settin
 settings_json["txt2vid"]["gif"]["speed"] = process_integer_value(1, 1000, settings_json["img2vid"]["gif"]["speed"])
 # Variable -> model type array
 settings_json_string = json.dumps(settings_json)
-model_types = ["txt2img", "img2img", "upscale", "img2vid", "txt2vid"]
+model_types = ["txt2img", "img2img", "img2vid", "txt2vid"]
 for model_type in model_types:
     settings_json_string = replace_models_in_string(model_type, settings_json_string)
 settings_json = json.loads(settings_json_string)
