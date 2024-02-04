@@ -51,9 +51,6 @@ if config["global"]["clean_artifacts"]:
     path = os.path.join(os.path.abspath(config_dir), 'tmp', 'img2vid')
     run(f'echo img2vid={path} >> $GITHUB_OUTPUT', shell=True)
 
-    path = os.path.join(os.path.abspath(config_dir), 'tmp', 'upscale')
-    run(f'echo upscale={path} >> $GITHUB_OUTPUT', shell=True)
-
     run(f'echo cleanup=true >> $GITHUB_OUTPUT', shell=True)
 
 else:

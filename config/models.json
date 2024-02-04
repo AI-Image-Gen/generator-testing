@@ -46,11 +46,7 @@
          "packages": ["torchvision~=0.16.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "opencv-python-headless~=4.9.0.80", "moviepy~=1.0.3", "audiocraft~=1.2.0", "pillow~=10.2.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "zeroscope",
-         "upscaler": "cerspense/zeroscope_v2_XL",
-         "music": {
-            "model": "facebook/musicgen-stereo-medium",
-            "helper": "fb" 
-         }
+         "upscaler": "cerspense/zeroscope_v2_XL"
       }
    },
 
@@ -83,26 +79,7 @@
          "frames": 14,
          "packages": ["torchvision~=0.16.0", "diffusers~=0.25.1", "transformers~=4.37.2", "accelerate~=0.26.1", "opencv-python-headless~=4.9.0.80", "moviepy~=1.0.3", "audiocraft~=1.2.0"],
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
-         "helper": "stable-diffusion",
-         "img2txt": {
-            "model": "nlpconnect/vit-gpt2-image-captioning",
-            "helper": "vit" 
-         },
-         "music": {
-            "model": "facebook/musicgen-stereo-medium",
-            "helper": "fb" 
-         }
-      }
-   },
-
-   "upscale": {
-
-      "rsg": {
-         "dld_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
-         "script": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN/master/inference_realesrgan.py",
-         "packages": ["tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0", "numpy~=1.26.3", "torchvision~=0.16.0"],
-         "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
-         "helper": "realesrgan"
+         "helper": "stable-diffusion"
       }
    },
 
@@ -115,5 +92,21 @@
          "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
          "helper": "gpt2-sd" 
       }
+   },
+
+   "upscale": {
+      "dld_url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+      "script": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN/master/inference_realesrgan.py",
+      "packages": ["tqdm~=4.66.1", "basicsr~=1.4.2", "realesrgan~=0.3.0", "numpy~=1.26.3", "torchvision~=0.16.0"],
+      "extra_indexes": ["https://download.pytorch.org/whl/cpu"],
+      "helper": "realesrgan"
+   },
+   "music": {
+      "model": "facebook/musicgen-stereo-medium",
+      "helper": "fb" 
+   },
+   "img2txt": {
+      "model": "nlpconnect/vit-gpt2-image-captioning",
+      "helper": "vit" 
    }
 }

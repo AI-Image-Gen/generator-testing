@@ -13,6 +13,10 @@
         "prompt": "{txt2txt.out}",
         "height": 512, 
         "width": 512,
+        "upscale": {
+            "enable": true,
+            "scale": 3
+        },
         "matrix": {
             "models": "{txt2img.models}"
         }
@@ -38,6 +42,10 @@
         "image": "{txt2img.out}",
         "height": 576, 
         "width": 1024, 
+        "upscale": {
+            "enable": false,
+            "scale": 0
+        },
         "matrix": {
             "models": "{img2img.models}"
         }
@@ -55,14 +63,6 @@
         },
         "matrix": {
             "models": "{img2vid.models}"
-        }
-    },
-    "upscale": {
-        "active": true, 
-        "input": "{txt2img.out}",
-        "scale": 3,
-        "matrix": {
-            "models": "{upscale.models}"
         }
     }
 }

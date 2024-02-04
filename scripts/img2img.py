@@ -12,7 +12,7 @@ with open(path.join(cfg_folder, 'cfg.json'), 'r') as file:
     config = json.load(file)
 
 with open(path.join(cfg_folder, 'models.json'), 'r') as file:
-    models = json.load(file)["img2img"] 
+    models = json.load(file)
 
 if config["txt2img"]["active"]:
     config = json.loads(json.dumps(config).replace("{txt2img.out}", path.join(cfg_folder, 'txt2img', f'{runnum}.jpg')))
@@ -23,15 +23,19 @@ config = config["img2img"]
     
 makedirs(path.join(cfg_folder, "img2img"), exist_ok=True)
 
-if models[ai]['extra_indexes']:
-    run(f"pip install {' '.join(models[ai]['packages'])} --extra-index-url {','.join(models[ai]['extra_indexes'])}", shell=True)
+if models["img2img"][ai]['extra_indexes']:
+    run(f"pip install {' '.join(models["img2img"][ai]['packages'])} --extra-index-url {','.join(models["img2img"][ai]['extra_indexes'])}", shell=True)
 else:
-    run(f"pip install {' '.join(models[ai]['packages'])}", shell=True)
+    run(f"pip install {' '.join(models["img2img"][ai]['packages'])}", shell=True)
 
-print('\nUsing helper: ' + models[ai]['helper'], flush=True)
+print('\nUsing helper: ' + models["img2img"][ai]['helper'], flush=True)
 
-helper = importlib.import_module(f"img2img-helpers.{models[ai]['helper']}")
-path = helper.run(models[ai], config["image"], config["prompt"], config["width"], config["height"])
+helper = importlib.import_module(f"img2img-helpers.{models["img2img"][ai]['helper']}")
+path = helper.run(models["img2img"][ai], config["image"], config["prompt"], config["width"], config["height"])
+
+if config["upscale"]["enable"]:
+    helper = importlib.import_module(f"upscale-helpers.{models['upscale']['helper']}")
+    path = helper.run(models['upscale'], path, config["upscale"]["scale"])
 
 run(f'echo out={path} >> $GITHUB_OUTPUT', shell=True)
 print(f'Generated image and saved to {path}')

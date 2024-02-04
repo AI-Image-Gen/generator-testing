@@ -1,35 +1,39 @@
 {
     "global": {
         "clean_artifacts": true,
-        "out_amount": 10
+        "out_amount": 3
     },
 
     "txt2txt": {
         "active": true, 
-        "prompt": "unrealistic capybara"
+        "prompt": ""
     },
     "txt2img": {
-        "active": false, 
-        "prompt": "",
-        "height": 576, 
-        "width": 1024,
+        "active": true, 
+        "prompt": "{txt2txt.out}",
+        "height": 288, 
+        "width": 512,
+        "upscale": {
+            "enable": true,
+            "scale": 2
+        },
         "matrix": {
             "models": "{txt2img.models}"
         }
     },
     "txt2vid": {
-        "active": true, 
-        "prompt": "{txt2txt.out}",
+        "active": false, 
+        "prompt": "",
         "video": {
-            "enable": true,
-            "music": true
+            "enable": false,
+            "music": false
         },
         "gif": {
-            "enable": true,
-            "speed": 100
+            "enable": false,
+            "speed": 0
         },
         "matrix": {
-            "models": "{txt2vid.models}"
+            "models": []
         }
     },
     "img2img": {
@@ -38,31 +42,27 @@
         "image": "",
         "height": 0, 
         "width": 0, 
+        "upscale": {
+            "enable": false,
+            "scale": 0
+        },
         "matrix": {
             "models": []
         }
     },
     "img2vid": {
-        "active": false, 
-        "image": "{!txt2img.out}",
+        "active": true, 
+        "image": "{txt2img.out}",
         "video": {
             "enable": true,
             "music": true
         },
         "gif": {
             "enable": true,
-            "speed": 100
+            "speed": 200
         },
         "matrix": {
             "models": "{img2vid.models}"
-        }
-    },
-    "upscale": {
-        "active": false, 
-        "input": "",
-        "scale": 0,
-        "matrix": {
-            "models": []
         }
     }
 }
