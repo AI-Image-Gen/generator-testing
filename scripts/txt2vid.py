@@ -37,7 +37,7 @@ if config["video"]["music"] and config["video"]["enable"]:
     
     music_duration = ceil(models["txt2vid"][ai]['frames']/models["txt2vid"][ai]['fps'])
     helper = importlib.import_module(f"vid-helpers.music.{models['music']['helper']}")
-    musicfile_path = helper.run(models['music']["model"], config["prompt"])
+    musicfile_path = helper.run(models['music']["model"], config["prompt"], music_duration)
 
     video_clip = VideoFileClip(path.join(vid_path,f"{runnum}.mp4"))
     audio_clip = AudioFileClip(musicfile_path)
