@@ -102,7 +102,7 @@ def is_valid_image(path):
 
 # Check var types
 ints = [def_cfg["global"]["out_amount"], def_cfg["txt2img"]["height"], def_cfg["txt2img"]["width"], def_cfg["txt2vid"]["gif"]["speed"], def_cfg["img2img"]["height"], def_cfg["img2img"]["width"], def_cfg["img2vid"]["gif"]["speed"], def_cfg["txt2img"]["upscale"]["scale"], def_cfg["img2img"]["upscale"]["scale"]]
-strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2img"]["prompt"], def_cfg["txt2vid"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["upscale"]["input"], def_cfg["img2vid"]["image"]]
+strs = [def_cfg["txt2txt"]["prompt"], def_cfg["txt2img"]["prompt"], def_cfg["txt2vid"]["prompt"], def_cfg["img2img"]["prompt"], def_cfg["img2img"]["image"], def_cfg["img2vid"]["image"]]
 bools = [def_cfg["global"]["clean_artifacts"], def_cfg["txt2txt"]["active"], def_cfg["txt2img"]["active"], def_cfg["txt2vid"]["active"], def_cfg["txt2vid"]["gif"]["enable"], def_cfg["txt2vid"]["video"]["enable"], def_cfg["txt2vid"]["video"]["music"], def_cfg["img2img"]["active"], def_cfg["txt2img"]["upscale"]["enable"], def_cfg["img2img"]["upscale"]["enable"], def_cfg["img2vid"]["active"], def_cfg["img2vid"]["gif"]["enable"], def_cfg["img2vid"]["video"]["enable"], def_cfg["img2vid"]["video"]["music"]]
 for integer in ints: process_type(integer, int)
 for string in strs: process_type(string, str)
@@ -195,12 +195,6 @@ if settings_json["img2img"]["active"]:
         if not string.strip(): 
             print("ERROR: Not found prompt or image for img2img")
             sys.exit(1)
-strs = [settings_json["upscale"]["input"]]
-if settings_json["upscale"]["active"]:
-    for string in strs:
-        if not string.strip(): 
-            print("ERROR: Not found image for upscale")
-            sys.exit(1)
 strs = [settings_json["img2vid"]["image"]]
 if settings_json["img2vid"]["active"]:
     for string in strs:
@@ -241,15 +235,6 @@ if not settings_json["img2vid"]["active"]:
     settings_json["img2vid"]["matrix"]["models"] = [0]
 elif not is_valid_image(settings_json["img2vid"]["image"]) and (not settings_json["txt2img"]["active"] or not settings_json["img2vid"]["image"] == "{txt2img.out}") and (not settings_json["img2img"]["active"] or not settings_json["img2vid"]["image"] == "{img2img.out}"):
     print("ERROR: Image url or path not valid for img2vid (warning, output from upscaler also unsupported)")
-    sys.exit(1)
-
-if not settings_json["upscale"]["active"]:
-    for key in settings_json["upscale"].keys():
-        settings_json["upscale"][key] = False
-    settings_json["upscale"]["matrix"] = {}
-    settings_json["upscale"]["matrix"]["models"] = [0]
-elif not is_valid_image(settings_json["upscale"]["input"]) and (not settings_json["txt2img"]["active"] or not settings_json["upscale"]["input"] == "{txt2img.out}") and (not settings_json["img2img"]["active"] or not settings_json["upscale"]["input"] == "{img2img.out}"):
-    print("ERROR: Image url or path not valid for upscale")
     sys.exit(1)
 
 amount_array = [i for i in range(settings_json["global"]["out_amount"])]
