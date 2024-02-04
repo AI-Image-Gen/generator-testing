@@ -24,13 +24,13 @@ config = config["img2img"]
 makedirs(path.join(cfg_folder, "img2img"), exist_ok=True)
 
 if models["img2img"][ai]['extra_indexes']:
-    run(f"pip install {' '.join(models["img2img"][ai]['packages'])} --extra-index-url {','.join(models["img2img"][ai]['extra_indexes'])}", shell=True)
+    run(f"pip install {' '.join(models['img2img'][ai]['packages'])} --extra-index-url {','.join(models['img2img'][ai]['extra_indexes'])}", shell=True)
 else:
-    run(f"pip install {' '.join(models["img2img"][ai]['packages'])}", shell=True)
+    run(f"pip install {' '.join(models['img2img'][ai]['packages'])}", shell=True)
 
-print('\nUsing helper: ' + models["img2img"][ai]['helper'], flush=True)
+print('\nUsing helper: ' + models['img2img'][ai]['helper'], flush=True)
 
-helper = importlib.import_module(f"img2img-helpers.{models["img2img"][ai]['helper']}")
+helper = importlib.import_module(f"img2img-helpers.{models['img2img'][ai]['helper']}")
 path = helper.run(models["img2img"][ai], config["image"], config["prompt"], config["width"], config["height"])
 
 if config["upscale"]["enable"]:

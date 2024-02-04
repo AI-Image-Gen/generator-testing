@@ -21,13 +21,13 @@ ctx = config["prompt"]
 makedirs(path.join(cfg_folder, "txt2img"), exist_ok=True)
 
 if models["txt2img"][ai]['extra_indexes']:
-    run(f"pip install {' '.join(models["txt2img"][ai]['packages'])} --extra-index-url {','.join(models["txt2img"][ai]['extra_indexes'])}", shell=True)
+    run(f"pip install {' '.join(models['txt2img'][ai]['packages'])} --extra-index-url {','.join(models['txt2img'][ai]['extra_indexes'])}", shell=True)
 else:
-    run(f"pip install {' '.join(models["txt2img"][ai]['packages'])}", shell=True)
+    run(f"pip install {' '.join(models['txt2img'][ai]['packages'])}", shell=True)
 
 print('\nUsing helper: ' + models["txt2img"][ai]['helper'], flush=True)
 
-helper = importlib.import_module(f"txt2img-helpers.{models["txt2img"][ai]['helper']}")
+helper = importlib.import_module(f"txt2img-helpers.{models['txt2img'][ai]['helper']}")
 path = helper.run(models["txt2img"][ai], ctx, config["width"], config["height"])
 
 if config["upscale"]["enable"]:

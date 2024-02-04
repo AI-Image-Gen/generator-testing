@@ -23,13 +23,13 @@ config = config["img2vid"]
 makedirs(path.join(cfg_folder, "img2vid"), exist_ok=True)
 
 if models["img2vid"][ai]['extra_indexes']:
-    run(f"pip install {' '.join(models["img2vid"][ai]['packages'])} --extra-index-url {','.join(models["img2vid"][ai]['extra_indexes'])}", shell=True)
+    run(f"pip install {' '.join(models['img2vid'][ai]['packages'])} --extra-index-url {','.join(models['img2vid'][ai]['extra_indexes'])}", shell=True)
 else:
-    run(f"pip install {' '.join(models["img2vid"][ai]['packages'])}", shell=True)
+    run(f"pip install {' '.join(models['img2vid'][ai]['packages'])}", shell=True)
 
-print('\nUsing helper: ' + models["img2vid"][ai]['helper'], flush=True)
+print('\nUsing helper: ' + models['img2vid'][ai]['helper'], flush=True)
     
-helper = importlib.import_module(f"img2vid-helpers.{models["img2vid"][ai]['helper']}")
+helper = importlib.import_module(f"img2vid-helpers.{models['img2vid'][ai]['helper']}")
 vid_path = helper.run(models["img2vid"][ai], config["image"], config["gif"], config["video"])
 
 if config["video"]["music"] and config["video"]["enable"]:
