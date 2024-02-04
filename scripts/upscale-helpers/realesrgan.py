@@ -50,7 +50,7 @@ def run(model, image, scale):
         progress_bar.close()
         output_file.write(response.read())
 
-    savepath = path.join(path.abspath(cfg_folder), 'upscale', f'{runnum}.jpg')
+    savepath = path.join(path.abspath('.'), 'out', f'{runnum}.jpg')
     subprocess.run(f'python ./tmp/script.py -i {image} --model_path ./tmp/model.{ext} -o ./out/ --fp32 -s {str(scale)}', shell=True, check=True)
     subprocess.run(f'mv ./out/*.jpg {savepath}', shell=True, check=True)
     
